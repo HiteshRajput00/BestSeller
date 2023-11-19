@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class AdminDashboardController extends Controller
 {
     Public function adminDashboard(){
-        return view('Admin-layout.master');
+        return view('Admin.dashboard.index');
     }
 }
