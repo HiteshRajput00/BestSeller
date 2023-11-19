@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\ProductController as AdminProductController;
 use App\Http\Controllers\Designer\Categorycontroller;
 use App\Http\Controllers\Designer\DesignerDashboardController;
 use App\Http\Controllers\Designer\ProductController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\registerlogin\registerloginController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Middleware\is_role;
@@ -77,5 +78,7 @@ Route::get('/',[userDashboardController::class,'index']);
 // });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
+
+Route::get('/send-mail',[MailController::class,'sendmail']);
 
 
