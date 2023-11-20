@@ -50,7 +50,7 @@
                                         
                             </form>
                             <br>
-                                <h4 style="color: black">Have account ?<a href="/furni/login" class="btn btn-primary">Sign in </a> </h4>
+                                <h4 style="color: black">Have account ?<a href="/login" class="btn btn-primary">Sign in </a> </h4>
                                 </p>
                             </div>
                         </div>

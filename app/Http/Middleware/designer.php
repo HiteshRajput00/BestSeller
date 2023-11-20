@@ -18,7 +18,7 @@ class designer
     {
         if(Auth::check()){
             if(Auth::user()->role === 'designer'){
-                return redirect('/designer-dashboard');
+                return $next($request);
             }else{
                 return redirect('/');
             }

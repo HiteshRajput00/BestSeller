@@ -36,11 +36,12 @@ class notificationmail extends Mailable
      * Get the message content definition.
      */
     public function content(): Content
-    {
-        return new Content(
-            view: 'admin.mail.notification_mail',
-        );
-    }
+{
+    return new Content(
+        view: 'Admin.mail.notification_mail',
+        
+    );
+}
 
     /**
      * Get the attachments for the message.

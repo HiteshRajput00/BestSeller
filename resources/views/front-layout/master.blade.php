@@ -68,7 +68,12 @@ https://templatemo.com/tm-571-hexashop
                                     <li><a href="products.html">Products</a></li>
                                     <li><a href="single-product.html">Single Product</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
+                                  
+                                    @if(Auth::user())
+                                    <li><a href="/logout">logout</a></li>
+                                    @else
                                     <li><a href="/login">login</a></li>
+                                    @endif
                                 </ul>
                             </li>
                             {{-- <li class="submenu">

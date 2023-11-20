@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('category_id');
             $table->string('price');
             $table->integer('is_approved')->default(false);
-            $table->integer('disapproved')->default(false);
+            $table->integer('is_disapproved')->default(false);
             $table->string('stock');
             $table->integer('status')->default(true);
             $table->timestamps();

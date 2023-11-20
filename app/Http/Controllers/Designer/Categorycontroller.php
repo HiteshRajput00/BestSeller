@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Designer;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Categorycontroller extends Controller
 {
@@ -13,6 +14,7 @@ class Categorycontroller extends Controller
         return view('designer.Category.add_category',compact('parent_category'));
     }
 
+//::::::::::::::::::::::: Adding category fubnction::::::::::::::::::::::://
     public function addcatProcess(Request $req){
         //  dd($req->all());
         $req->validate([
@@ -22,6 +24,7 @@ class Categorycontroller extends Controller
             
         ]);
         $data = new Categories();
+        $data->designer_id = Auth::user()->id;
         $data->name = $req->category_name;
         $data->slug = $req->slug;
         if($req->hasFile('cat_image')){
@@ -42,8 +45,11 @@ class Categorycontroller extends Controller
     return back()->with('msg','success');
     }
 
+//::::::::::::::::::::::: list of category :::::::::::::::::::::::::::::://
     public function categoryList(){
         $cat_list = Categories::all();
         return view('Admin.category.category_list',compact('cat_list'));
     }
+
+
 }

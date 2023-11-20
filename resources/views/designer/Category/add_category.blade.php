@@ -13,11 +13,11 @@
                             <form class="mt-5 mb-5 login-input" method="post" action="/add-category-process" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" class="form-control"  placeholder="category Name" name="category_name" required>
+                                    <input type="text" class="form-control" id="cat_name" placeholder="category Name" name="category_name" required>
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <input type="text" class="form-control"  placeholder="slug" name="slug" required>
+                                    <input type="text" class="form-control" id="sslug"  placeholder="slug" name="slug" required>
                                 
                                     <div class="text text-danger">@error('category_image'){{$message}} </div>
                                      
@@ -57,4 +57,14 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#cat_name').on('keyup', function() {
+            let name = $(this).val().toLowerCase();
+            let slug = name.replace(/\s+/g, "-"); 
+            $('#sslug').val(slug);
+        });
+    });
+    </script>
 @endsection

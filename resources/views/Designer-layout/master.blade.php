@@ -40,6 +40,8 @@
                                 <input class="form-control" type="text" placeholder="Search..">
                             </div>
                         </li>
+                        <?php $data = App\Models\DesignerNotification::class::where('status',1)->get(); ?>
+                        @if($data)
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
@@ -47,62 +49,47 @@
                                     <div class="notification-title"> Notification</div>
                                     <div class="notification-list">
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active">
+                                            @foreach($data as $d)
+                                            <a href="/designer-notifications" class="list-group-item list-group-item-action active">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="{{url('/admin/assets/images/avatar-2.jpg')}}" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy Rakestraw</span>accepted your invitation to join the team.
+                                                    <div class="notification-list-user-img"><img src="{{('/admin/assets/images/avatar-2.jpg')}}" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">{{ $d->title }}</span>{{ $d->message }}
                                                         <div class="notification-date">2 min ago</div>
                                                     </div>
                                                 </div>
                                             </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">John Abraham </span>is now following you
-                                                        <div class="notification-date">2 days ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
+                                           @endforeach
+                                         
                                         </div>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                    <div class="list-footer"> <a href="/designer-notification">View all notifications</a></div>
                                 </li>
                             </ul>
                         </li>
+                        @else
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i></a>
+                           
+                        </li>
+                        @endif
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
                             <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/github.png" alt="" > <span>Github</span></a>
+                                            <a href="#" class="connection-item"><img src="{{url('/admin/assets/images/github.png')}}" alt="" > <span>Github</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="#" class="connection-item"><img src="{{url('/admin/assets/images/dribbble.png')}}" alt="" > <span>Dribbble</span></a>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        {{-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="#" class="connection-item"><img src="assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
-                                        </div>
+                                        </div> --}}
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="#" class="connection-item"><img src="assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
                                         </div>
@@ -112,7 +99,7 @@
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="#" class="connection-item"><img src="assets/images/slack.png" alt="" > <span>Slack</span></a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </li>
                                 <li>
                                     <div class="conntection-footer"><a href="#">More</a></div>
@@ -162,7 +149,7 @@
                                             <a class="nav-link" href="/add-category"> add Category</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/category-list">category list</a>
+                                            {{-- <a class="nav-link" href="/category-list">category list</a> --}}
                                         </li>
                                         
                                     </ul>
@@ -177,7 +164,13 @@
                                             <a class="nav-link" href="/add-product"> add product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/product-list">Product list</a>
+                                            <a class="nav-link" href="/designer-Dashboard/approved-product">Approved Product</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/designer-Dashboard/disapproved-product">Disapproved Product</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/designer-Dashboard/pending-product">Pending Product</a>
                                         </li>
                                         
                                     </ul>
@@ -254,8 +247,8 @@
     <script src="{{url('/admin/assets/vendor/charts/morris-bundle/morris.js')}}"></script>
     <script src="{{url('/admin/assets/vendor/charts/morris-bundle/morrisjs.html')}}"></script>
     <!-- daterangepicker js -->
-    <script src="../../../../cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="../../../../cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    {{-- <script src="../../../../cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> --}}
+    {{-- <script src="../../../../cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> --}}
     <script>
     $(function() {
         $('input[name="daterange"]').daterangepicker({

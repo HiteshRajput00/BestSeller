@@ -15,7 +15,7 @@ class Product extends Model
 
     protected $fillable = [
         'is_approved',
-        'disapproved',
+        'is_disapproved',
       ];
 
 }

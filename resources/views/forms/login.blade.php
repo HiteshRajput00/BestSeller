@@ -24,7 +24,7 @@
                                 <br>
                                 <button class="btn login-form__btn submit w-100 btn-light" type="submit" name="log">Sign In</button>
                             </form>
-                            <h4 style="color: black">Dont have account? <a href="/furni/register" class="btn btn-light">Sign Up</a> now</h4>
+                            <h4 style="color: black">Dont have account? <a href="/register" class="btn btn-light">Sign Up</a> now</h4>
                         </div>
                     </div>
                 </div>

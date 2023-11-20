@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_approved',
+        'is_disapproved',
     ];
 
     /**
@@ -43,18 +45,5 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
-    public function assignRole($role)
-    {
-        return $this->roles()->sync(Role::where('role', $role)->firstOrFail());
-    }
-
-    public function hasRole($role)
-    {
-        return $this->roles()->contains('role', $role);
-    }
+    
 }

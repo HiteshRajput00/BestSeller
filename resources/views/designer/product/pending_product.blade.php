@@ -1,4 +1,4 @@
-@extends('Admin-layout.master')
+@extends('Designer-layout.master')
 @section('content')
 <div class="login-form-bg h-100">
     <div class="container h-100">
@@ -16,17 +16,18 @@
                             <div class="gallery-body card-inner align-center justify-between flex-wrap g-2">
                                 <div class="user-card">
                                     <div class="user-info" >
-                                        <span class="lead-text">{{ $p->name ?? '' }}</span>
+                                        <h3 class="lead-text"><strong>{{ $p->name ?? '' }}</strong></h3>
+                                        <br>
                                         <!-- <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleviewModal{{ $logo->id ?? '' }}" style="padding:0px;">
                                            View More
                                         </button> -->
-                                        <a href="{{ url('admin-dashboard/product-detail/'.$p->id) }}">View More</a>
+                                        <a href="{{ url('admin-dashboard/Product-detail/'.$p->id) }}">View More</a>
                                     </div>
                                 </div>
-                                <div class="">
-                                    {{-- <a href="{{route('approve',['id'=>$p->id])}}"   class="btn btn-primary ">Approve</a>
-                                    <a href="{{route('disapprove',['id'=>$p->id])}}"   class="btn btn-danger ">Disapprove</a> --}}
-                                </div>
+                                {{-- <div class="">
+                                    <a href="{{route('Edit',['id'=>$p->id])}}"   class="btn btn-primary ">Edit</a>
+                                    <a href="{{route('Delete',['id'=>$p->id])}}"   class="btn btn-danger ">Delete</a>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -37,4 +38,6 @@
         </div>
         </div>
     </div>
+</div>
+
 @endsection

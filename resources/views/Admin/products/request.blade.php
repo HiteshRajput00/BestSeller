@@ -1,6 +1,6 @@
 @extends('Admin-layout.master')
 @section('content')
-><!-- .nk-block-head -->
+<!-- .nk-block-head -->
 <div class="login-form-bg h-100">
     <div class="container h-100">
         <div class="row justify-content-center h-100">
@@ -26,8 +26,9 @@
                                 </div>
                                 <div class="">
                                     <a href="{{route('approve',['id'=>$p->id])}}"   class="btn btn-primary ">Approve</a>
-                                    <a href="{{route('disapprove',['id'=>$p->id])}}"   class="btn btn-danger ">Disapprove</a>
-                                </div>
+                                    <button data-product-id="{{ $p->id }}" class="disapprove-button btn btn-danger ">Disapprove</button></div>
+                                    <br>
+                                <div id="disapproval-container"></div>
                             </div>
                         </div>
                     </div>
@@ -39,6 +40,51 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.disapprove-button').on('click', function () {
+            var productId = $(this).data('product-id');
+            createDisapprovalForm(productId);
+        });
 
+        function createDisapprovalForm(productId) {
+            var form = $('<form>', {
+                method: 'POST',
+                action: '/disapproveProduct-Process', // Change this URL to your disapproval route
+            });
+
+            // Create a hidden input for the product ID
+            var productIdInput = $('<input>', {
+                type: 'hidden',
+                name: 'product_id',
+                value: productId,
+            });
+
+            form.append('@csrf');
+            // Create a textarea element
+            var textarea = $('<textarea>', {
+                name: 'disapproval_reason',
+                placeholder: 'Enter reason for disapproval',
+                rows: '4',
+                cols: '30',
+                class: 'form-control'
+            });
+
+            // Create a submit button
+            var submitButton = $('<button>', {
+                type: 'submit',
+                text: 'Submit',
+                class: 'btn btn-primary'
+            });
+
+            // Append the hidden input, textarea, and submit button to the form
+            form.append(productIdInput, textarea, submitButton);
+
+            // Append the form to the container
+            $('#disapproval-container').html(form);
+        }
+    });
+</script>
 
 @endsection

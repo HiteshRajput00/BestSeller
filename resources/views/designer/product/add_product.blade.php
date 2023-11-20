@@ -13,11 +13,11 @@
                             <form class="mt-5 mb-5 login-input" method="post" action="/add-product-process" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" class="form-control"  placeholder="product Name" name="name" required>
+                                    <input type="text" class="form-control"  placeholder="product Name" id="product_name" name="name" required>
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <input type="text" class="form-control"  placeholder="slug" name="slug" required>
+                                    <input type="text" class="form-control" id="slug"  placeholder="slug" name="slug" required>
                                 
                                     <div class="text text-danger">@error('category_image'){{$message}} </div>
                                      
@@ -65,4 +65,14 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#product_name').on('keyup', function() {
+            let name = $(this).val().toLowerCase();
+            let slug = name.replace(/\s+/g, "-"); // Replace consecutive spaces with a single dash
+            $('#slug').val(slug);
+        });
+    });
+    </script>
 @endsection
