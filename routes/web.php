@@ -48,6 +48,7 @@ Route::get('/logout',[registerloginController::class,'logout'])->name('logout');
 Route::group(['middleware' =>  'admin'], function () {
 
 Route::get('/admin-dashboard' ,[AdminDashboardController::class,'adminDashboard']);
+Route::get('/user-list' ,[AdminDashboardController::class,'userlist']);
 
 
 //::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://

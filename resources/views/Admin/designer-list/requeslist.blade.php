@@ -15,6 +15,7 @@
                                     <th scope="col">name</th>
                                     <th >email</th>
                                     <th >number</th>
+                             
                                   </tr>
                                 </thead>
                                 <tbody>

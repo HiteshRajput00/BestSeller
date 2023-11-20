@@ -50,11 +50,11 @@ class AdminDesignerController extends Controller
 //::::::::::::: Approved or disaproved designer list ::::::::::::::::::::::::::::::::::::://
     public function approvedDesignerlist(){
         $designer_list = User::where('role','designer')->where('is_approved',1)->get();
-        return view('Admin.designer-list.approved',compact('designer_list'));
+        return view('Admin.designer-list.approved_designer',compact('designer_list'));
     }
 
     public function disapprovedDesignerlist(){
         $designer_list = User::where('role','designer')->where('is_disapproved',1)->get();
-        return view('Admin.designer-list.approved',compact('designer_list'));
+        return view('Admin.designer-list.disapproved_designer',compact('designer_list'));
     }
 }
