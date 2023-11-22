@@ -4,11 +4,13 @@ namespace App\Http\Controllers\registerlogin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\notificationmail;
+use App\Mail\userNotify_mail;
 use App\Models\AdminNotification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class registerloginController extends Controller
 {
@@ -16,9 +18,13 @@ class registerloginController extends Controller
         return view('forms.register');
     }
 
+    public function loginpage(){
+        return view('forms.login');
+    }
+
 //::::::::::::::::::: Register function ::::::::::::::::::::::://
-    public function regprocess(Request $req){
-       $req->validate([
+    public function regprocess(Request $req ){
+       $req->validate([      // validate data according to request
         'name'=>'required',
         'email'=>'required|unique:users',
         'password'=>'required',
@@ -31,13 +37,16 @@ class registerloginController extends Controller
        $data->email = $req->email;
        $data->number = $req->number;
        $data->password = $req->password;
-       $admin_nf = new AdminNotification(); // notification to admin 
+
+       $admin_nf = new AdminNotification();   // notification to admin 
        $admin_nf->title = $req->name;
-       if($req->role === 'user'){
+
+       if($req->role === 'user'){    // role user
         $data->role = 'user';
         $data->is_approved = true;
+        $data->is_disapproved = false;
         
-        $maildata = [
+        $maildata = [                     //admin mail data variable
             'title' => 'New User Registered',
             'name' => $req->name,
             'email'=>$req->email,
@@ -45,35 +54,49 @@ class registerloginController extends Controller
         ];
 
         $admin_nf->message = "new user registered";
-       }else if($req->role === 'designer'){
+
+       }else if($req->role === 'designer'){   // role designer
         $data->role = 'designer';
-        $data->is_approved = false;
-        $maildata = [                               // mail data variable
+
+         $maildata = [                               //admin mail data variable
             'title' => 'New Designer Registered',
             'name' => $req->name,
             'email'=>$req->email,
             'number'=>$req->number,
         ];
-        $admin_nf->message = "new user registered";
+
+        $admin_nf->message = "new designer registered";
        }
        $admin_nf->status = true;
        $admin_nf->save();  // save notification 
+
        $data->save(); // save user data
-    
-    //::::::::::::::::: Mail to Admin :::::::::::::::::::::::::::::::::::::://
-        Mail::to('hiteshrana3204@gmail.com')->send(new notificationmail($maildata));
 
-    //::::::::::::::: Login User:::::::::::::::::::::::::://
+
+      //user mail data variable
+       $userdata = [                              
+        'title' => 'sucessfully  Registered',
+        'name' => $req->name,
+        'email'=>$req->email,
+        'number'=>$req->number,
+        'message' => 'you have successfully registered to web....... Enjoy!'
+    ];
+ 
+        Mail::to('hiteshrana3204@gmail.com')->send(new notificationmail($maildata));   // mail  to admin 
+        Mail::to($req->email)->send(new userNotify_mail($userdata));    // mail  to registered user
+
+
+    if($data->role === 'designer'){
         Auth::login($data);
-
-
-       return redirect('/')->with('msg','success');
+        return redirect('/designer-dashboard');  // login to designer dashboard
+    }else{
+        Auth::login($data);
+       return redirect('/')->with('msg','success');  // login to user dashboard
+    }
     }
 
-    public function loginpage(){
-        return view('forms.login');
-    }
-
+   
+// ::::::::::::::: login function :::::::::::::::::::::::::::::://
     public function loginprocess(Request $req){
         $req->validate([
             'email'=>'required',
@@ -81,16 +104,25 @@ class registerloginController extends Controller
         ]);
         $credent = $req->only('email', 'password');
 
-        // login according to role 
+     
         if (Auth::attempt($credent)) {
-            if(Auth::user()->role === 'admin'){
+            if(Auth::user()->role === 'admin'){     //check role 
+
+                Alert::success('Welcome ' . auth()->user()->name)->showConfirmButton('Got it');
              return redirect('/admin-dashboard');
+
             }elseif(Auth::user()->role === 'designer'){
+
+                Alert::success('Welcome ' . auth()->user()->name)->showConfirmButton('Got it');
                 return redirect('/designer-dashboard');
+
             }else{
+
+                Alert::success('Welcome ' . auth()->user()->name)->showConfirmButton('Got it');
                 return redirect('/');
             }
         }
+        return back()->with('msg', 'please enter vaild details');
     }
 
     public function logout(){

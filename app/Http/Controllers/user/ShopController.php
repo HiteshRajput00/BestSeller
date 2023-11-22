@@ -3,15 +3,48 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categories;
+use App\Models\Media;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
     public function shop(){
-        return view('web.shop.products');
+        $products = product::paginate(3);
+        return view('web.shop.products' , compact('products'));
     }
 
-    public function singleProduct(){
-        return view('web.shop.single-product');
+    public function singleProduct($id){
+        $product = Product::find($id);
+        $media = Media::where('product_id',$id)->get();
+        return view('web.shop.single-product',compact('product','media'));
+    }
+
+    public function increaseProductQty(Request $req){
+       $data = Product::find($req->input('product_id'));
+       $qty = $req->input('qty') + 1;
+       $total_price = $data->price * $qty;
+       return response()->json(['newQty' => $qty , 'total_price' => $total_price]);
+
+    }
+
+    public function decreaseProductQty(Request $req){
+        $data = Product::find($req->input('product_id'));
+        if($req->input('qty')>1){
+        $qty = $req->input('qty') - 1;
+        $total_price = $data->price * $qty;
+        return response()->json(['newQty' => $qty , 'total_price' => $total_price]);
+        }else{
+        return ;
+       }
+ 
+    }
+
+    public function explorecategory($slug){
+        $cat = Categories::where('slug',$slug)->first();
+        $products = Product::where('category_id',$cat->id)->paginate(9);
+        return view('web.explore-category.index',compact('products','cat'));
+        
     }
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url('/admin/assets/vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url('/admin/assets/libs/css/profile.css')}}">
     <link href="{{url('/admin/assets/vendor/fonts/circular-std/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('/admin/assets/libs/css/style.css')}}">
     <link rel="stylesheet" href="{{url('/admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
@@ -16,10 +17,12 @@
     <link rel="stylesheet" href="{{url('/admin/assets/vendor/charts/c3charts/c3.css')}}">
     <link rel="stylesheet" href="{{url('/admin/assets/vendor/charts/morris-bundle/morris.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('/admin/assets/vendor/daterangepicker/daterangepicker.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Designer</title>
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -29,7 +32,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">Concept</a>
+                <a class="navbar-brand" href="index.html">Designer DashBoard</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -40,8 +43,8 @@
                                 <input class="form-control" type="text" placeholder="Search..">
                             </div>
                         </li>
-                        <?php $data = App\Models\DesignerNotification::class::where('status',1)->get(); ?>
-                        @if($data)
+                        <?php $data = App\Models\DesignerNotification::class::where('designer_id',Auth::user()->id)->where('status',1)->get(); ?>
+                        @if($data->isNotEmpty())
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
@@ -50,7 +53,7 @@
                                     <div class="notification-list">
                                         <div class="list-group">
                                             @foreach($data as $d)
-                                            <a href="/designer-notifications" class="list-group-item list-group-item-action active">
+                                            <a href="/designer-dashboard/designer-notifications" class="list-group-item list-group-item-action active">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img src="{{('/admin/assets/images/avatar-2.jpg')}}" alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span class="notification-list-user-name">{{ $d->title }}</span>{{ $d->message }}
@@ -64,14 +67,29 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="list-footer"> <a href="/designer-notification">View all notifications</a></div>
+                                    <div class="list-footer"> <a href="/designer-dashboard/designer-notifications">View all notifications</a></div>
                                 </li>
                             </ul>
                         </li>
                         @else
+                      
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i></a>
-                           
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    
+                                        <div class="list-group justify-center">
+                                        <p >you don't have any new notification</p>
+                                         
+                                        </div>
+                                   
+                                 </li>
+                                <li>
+                                    <div class="list-footer"> <a href="/designer-dashboard/designer-notifications">View all notifications</a></div>
+                                  
+                                </li>
+                            </ul>
                         </li>
                         @endif
                         <li class="nav-item dropdown connection">
@@ -107,13 +125,17 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{url('/admin/assets/images/avatar-1.jpg')}}" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <?php $image = App\Models\UserImage::class::where('user_id',Auth::user()->id)->first(); ?>
+                                <img src="{{url('/images/'.$image->profile_image ?? '')}}" alt="" class="user-avatar-md rounded-circle">
+                               
+                            </a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="/designer-dashboard/profile"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
                                 <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
@@ -128,6 +150,7 @@
         <!-- ============================================================== -->
         <!-- left sidebar -->
         <!-- ============================================================== -->
+
         <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list">
                 <nav class="navbar navbar-expand-lg navbar-light">
@@ -146,7 +169,7 @@
                                     <ul class="nav flex-column">
                                         
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/add-category"> add Category</a>
+                                            <a class="nav-link" href="/designer-dashboard/add-category"> add Category</a>
                                         </li>
                                         <li class="nav-item">
                                             {{-- <a class="nav-link" href="/category-list">category list</a> --}}
@@ -161,7 +184,7 @@
                                     <ul class="nav flex-column">
                                         
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/add-product"> add product</a>
+                                            <a class="nav-link" href="/designer-dashboard/add-product"> add product</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/designer-Dashboard/approved-product">Approved Product</a>

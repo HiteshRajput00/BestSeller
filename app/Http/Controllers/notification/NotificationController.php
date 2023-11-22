@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminNotification;
 use App\Models\DesignerNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -31,7 +32,7 @@ class NotificationController extends Controller
 
 //::::::::::::::::::: designer notification function ::::::::::::::::::::::://
     public function designerNotifications(){
-        $nf_data = DesignerNotification::all();
+        $nf_data = DesignerNotification::where('designer_id','=',Auth::user()->id)->get();
         return view('Admin.notification.index',compact('nf_data')); 
     }
 

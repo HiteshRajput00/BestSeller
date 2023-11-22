@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Designer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
+use RealRashid\SweetAlert\Facades\Alert;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class Categorycontroller extends Controller
 {
     public function categoryPage(){
-        $parent_category = Categories::whereNull('parent_category_id')->get();
+        
+         $parent_category = Categories::whereNull('parent_category_id')->get();
         return view('designer.Category.add_category',compact('parent_category'));
+    
     }
 
 //::::::::::::::::::::::: Adding category fubnction::::::::::::::::::::::://
@@ -42,7 +46,7 @@ class Categorycontroller extends Controller
         $data->parent_category_id = $req->parent_category;
     }
     $data->save();
-    return back()->with('msg','success');
+    return back()->with('success','category added successfully');
     }
 
 //::::::::::::::::::::::: list of category :::::::::::::::::::::::::::::://

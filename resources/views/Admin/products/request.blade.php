@@ -7,9 +7,10 @@
             <div class="col-xl-10">
             <div class="nk-block">
                 <div class="row g-gs">
+                 
                     @foreach($products as $p)
                     <div class="col-sm-6 col-lg-4 col-xxl-3">
-                        <div class="gallery card card-bordered">
+                        <div style="padding-left: 1rem" class="gallery card card-bordered">
                             <a class="gallery-image popup-image" href="">
                                 <?php $m = App\Models\Media::class::where('product_id',$p->id)->first(); ?>
                                 <img class="w-100 rounded-top" src="{{url('/images/'.$m->image)}}" alt="">
@@ -18,14 +19,11 @@
                                 <div class="user-card">
                                     <div class="user-info" >
                                         <span class="lead-text">{{ $p->name ?? '' }}</span>
-                                        <!-- <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleviewModal{{ $logo->id ?? '' }}" style="padding:0px;">
-                                           View More
-                                        </button> -->
-                                        <a href="{{ url('admin-dashboard/logo-detail/'.$p->slug) }}">View More</a>
+                                        <a class="btn btn-link" href="{{ url('admin-dashboard/product-detail/'.$p->id) }}">View More</a>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <a href="{{route('approve',['id'=>$p->id])}}"   class="btn btn-primary ">Approve</a>
+                                    <a href="{{route('approveProduct',['id'=>$p->id])}}"   class="btn btn-primary ">Approve</a>
                                     <button data-product-id="{{ $p->id }}" class="disapprove-button btn btn-danger ">Disapprove</button></div>
                                     <br>
                                 <div id="disapproval-container"></div>
@@ -33,6 +31,7 @@
                         </div>
                     </div>
                     @endforeach
+                  
                     
                 </div>
             </div>
@@ -51,7 +50,7 @@
         function createDisapprovalForm(productId) {
             var form = $('<form>', {
                 method: 'POST',
-                action: '/disapproveProduct-Process', // Change this URL to your disapproval route
+                action: '/admin-dashboard/disapproveProduct-Process', // Change this URL to your disapproval route
             });
 
             // Create a hidden input for the product ID

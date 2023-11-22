@@ -18,7 +18,7 @@
                                 </div>
                             </p>
                            @endforeach
-                           <div class=""> <a href="/clear-designerNotification">Clear all notifications</a></div>
+                           <div class=""> <a href="/designer-dashboard/clear-designerNotification">Clear all notifications</a></div>
                            @else
                              <p>You have no notification yet...</p>
                            @endif

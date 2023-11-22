@@ -6,12 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\DesignerNotification;
 use App\Models\disapprovedProduct;
 use App\Models\Product;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
 class AdminProductController extends Controller
 {
     public function productrequest(){
-        $products = Product::where('is_approved','=',0)->where('is_disapproved','=',0)->get();
+        $products = Product::where('is_approved','=',null)->where('is_disapproved','=',null)->get();
+        if($products->isEmpty()){
+            Alert::success('all done', 'You dont have any request ')->persistent(true, true);
+            return redirect()->back();
+        }
         return view('Admin.products.request',compact('products'));
     }
 
@@ -22,11 +27,12 @@ class AdminProductController extends Controller
         if($product){
          //::::::::::::: send notification to designer :::::::::::://
             $designer_nf = new DesignerNotification();
+            $designer_nf->designer_id = $product->designer_id; 
             $designer_nf->title = $product->name;
             $designer_nf->message = " your product has been approved by admin";
             $designer_nf->save();
         }
-        return redirect('/product-request');
+        return redirect()->back();
     }
 
 //:::::::::::::: Disapprove Product ::::::::::::::::::::::::::::::::::::::::::::::::://
@@ -43,6 +49,7 @@ class AdminProductController extends Controller
             
             //::: Notification to designer ::::::::///
             $designer_nf = new DesignerNotification();
+            $designer_nf->designer_id = $product->designer_id; 
             $designer_nf->title = $product->name;
             $designer_nf->message = " your product has been disapproved by admin";
             $designer_nf->save();
@@ -53,11 +60,19 @@ class AdminProductController extends Controller
 //:::::::::::::::: approved or disapproved list :::::::::::::::::::::::::::::::::::::::::::://
     public function productapproved(){
         $products = Product::where('is_approved','=',1)->where('is_disapproved','=',0)->get();
+        if($products->isEmpty()){
+            Alert::warning('Sorry', 'You dont have any approved product ')->persistent(true, true);
+            return redirect()->back();
+        }
         return view('Admin.products.approved_product',compact('products'));
     }
 
     public function productDisapproved(){
         $products = Product::where('is_approved','=',0)->where('is_disapproved','=',1)->get();
+        if($products->isEmpty()){
+            Alert::success( 'You dontdisapproved any Product yet')->persistent(true, true);
+            return redirect()->back();
+        }
         return view('Admin.products.disapproved_product',compact('products'));
     }
 }

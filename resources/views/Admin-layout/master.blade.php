@@ -17,10 +17,12 @@
     <link rel="stylesheet" href="{{url('/admin/assets/vendor/charts/c3charts/c3.css')}}">
     <link rel="stylesheet" href="{{url('/admin/assets/vendor/charts/morris-bundle/morris.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('/admin/assets/vendor/daterangepicker/daterangepicker.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Admin</title>
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -30,7 +32,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">Concept</a>
+                <a class="navbar-brand" href="index.html">Admin DashBoard</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -46,7 +48,21 @@
                        
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i></a>
-                           
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    
+                                        <div class="list-group justify-center">
+                                        <p >you don't have any new notification</p>
+                                         
+                                        </div>
+                                   
+                                 </li>
+                                <li>
+                                    <div class="list-footer"> <a href="/admin-dashboard/admin-notifications">View all notifications</a></div>
+                                  
+                                </li>
+                            </ul>
                         </li>
                         @else
                         <li class="nav-item dropdown notification">
@@ -69,10 +85,10 @@
                                          
                                         </div>
                                     </div>
-                                <a class="btn btn-primary" href="/Mark-as-readadmin-notification">mark all as read</a>
+                                <a class="btn btn-primary" href="/admin-dashboard/Mark-as-readadmin-notification">mark all as read</a>
                                 </li>
                                 <li>
-                                    <div class="list-footer"> <a href="/admin-notification">View all notifications</a></div>
+                                    <div class="list-footer"> <a href="/admin-dashboard/admin-notifications">View all notifications</a></div>
                                   
                                 </li>
                             </ul>
@@ -112,13 +128,16 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{url('/admin/assets/images/avatar-1.jpg')}}" alt="" class="user-avatar-md rounded-circle"></a>
-                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php $image = App\Models\UserImage::class::where('user_id',Auth::user()->id)->first(); ?>
+                                  <img src="{{url('/images/'.$image->profile_image ?? '')}}" alt="" class="user-avatar-md rounded-circle">
+                                </a>
+                           <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
-                                <a class="dropdown-item" href="/admin-profile"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="/admin-dashboard/admin-profile"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
                                 <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
@@ -145,50 +164,52 @@
                             <li class="nav-divider">
                                 Menu
                             </li>
-                          
+                            <li class="nav-divider">
+                                <a class="nav-link " href="#" ><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
+                            </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Product <span class="badge badge-success">6</span></a>
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-1"><i class="fa fa-fw fa-shopping-cart"></i>Product </a>
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/product-request"> product request</a>
+                                            <a class="nav-link" href="/admin-dashboard/product-request"> product request</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/product-approved">approved product</a>
+                                            <a class="nav-link" href="/admin-dashboard/product-approved">approved product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/product-disapproved">disapproved product</a>
+                                            <a class="nav-link" href="/admin-dashboard/product-disapproved">disapproved product</a>
                                         </li>
                                         
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Designers <span class="badge badge-success">6</span></a>
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Designers <span class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/designer-list">  designer request</a>
+                                            <a class="nav-link" href="/admin-dashboard/designer-list">  designer request</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/approved-designer">approved designer</a>
+                                            <a class="nav-link" href="/admin-dashboard/approved-designer">approved designer</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/disapproved-designer">disapproved disapproved</a>
+                                            <a class="nav-link" href="/admin-dashboard/disapproved-designer">disapproved disapproved</a>
                                         </li>
                                         
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Users data <span class="badge badge-success">6</span></a>
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Users data <span class="badge badge-success">6</span></a>
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/user-list"> User list</a>
+                                            <a class="nav-link" href="/admin-dashboard/user-list"> User list</a>
                                         </li>
                                         {{-- <li class="nav-item">
                                             <a class="nav-link" href="/product-approved">approved product</a>

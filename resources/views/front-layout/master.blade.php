@@ -4,6 +4,7 @@
   <head>
 
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="{{url('/user/assets/css/owl-carousel.css')}}">
 
     <link rel="stylesheet" href="{{url('/user/assets/css/lightbox.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!--
 
 TemplateMo 571 Hexashop
@@ -32,7 +34,7 @@ https://templatemo.com/tm-571-hexashop
     </head>
     
     <body>
-    
+        @include('sweetalert::alert')
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -57,17 +59,15 @@ https://templatemo.com/tm-571-hexashop
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="#men">Men's</a></li>
-                            <li class="scroll-to-section"><a href="#women">Women's</a></li>
-                            <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
+                            <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+                          
                             <li class="submenu">
                                 <a href="javascript:;">Pages</a>
                                 <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="products.html">Products</a></li>
+                                    <li><a href="/about-us">About Us</a></li>
+                                    <li><a href="/shop">Products</a></li>
                                     <li><a href="single-product.html">Single Product</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="/contact-us">Contact Us</a></li>
                                   
                                     @if(Auth::user())
                                     <li><a href="/logout">logout</a></li>
@@ -76,15 +76,18 @@ https://templatemo.com/tm-571-hexashop
                                     @endif
                                 </ul>
                             </li>
-                            {{-- <li class="submenu">
-                                <a href="javascript:;">Features</a>
+                            <li class="submenu">
+                                <a href="javascript:;">Filter</a>
                                 <ul>
-                                    <li><a href="#">Features Page 1</a></li>
-                                    <li><a href="#">Features Page 2</a></li>
-                                    <li><a href="#">Features Page 3</a></li>
-                                    <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li>
+                                    <?php $categories = App\Models\Categories::whereNull('parent_category_id')->get(); ?>
+                                 @if($categories)
+                                    @foreach($categories as $category)
+                                    <li><a href="{{ route('explorecategory',['slug'=>$category->slug]) }}">{{ $category->name }}</a></li>
+                                    @endforeach
+                                 @endif
+                                  
                                 </ul>
-                            </li> --}}
+                            </li>
                             <li class="scroll-to-section"><a href="#explore">Explore</a></li>
                         </ul>        
                         <a class='menu-trigger'>

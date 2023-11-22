@@ -6,9 +6,10 @@
             <div class="col-xl-10">
             <div class="nk-block">
                 <div class="row g-gs">
+                    @if($products->isNotEmpty())
                     @foreach($products as $p)
                     <div class="col-sm-6 col-lg-4 col-xxl-3">
-                        <div class="gallery card card-bordered">
+                        <div style="padding-left: 1rem" class="gallery card card-bordered">
                             <a class="gallery-image popup-image" href="">
                                 <?php $m = App\Models\Media::class::where('product_id',$p->id)->first(); ?>
                                 <img class="w-100 rounded-top" src="{{url('/images/'.$m->image)}}" alt="">
@@ -18,20 +19,17 @@
                                     <div class="user-info" >
                                         <h3 class="lead-text"><strong>{{ $p->name ?? '' }}</strong></h3>
                                         <br>
-                                        <!-- <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleviewModal{{ $logo->id ?? '' }}" style="padding:0px;">
-                                           View More
-                                        </button> -->
-                                        <a href="{{ url('admin-dashboard/Product-detail/'.$p->id) }}">View More</a>
+                                        <a class="btn btn-link" href="{{ url('admin-dashboard/product-detail/'.$p->id) }}">View More</a>
                                     </div>
                                 </div>
-                                {{-- <div class="">
-                                    <a href="{{route('Edit',['id'=>$p->id])}}"   class="btn btn-primary ">Edit</a>
-                                    <a href="{{route('Delete',['id'=>$p->id])}}"   class="btn btn-danger ">Delete</a>
-                                </div> --}}
+
                             </div>
                         </div>
                     </div>
                     @endforeach
+                    @else
+                        <h3>you don't have any pending requests ...................</h3>
+                    @endif
                     
                 </div>
             </div>

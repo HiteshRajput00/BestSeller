@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('designer_notifications', function (Blueprint $table) {
             $table->id();
+            $table->integer('designer_id');
             $table->string('title');
             $table->string('message');
             $table->integer('status')->default(true);

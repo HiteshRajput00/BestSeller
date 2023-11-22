@@ -29,11 +29,11 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="number" name="number" required>
+                                    <input type="text" class="form-control" placeholder="number" name="number" required>
                                 
-                                    <div class="text text-danger">@error('number'){{$message}} </div>
+                                    <div class="text text-danger">@error('number'){{$message}}  @enderror</div>
                                      
-                                    @enderror
+                                   
                                 </div>
                                 <br>
                                 <div class="form-group">

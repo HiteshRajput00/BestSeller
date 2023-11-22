@@ -14,8 +14,13 @@ class Product extends Model
     }
 
     protected $fillable = [
+        'name',
+        'slug',
+        'price',
+        'stock',
         'is_approved',
         'is_disapproved',
+        'status',
       ];
 
 }
