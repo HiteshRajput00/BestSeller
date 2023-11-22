@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class AdminProductController extends Controller
 {
     public function productrequest(){
-        $products = Product::where('is_approved','=',null)->where('is_disapproved','=',null)->get();
+        $products = Product::where('is_approved','=',false)->where('is_disapproved','=',false)->get();
         if($products->isEmpty()){
             Alert::success('all done', 'You dont have any request ')->persistent(true, true);
             return redirect()->back();

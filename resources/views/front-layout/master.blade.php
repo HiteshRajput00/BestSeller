@@ -82,7 +82,7 @@ https://templatemo.com/tm-571-hexashop
                                     <?php $categories = App\Models\Categories::whereNull('parent_category_id')->get(); ?>
                                  @if($categories)
                                     @foreach($categories as $category)
-                                    <li><a href="{{ route('explorecategory',['slug'=>$category->slug]) }}">{{ $category->name }}</a></li>
+                                    <li><a href="{{ route('explorecategory',['slug'=>$category->slug]) }}"><i class="fa fa-fw fa-tags"></i>{{ $category->name }}</a></li>
                                     @endforeach
                                  @endif
                                   

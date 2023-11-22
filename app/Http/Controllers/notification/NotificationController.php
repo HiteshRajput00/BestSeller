@@ -33,7 +33,7 @@ class NotificationController extends Controller
 //::::::::::::::::::: designer notification function ::::::::::::::::::::::://
     public function designerNotifications(){
         $nf_data = DesignerNotification::where('designer_id','=',Auth::user()->id)->get();
-        return view('Admin.notification.index',compact('nf_data')); 
+        return view('designer.designer-notification.index',compact('nf_data')); 
     }
 
     public function designernfread(){

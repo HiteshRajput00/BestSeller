@@ -12,6 +12,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\registerloginController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
+use App\Http\Controllers\user\WishlistController;
 use App\Http\Middleware\is_role;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -135,6 +136,10 @@ Route::group(['middleware' =>  'Auth'], function () {
 Route::post('/increase-product-quantity',[ShopController::class,'increaseProductQty'])->name('Increase_Quantity');
 Route::post('/decrease-product-quantity',[ShopController::class,'decreaseProductQty'])->name('decrease_Quantity');
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+//:::::::::::::::::::::::::::::::: Wishlist Routes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+Route::Post('/add-to-wishlist',[WishlistController::class,'addToWishlist'])->name('Add_Wishlist');
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
 
 
