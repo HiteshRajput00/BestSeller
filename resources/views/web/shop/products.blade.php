@@ -38,7 +38,7 @@
                         <div class="thumb">
                             <div class="hover-content">
                                 <ul>
-                                    <li><a href="{{route('single_product' ,['id'=>$product->id])}}"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="{{route('single_product' ,['slug'=>$product->slug])}}"><i class="fa fa-eye"></i></a></li>
                                     @if(Auth::check())
                                     <?php $data = App\Models\Wishlist::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
                                     @if($data)

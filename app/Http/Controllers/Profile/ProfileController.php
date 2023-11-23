@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     public function updateProfile(Request $req){
-        // dd($req->all());
         $image = UserImage::where('user_id',Auth::user()->id)->first();
         $details = DesignerDetails::where('designer_id',Auth::user()->id)->first();
         if($image){

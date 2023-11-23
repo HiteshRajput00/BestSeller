@@ -19,8 +19,7 @@ class ProductController extends Controller
     }
 
     public function addproductProcess(Request $req){
-    // dd($req->all());
-    
+      
         $req->validate([
             'product_name'=>'required',
             'image'=>'required',
@@ -40,7 +39,7 @@ class ProductController extends Controller
         $data->save();
         
         if($images = $req->File('image')){
-            foreach($images as $image){
+            foreach($images as $image){      // storing array of images
             $media = new Media();
             $file=$image;
             $extension=$file->getClientOriginalExtension();
@@ -53,7 +52,7 @@ class ProductController extends Controller
         }
         }
       
-        $nf = new AdminNotification();
+        $nf = new AdminNotification();      // notification to admin 
         $nf->title = Auth::user()->name;
         $nf->message = "has added a new product";
         $nf->save();
@@ -68,7 +67,7 @@ class ProductController extends Controller
     
         $products = Product::where('designer_id',Auth::user()->id)->where('is_approved',true)->get();
         if($products->isEmpty()){
-            Alert::warning('Sorry', 'You dont have any approved product yet...... ')->persistent(true, true);
+            Alert::warning('Sorry', 'You dont have any approved product yet...... ')->persistent(true, true);   // sweet alert
             return redirect()->back();
         }
         return view('designer.product.Approved_product',compact('products'));
@@ -77,7 +76,7 @@ class ProductController extends Controller
        
         $products = Product::where('designer_id',Auth::user()->id)->where('is_disapproved',true)->get();
         if($products->isEmpty()){
-            Alert::success('well done', 'You dont have any disapproved product yet')->persistent(true, true);
+            Alert::success('well done', 'You dont have any disapproved product yet')->persistent(true, true);   // sweet alert
             return redirect()->back();
         }
         return view('designer.product.Approved_product',compact('products'));
@@ -86,7 +85,7 @@ class ProductController extends Controller
     public function pendingproduct(){
         $products = Product::where('designer_id',Auth::user()->id)->where('is_approved',false)->where('is_disapproved',false)->get();
         if($products->isEmpty()){
-            Alert::success( 'You dont have any pending product request ')->persistent(true, true);
+            Alert::success( 'You dont have any pending product request ')->persistent(true, true);    // sweet alert
             return redirect()->back();
         }
         return view('designer.product.Approved_product',compact('products'));

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class AdminProductController extends Controller
 {
+    //::  Product Request :://
     public function productrequest(){
         $products = Product::where('is_approved','=',false)->where('is_disapproved','=',false)->get();
         if($products->isEmpty()){
@@ -61,7 +62,7 @@ class AdminProductController extends Controller
     public function productapproved(){
         $products = Product::where('is_approved','=',1)->where('is_disapproved','=',0)->get();
         if($products->isEmpty()){
-            Alert::warning('Sorry', 'You dont have any approved product ')->persistent(true, true);
+            Alert::warning('Sorry', 'You dont have any approved product ')->persistent(true, true);    // sweet alert 
             return redirect()->back();
         }
         return view('Admin.products.approved_product',compact('products'));
@@ -70,7 +71,7 @@ class AdminProductController extends Controller
     public function productDisapproved(){
         $products = Product::where('is_approved','=',0)->where('is_disapproved','=',1)->get();
         if($products->isEmpty()){
-            Alert::success( 'You dontdisapproved any Product yet')->persistent(true, true);
+            Alert::success( 'You dontdisapproved any Product yet')->persistent(true, true);     // sweet alert 
             return redirect()->back();
         }
         return view('Admin.products.disapproved_product',compact('products'));

@@ -25,6 +25,8 @@
                         <div class="row">
                             @if(isset($categories))
                             @foreach($categories as $category)
+                            <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
+                            @if($products->isNotEmpty())
                             <div class="col-lg-6">
                                 <div class="right-first-image">
                                     <div class="thumb">
@@ -45,6 +47,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             @endforeach
                             @endif
                             
@@ -59,7 +62,7 @@
     @if(isset($categories))
     @foreach($categories as $category)
     <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
-    @if($products)
+    @if($products->isNotEmpty())
     <section class="section" id="men">
         <div class="container">
             <div class="row">
@@ -71,8 +74,7 @@
                 </div>
             </div>
         </div>
-    
-        <div class="container">
+         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="men-item-carousel">

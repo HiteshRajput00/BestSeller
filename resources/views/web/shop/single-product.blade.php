@@ -59,7 +59,7 @@
                     </div>
                     <div class="total">
                         <h4>Total: $<strong id="total_price">{{ $product->price }}</strong></h4>
-                        <div class="main-border-button"><a href="#">Add To Cart</a></div>
+                        <div class="main-border-button"><a href="{{ route('Add_Cart',['slug'=>$product->slug]) }}">Add To Cart</a></div>
                     </div>
                 </div>
             </div>

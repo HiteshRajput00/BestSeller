@@ -3,11 +3,9 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminDesignerController;
 use App\Http\Controllers\Admin\AdminProductController;
-
 use App\Http\Controllers\Designer\Categorycontroller;
 use App\Http\Controllers\Designer\DesignerDashboardController;
 use App\Http\Controllers\Designer\ProductController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\registerloginController;
@@ -15,8 +13,6 @@ use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Controllers\user\WishlistController;
-use App\Http\Middleware\is_role;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,7 +44,7 @@ Route::get('/register',[registerloginController::class,'registerpage'])->name('r
 Route::Post('/registerprocess',[registerloginController::class,'regprocess']);
 Route::get('/login',[registerloginController::class,'loginpage'])->name('login');
 Route::Post('/loginprocess',[registerloginController::class,'loginprocess'])->name('loginprocess');
-Route::get('/logout',[registerloginController::class,'logout'])->name('logout');
+
 
 //:::::::::::::::::::: Admin Protected  Routes :::::::::::::::::::::::::::::::::::::://
 
@@ -129,13 +125,13 @@ Route::post('/designer-dashboard/update-product-process',[ProductController::cla
 
 
 //:::::::::::::::::::::: User Routes::::::::::::::::::::::::::::::::::::::::::://
-// Route::group(['middleware' =>  'Auth'], function () {
+Route::group(['middleware' =>  'auth'], function () {
+
+
+//::::::::::::::::::::::::::: Cart  Routes ::::::::::::::::::::::::::::::::::::::://
 Route::get('/cart',[CartController::class,'CartPage']);
 Route::Post('/add-to-cart',[CartController::class, 'AddtoCart'])->name('Add_to_Cart');
-// });
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-
-//::::::::::::::::::::::::::: Single Product Routes ::::::::::::::::::::::::::::::::::::::://
+Route::get('/add-product-to-cart/{slug}',[CartController::class,'Cart'])->name('Add_Cart');
 Route::post('/increase-product-quantity',[ShopController::class,'increaseProductQty'])->name('Increase_Quantity');
 Route::post('/decrease-product-quantity',[ShopController::class,'decreaseProductQty'])->name('decrease_Quantity');
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
@@ -143,6 +139,15 @@ Route::post('/decrease-product-quantity',[ShopController::class,'decreaseProduct
 //:::::::::::::::::::::::::::::::: Wishlist Routes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 Route::Post('/add-to-wishlist',[WishlistController::class,'addToWishlist'])->name('Add_Wishlist');
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+// logout route
+Route::get('/logout',[registerloginController::class,'logout'])->name('logout');
+});
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+
+
+
 
 
 

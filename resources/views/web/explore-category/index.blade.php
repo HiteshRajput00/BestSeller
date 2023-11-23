@@ -38,18 +38,24 @@
                         <div class="thumb">
                             <div class="hover-content">
                                 <ul>
-                                    <li><a href="{{route('single_product' ,['id'=>$product->id])}}"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="{{route('single_product' ,['slug'=>$product->slug])}}"><i class="fa fa-eye"></i></a></li>
                                     @if(Auth::check())
                                     <?php $data = App\Models\Wishlist::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
                                     @if($data)
-                                      <li><a type="button" class="addWishlist" data-id="{{ $product->id }}"><i style="color: red" class="fa fa-heart"></i></a></li>
+                                      <li><a type="button" class="addWishlist" id="{{ $product->slug }}" data-id="{{ $product->id }}"><i style="color: red" class="fa fa-heart"></i></a></li>
                                     @else
-                                      <li><a type="button" class="addWishlist" data-id="{{ $product->id }}"><i class="fa fa-heart"></i></a></li>
+                                      <li><a type="button" class="addWishlist" id="{{ $product->slug }}" data-id="{{ $product->id }}"><i class="fa fa-heart"></i></a></li>
+                                    @endif
+                                    <?php $Cart = App\Models\Cart::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
+                                    @if($Cart)
+                                    <li><a type="button" id="{{ $product->id }}"  class="CartBtn" data-price="{{ $product->price }}" data-id="{{ $product->id }}"><i style="color: green" class="fa fa-shopping-cart"></i></a></li>
+                                    @else
+                                    <li><a type="button" id="{{ $product->id }}"  class="CartBtn" data-price="{{ $product->price }}" data-id="{{ $product->id }}"><i  class="fa fa-shopping-cart"></i></a></li>
                                     @endif
                                   @else
                                     <li><a  href="/login" ><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="/login"><i class="fa fa-shopping-cart"></i></a></li>
                                   @endif
-                                    <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <?php $img = App\Models\Media::class::where('product_id',$product->id)->first(); ?>

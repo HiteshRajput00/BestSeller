@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,5 +32,10 @@ class CartController extends Controller
             $icon = '<i style="color:green" class="fa fa-shopping-cart"></i>';
             return response()->json(['data'=>$icon]);
         }
+    }
+
+    public function Cart($slug){
+        $Product = Product::where('slug',$slug)->first();
+        $cart = Cart::where('user_id',Auth::user()->id)->where('product_id',$Product->id)->first(); 
     }
 }

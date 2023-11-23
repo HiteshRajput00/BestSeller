@@ -59,15 +59,14 @@ https://templatemo.com/tm-571-hexashop
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="/" class="{{ Request::is('/') ? 'active' : '' }}">Home</a></li>
                           
                             <li class="submenu">
-                                <a href="javascript:;">Pages</a>
+                                <a  href="javascript:;">Pages</a>
                                 <ul>
                                     <li><a href="/about-us">About Us</a></li>
                                     <li><a href="/shop">Products</a></li>
-                                    <li><a href="single-product.html">Single Product</a></li>
-                                    <li><a href="/contact-us">Contact Us</a></li>
+                                    <li><a  href="/contact-us">Contact Us</a></li>
                                   
                                     @if(Auth::user())
                                     <li><a href="/logout">logout</a></li>
@@ -82,13 +81,20 @@ https://templatemo.com/tm-571-hexashop
                                     <?php $categories = App\Models\Categories::whereNull('parent_category_id')->get(); ?>
                                  @if($categories)
                                     @foreach($categories as $category)
+                                    <?php $P = App\Models\Product::where('category_id',$category->id)->get(); ?>
+                                    @if($P->isNotEmpty())
                                     <li><a href="{{ route('explorecategory',['slug'=>$category->slug]) }}"><i class="fa fa-fw fa-tags"></i>{{ $category->name }}</a></li>
+                                    @endif
                                     @endforeach
                                  @endif
                                   
                                 </ul>
                             </li>
+                            @if(Auth::check())
                             <li class="scroll-to-section"><a  href="/cart"><i style="font-size: 1.6em"  class="fa fa-shopping-cart"></i></a></li>
+                            @else
+                            <li class="scroll-to-section"><a  href="/login"><i style="font-size: 1.6em"  class="fa fa-shopping-cart"></i></a></li>
+                            @endif
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>

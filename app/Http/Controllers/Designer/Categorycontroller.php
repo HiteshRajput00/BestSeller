@@ -20,8 +20,7 @@ class Categorycontroller extends Controller
 
 //::::::::::::::::::::::: Adding category fubnction::::::::::::::::::::::://
     public function addcatProcess(Request $req){
-        //  dd($req->all());
-        $req->validate([
+             $req->validate([             // validate data
             'category_name'=>'required',
             'slug'=>'required|unique:categories',
             'cat_image'=>'required',
@@ -33,7 +32,7 @@ class Categorycontroller extends Controller
         $data->slug = $req->slug;
         if($req->hasFile('cat_image')){
     
-            $file=$req->file('cat_image');
+            $file=$req->file('cat_image');            // image saving
             $extension=$file->getClientOriginalExtension();
             $filename=time().'.'.$extension;
             $file->move('images',$filename);
