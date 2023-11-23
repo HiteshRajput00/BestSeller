@@ -35,7 +35,7 @@
                                         <div class="hover-content">
                                             <div class="inner">
                                                 <h4>{{ $category->name }}</h4>
-                                                <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                               
                                                 <div class="main-border-button">
                                                     <a href="{{ route('explorecategory',['slug'=>$category->slug]) }}">Discover More</a>
                                                 </div>
@@ -82,20 +82,13 @@
                             <div class="item">
                                 <div class="thumb">
                                     <div class="hover-content">
-                                        <ul>
-                                            <li><a href="{{route('single_product' ,['id'=>$product->id])}}"><i class="fa fa-eye"></i></a></li>
-                                          @if(Auth::check())
-                                            <?php $data = App\Models\Wishlist::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
-                                            @if($data)
-                                              <li><a type="button" class="addWishlist" data-id="{{ $product->id }}"><i style="color: red" class="fa fa-heart"></i></a></li>
-                                            @else
-                                              <li><a type="button" class="addWishlist" data-id="{{ $product->id }}"><i class="fa fa-heart"></i></a></li>
-                                            @endif
-                                          @else
-                                            <li><a  href="/login" ><i class="fa fa-heart"></i></a></li>
-                                          @endif
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
+                                        <div class="inner">
+                                            <h4>{{ $product->name }}</h4>
+                                            <p>{{ $product->description }}</p>
+                                            <div class="main-border-button">
+                                                <a href="{{route('single_product' ,['slug'=>$product->slug])}}">Details</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <img src="{{url('/images/'.$media->image ?? '')}}">
                                 </div>
@@ -310,37 +303,7 @@
         </div>
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        // add wishlist
-       
-         $(document).ready(function() {
-               $('.addWishlist').click(function() {
-                var ID = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route("Add_Wishlist") }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                         product_id: ID,
-                         
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var icon = response.data;
-                          $('.addWishlist').html(icon);
-                          
-                    },
-                    error: function(xhr, status, error) {
-                         console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-    
-    </script>
+   
     
     @endsection
    

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminDesignerController;
 use App\Http\Controllers\Admin\AdminProductController;
+
 use App\Http\Controllers\Designer\Categorycontroller;
 use App\Http\Controllers\Designer\DesignerDashboardController;
 use App\Http\Controllers\Designer\ProductController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\registerloginController;
+use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Controllers\user\WishlistController;
@@ -35,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 //::::::::::::::::::::Site Pages ::::::::::::::::::::::::::://
 Route::get('/',[userDashboardController::class,'index']);
 Route::get('/shop',[ShopController::class,'shop']);
-Route::get('/single-product/{id}',[ShopController::class,'singleProduct'])->name('single_product');
+Route::get('/single-product/{slug}',[ShopController::class,'singleProduct'])->name('single_product');
 Route::get('/contact-us',[userDashboardController::class,'contactUs']);
 Route::get('/about-us',[userDashboardController::class,'abouttUs']);
 Route::get('/explor/{slug}',[ShopController::class,'explorecategory'])->name('explorecategory');
@@ -52,8 +54,8 @@ Route::get('/logout',[registerloginController::class,'logout'])->name('logout');
 
 Route::group(['middleware' =>  'admin'], function () {
 
-Route::get('/admin-dashboard' ,[AdminDashboardController::class,'adminDashboard']);
-Route::get('/admin-dashboard/user-list' ,[AdminDashboardController::class,'userlist']);
+Route::get('/admin-dashboard' ,[AdminDashboardController::class,'adminDashboard'])->name('AdminDashboard');
+Route::get('/admin-dashboard/user-list' ,[AdminDashboardController::class,'userlist'])->name('user_list');
 
 
 //::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
@@ -127,9 +129,10 @@ Route::post('/designer-dashboard/update-product-process',[ProductController::cla
 
 
 //:::::::::::::::::::::: User Routes::::::::::::::::::::::::::::::::::::::::::://
-Route::group(['middleware' =>  'Auth'], function () {
-
-});
+// Route::group(['middleware' =>  'Auth'], function () {
+Route::get('/cart',[CartController::class,'CartPage']);
+Route::Post('/add-to-cart',[CartController::class, 'AddtoCart'])->name('Add_to_Cart');
+// });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
 //::::::::::::::::::::::::::: Single Product Routes ::::::::::::::::::::::::::::::::::::::://

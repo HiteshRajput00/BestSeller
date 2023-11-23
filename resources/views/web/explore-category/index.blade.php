@@ -39,7 +39,16 @@
                             <div class="hover-content">
                                 <ul>
                                     <li><a href="{{route('single_product' ,['id'=>$product->id])}}"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                    @if(Auth::check())
+                                    <?php $data = App\Models\Wishlist::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
+                                    @if($data)
+                                      <li><a type="button" class="addWishlist" data-id="{{ $product->id }}"><i style="color: red" class="fa fa-heart"></i></a></li>
+                                    @else
+                                      <li><a type="button" class="addWishlist" data-id="{{ $product->id }}"><i class="fa fa-heart"></i></a></li>
+                                    @endif
+                                  @else
+                                    <li><a  href="/login" ><i class="fa fa-heart"></i></a></li>
+                                  @endif
                                     <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>

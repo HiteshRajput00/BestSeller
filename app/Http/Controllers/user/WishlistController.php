@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class WishlistController extends Controller
 {
     public function  addToWishlist(Request $req){
+        
         $wishlist = Wishlist::where('user_id',Auth::user()->id)->where('product_id',$req->input('product_id'))->first();
         if($wishlist){
             $wishlist->delete();

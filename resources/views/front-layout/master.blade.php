@@ -88,7 +88,7 @@ https://templatemo.com/tm-571-hexashop
                                   
                                 </ul>
                             </li>
-                            <li class="scroll-to-section"><a href="#explore">Explore</a></li>
+                            <li class="scroll-to-section"><a  href="/cart"><i style="font-size: 1.6em"  class="fa fa-shopping-cart"></i></a></li>
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -201,6 +201,74 @@ https://templatemo.com/tm-571-hexashop
         });
 
     </script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // add wishlist
+   
+     $(document).ready(function() {
+           $('.addWishlist').click(function() {
+            var PID = $(this).data('id');
+            var iconID = $(this).attr('id');
+            
+            
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("Add_Wishlist") }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                     product_id: PID,
+                    
+                     
+                },
+                dataType: 'json',
+                success: function(response) {
+                   
+                    $('#' + iconID).html(response.data);
+                      
+                },
+                error: function(xhr, status, error) {
+                     console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+<script>
+    // add wishlist
+   
+     $(document).ready(function() {
+           $('.CartBtn').click(function() {
+            var ID = $(this).data('id');
+            var price = $(this).data('price');
+             var icon = $(this).attr('id');
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("Add_to_Cart") }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                     product_id: ID,
+                     price: price,
+                     
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#' + icon).html(response.data);
+                      
+                },
+                error: function(xhr, status, error) {
+                     console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
 
   </body>
 </html>

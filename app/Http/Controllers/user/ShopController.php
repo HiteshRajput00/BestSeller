@@ -11,13 +11,13 @@ use Illuminate\Http\Request;
 class ShopController extends Controller
 {
     public function shop(){
-        $products = product::paginate(3);
+        $products = product::paginate(10);
         return view('web.shop.products' , compact('products'));
     }
 
-    public function singleProduct($id){
-        $product = Product::find($id);
-        $media = Media::where('product_id',$id)->get();
+    public function singleProduct($slug){
+        $product = Product::where('slug',$slug)->first();
+        $media = Media::where('product_id',$product->id)->get();
         return view('web.shop.single-product',compact('product','media'));
     }
 
