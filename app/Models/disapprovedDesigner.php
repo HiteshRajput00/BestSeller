@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class disapprovedDesigner extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'reason'
+    ];
 }
