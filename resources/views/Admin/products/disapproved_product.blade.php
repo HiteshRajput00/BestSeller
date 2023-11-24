@@ -1,9 +1,9 @@
 @extends('Admin-layout.master')
 @section('content')
-<div class="login-form-bg h-100">
+<div style="padding-left: 150px" class="login-form-bg h-100">
     <div class="container h-100">
         <div class="row justify-content-center h-100">
-            <div class="col-xl-10">
+            <div class="col-xl-12">
             <div class="nk-block">
                 <div class="row g-gs">
                     @foreach($products as $p)

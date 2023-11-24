@@ -109,7 +109,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" name="Name" id="fullName" value="{{ Auth::user()->name }}" placeholder="Enter full name">
+                            <input type="text" class="form-control" name="name" id="fullName" value="{{ Auth::user()->name }}" placeholder="Enter full name">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

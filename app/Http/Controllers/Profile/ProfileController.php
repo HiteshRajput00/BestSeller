@@ -100,7 +100,7 @@ class ProfileController extends Controller
         }
 
         $user = User::find(Auth::user()->id);   // update details
-        if(!$req->name === null){
+        if($req->name !== null){
            $user->update([
             'name'=>$req->name,
             'email'=>$req->email,

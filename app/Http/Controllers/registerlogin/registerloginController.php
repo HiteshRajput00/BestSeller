@@ -81,8 +81,10 @@ class registerloginController extends Controller
         'number'=>$req->number,
         'message' => 'you have successfully registered to web....... Enjoy!'
     ];
- 
-        Mail::to('hiteshrana3204@gmail.com')->send(new notificationmail($maildata));   // mail  to admin 
+         $admin = User::where('role','admin')->get('email');
+         foreach($admin as $admin_email){
+        Mail::to($admin_email)->send(new notificationmail($maildata));   // mail  to admin 
+    }
         Mail::to($req->email)->send(new userNotify_mail($userdata));    // mail  to registered user
 
 
