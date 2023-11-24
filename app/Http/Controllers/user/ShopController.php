@@ -10,41 +10,46 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function shop(){
+    public function shop()
+    {
         $products = product::paginate(10);
-        return view('web.shop.products' , compact('products'));
+        return view('web.shop.products', compact('products'));
     }
 
-    public function singleProduct($slug){
-        $product = Product::where('slug',$slug)->first();
-        $media = Media::where('product_id',$product->id)->get();
-        return view('web.shop.single-product',compact('product','media'));
+    public function singleProduct($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        $media = Media::where('product_id', $product->id)->get();
+        return view('web.shop.single-product', compact('product', 'media'));
     }
 
-    public function increaseProductQty(Request $req){
-       $data = Product::find($req->input('product_id'));
-       $qty = $req->input('qty') + 1;
-       $total_price = $data->price * $qty;
-       return response()->json(['newQty' => $qty , 'total_price' => $total_price]);
-
-    }
-
-    public function decreaseProductQty(Request $req){
+    public function increaseProductQty(Request $req)
+    {
         $data = Product::find($req->input('product_id'));
-        if($req->input('qty')>1){
-        $qty = $req->input('qty') - 1;
+        $qty = $req->input('qty') + 1;
         $total_price = $data->price * $qty;
-        return response()->json(['newQty' => $qty , 'total_price' => $total_price]);
-        }else{
-        return ;
-       }
- 
+        return response()->json(['newQty' => $qty, 'total_price' => $total_price]);
+
     }
 
-    public function explorecategory($slug){
-        $cat = Categories::where('slug',$slug)->first();
-        $products = Product::where('category_id',$cat->id)->paginate(9);
-        return view('web.explore-category.index',compact('products','cat'));
-        
+    public function decreaseProductQty(Request $req)
+    {
+        $data = Product::find($req->input('product_id'));
+        if ($req->input('qty') > 1) {
+            $qty = $req->input('qty') - 1;
+            $total_price = $data->price * $qty;
+            return response()->json(['newQty' => $qty, 'total_price' => $total_price]);
+        } else {
+            return;
+        }
+
+    }
+
+    public function explorecategory($slug)
+    {
+        $cat = Categories::where('slug', $slug)->first();
+        $products = Product::where('category_id', $cat->id)->paginate(9);
+        return view('web.explore-category.index', compact('products', 'cat'));
+
     }
 }
