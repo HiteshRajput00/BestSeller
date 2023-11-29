@@ -9,5 +9,5 @@ class UserImage extends Model
 {
     use HasFactory;
 
-    protected $fillable =['profile_image'];
+    protected $fillable = ['profile_image'];
 }

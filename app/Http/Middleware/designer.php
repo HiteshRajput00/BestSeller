@@ -16,12 +16,12 @@ class designer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role === 'designer'){
-           
-                return $next($request);
-            }else{
-                return redirect('/');
-            }
+        if (Auth::check() && Auth::user()->role === 'designer') {
+
+            return $next($request);
+        } else {
+            return redirect('/');
+        }
         // return $next($request);
     }
 }

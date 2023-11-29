@@ -17,13 +17,13 @@ class Is_approved
      */
     public function handle(Request $request, Closure $next): Response
     {
-           if((Auth::user()->is_disapproved === false && Auth::user()->is_approved === false)||(  Auth::user()->is_disapproved === true )){
-                Alert::warning('Not Approved', 'You are not approved. Contact admin for approval.')->persistent(true, true);
-                return redirect()->back();
-            }else{
-                return $next($request);
-            }
-       
+        if ((Auth::user()->is_disapproved === false && Auth::user()->is_approved === false) || (Auth::user()->is_disapproved === true)) {
+            Alert::warning('Not Approved', 'You are not approved. Contact admin for approval.')->persistent(true, true);
+            return redirect()->back();
+        } else {
+            return $next($request);
+        }
+
     }
 }
 

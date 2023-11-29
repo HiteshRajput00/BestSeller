@@ -54,10 +54,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-dashboard/user-list', [AdminDashboardController::class, 'userlist'])->name('user_list');
 
 
-    //::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
-    Route::get('/admin-dashboard/admin-profile', [AdminDashboardController::class, 'adminProfile']);
-    Route::Post('/admin-dashboard/adminprofile-update', [ProfileController::class, 'updateAdminProfile']);
-    // Route::post('/')
+//::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
+Route::get('/admin-dashboard/admin-profile',[AdminDashboardController::class,'adminProfile']);
+Route::Post('/admin-dashboard/adminprofile-update',[ProfileController::class,'updateAdminProfile']);
+// Route::post('/')
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //::::::::::::::::::::::::::Category Routes::::::::::::::::::::::::::::::::://

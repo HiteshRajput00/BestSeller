@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     public function media()
     {
-        return $this->hasMany(Media::class,'product_id','id');
+        return $this->hasMany(Media::class, 'product_id', 'id');
     }
 
     protected $fillable = [
@@ -21,6 +21,6 @@ class Product extends Model
         'is_approved',
         'is_disapproved',
         'status',
-      ];
+    ];
 
 }
