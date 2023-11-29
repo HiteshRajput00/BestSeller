@@ -9,21 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
-    public function  addToWishlist(Request $req){
-        
-        $wishlist = Wishlist::where('user_id',Auth::user()->id)->where('product_id',$req->input('product_id'))->first();
-        if($wishlist){
+    public function addToWishlist(Request $req)
+    {
+
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->where('product_id', $req->input('product_id'))->first();
+        if ($wishlist) {
             $wishlist->delete();
             $icon = "<i class='fa fa-heart'></i>";
-            return response()->json(['data'=>$icon]);
-        }else{
-        $data = new Wishlist();
-        $data->user_id = Auth::user()->id;
-        $data->product_id = $req->input('product_id');
-        $data->save();
-        $icon = '<i style="color:red" class="fa fa-heart"></i>';
-        return response()->json(['data'=>$icon]);
-       }
+            return response()->json(['data' => $icon]);
+        } else {
+            $data = new Wishlist();
+            $data->user_id = Auth::user()->id;
+            $data->product_id = $req->input('product_id');
+            $data->save();
+            $icon = '<i style="color:red" class="fa fa-heart"></i>';
+            return response()->json(['data' => $icon]);
+        }
     }
 
 

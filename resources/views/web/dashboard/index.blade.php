@@ -1,4 +1,3 @@
-
 @extends('front-layout.master')
 @section('content')
     <!-- ***** Main Banner Area Start ***** -->
@@ -15,42 +14,44 @@
                                     <a href="#">Purchase Now!</a>
                                 </div>
                             </div>
-                            <img src="{{url('/user/assets/images/left-banner-image.jpg')}}" alt="">
+                            <img src="{{ url('/user/assets/images/left-banner-image.jpg') }}" alt="">
                         </div>
                     </div>
                 </div>
-               
+
                 <div class="col-lg-6">
                     <div class="right-content">
                         <div class="row">
-                            @if(isset($categories))
-                            @foreach($categories as $category)
-                            <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
-                            @if($products->isNotEmpty())
-                            <div class="col-lg-6">
-                                <div class="right-first-image">
-                                    <div class="thumb">
-                                        <div class="inner-content">
-                                            <h4>{{ $category->name }}</h4>
-                                            <span>Best Clothes For Women</span>
-                                        </div>
-                                        <div class="hover-content">
-                                            <div class="inner">
-                                                <h4>{{ $category->name }}</h4>
-                                               
-                                                <div class="main-border-button">
-                                                    <a href="{{ route('explorecategory',['slug'=>$category->slug]) }}">Discover More</a>
+                            @if (isset($categories))
+                                @foreach ($categories as $category)
+                                    <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
+                                    @if ($products->isNotEmpty())
+                                        <div class="col-lg-6">
+                                            <div class="right-first-image">
+                                                <div class="thumb">
+                                                    <div class="inner-content">
+                                                        <h4>{{ $category->name }}</h4>
+                                                        <span>Best Clothes For Women</span>
+                                                    </div>
+                                                    <div class="hover-content">
+                                                        <div class="inner">
+                                                            <h4>{{ $category->name }}</h4>
+
+                                                            <div class="main-border-button">
+                                                                <a
+                                                                    href="{{ route('explorecategory', ['slug' => $category->slug]) }}">Discover
+                                                                    More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <img src="{{ url('/images/' . $category->image ?? '') }}">
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="{{url('/images/'.$category->image ?? '')}}">
-                                    </div>
-                                </div>
-                            </div>
+                                    @endif
+                                @endforeach
                             @endif
-                            @endforeach
-                            @endif
-                            
+
                         </div>
                     </div>
                 </div>
@@ -59,65 +60,66 @@
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
-    @if(isset($categories))
-    @foreach($categories as $category)
-    <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
-    @if($products->isNotEmpty())
-    <section class="section" id="men">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="section-heading">
-                        <h2>{{ $category->name }} Latest</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="men-item-carousel">
-                        <div class="owl-men-item owl-carousel">
-                            @foreach($products as $product)
-                            <?php $media = App\Models\Media::class::where('product_id',$product->id)->first(); ?>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <div class="inner">
-                                            <h4>{{ $product->name }}</h4>
-                                            <p>{{ $product->description }}</p>
-                                            <div class="main-border-button">
-                                                <a href="{{route('single_product' ,['slug'=>$product->slug])}}">Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <img src="{{url('/images/'.$media->image ?? '')}}">
-                                </div>
-                                <div class="down-content">
-                                    <h4>{{ $product->name }}</h4>
-                                    <span>${{ $product->price }}</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
+    @if (isset($categories))
+        @foreach ($categories as $category)
+            <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
+            @if ($products->isNotEmpty())
+                <section class="section" id="men">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="section-heading">
+                                    <h2>{{ $category->name }} Latest</h2>
+                                    <span>Details to details is what makes Hexashop different from the other themes.</span>
                                 </div>
                             </div>
-                            @endforeach
-                            
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="men-item-carousel">
+                                    <div class="owl-men-item owl-carousel">
+                                        @foreach ($products as $product)
+                                            <?php $media = App\Models\Media::class::where('product_id',$product->id)->first(); ?>
+                                            <div class="item">
+                                                <div class="thumb">
+                                                    <div class="hover-content">
+                                                        <div class="inner">
+                                                            <h4>{{ $product->name }}</h4>
+                                                            <p>{{ $product->description }}</p>
+                                                            <div class="main-border-button">
+                                                                <a
+                                                                    href="{{ route('single_product', ['slug' => $product->slug]) }}">Details</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <img src="{{ url('/images/' . $media->image ?? '') }}">
+                                                </div>
+                                                <div class="down-content">
+                                                    <h4>{{ $product->name }}</h4>
+                                                    <span>${{ $product->price }}</span>
+                                                    <ul class="stars">
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+        @endforeach
     @endif
-@endforeach
-@endif
-  
+
     <!-- ***** Explore Area Starts ***** -->
     <section class="section" id="explore">
         <div class="container">
@@ -125,12 +127,18 @@
                 <div class="col-lg-6">
                     <div class="left-content">
                         <h2>Explore Our Products</h2>
-                        <span>You are allowed to use this HexaShop HTML CSS template. You can feel free to modify or edit this layout. You can convert this template as any kind of ecommerce CMS theme as you wish.</span>
+                        <span>You are allowed to use this HexaShop HTML CSS template. You can feel free to modify or edit
+                            this layout. You can convert this template as any kind of ecommerce CMS theme as you
+                            wish.</span>
                         <div class="quote">
-                            <i class="fa fa-quote-left"></i><p>You are not allowed to redistribute this template ZIP file on any other website.</p>
+                            <i class="fa fa-quote-left"></i>
+                            <p>You are not allowed to redistribute this template ZIP file on any other website.</p>
                         </div>
-                        <p>There are 5 pages included in this HexaShop Template and we are providing it to you for absolutely free of charge at our TemplateMo website. There are web development costs for us.</p>
-                        <p>If this template is beneficial for your website or business, please kindly <a rel="nofollow" href="https://paypal.me/templatemo" target="_blank">support us</a> a little via PayPal. Please also tell your friends about our great website. Thank you.</p>
+                        <p>There are 5 pages included in this HexaShop Template and we are providing it to you for
+                            absolutely free of charge at our TemplateMo website. There are web development costs for us.</p>
+                        <p>If this template is beneficial for your website or business, please kindly <a rel="nofollow"
+                                href="https://paypal.me/templatemo" target="_blank">support us</a> a little via PayPal.
+                            Please also tell your friends about our great website. Thank you.</p>
                         <div class="main-border-button">
                             <a href="products.html">Discover More</a>
                         </div>
@@ -147,12 +155,12 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="first-image">
-                                    <img src="{{url('/user/assets/images/explore-image-01.jpg')}}" alt="">
+                                    <img src="{{ url('/user/assets/images/explore-image-01.jpg') }}" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="second-image">
-                                    <img src="{{url('/user/assets/images/explore-image-02.jpg')}}" alt="">
+                                    <img src="{{ url('/user/assets/images/explore-image-02.jpg') }}" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -191,7 +199,7 @@
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </div>
-                        <img src="{{url('/user/assets/images/instagram-01.jpg')}}" alt="">
+                        <img src="{{ url('/user/assets/images/instagram-01.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-2">
@@ -202,7 +210,7 @@
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </div>
-                        <img src="{{url('/user/assets/images/instagram-02.jpg')}}" alt="">
+                        <img src="{{ url('/user/assets/images/instagram-02.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-2">
@@ -213,7 +221,7 @@
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </div>
-                        <img src="{{url('/user/assets/images/instagram-03.jpg')}}" alt="">
+                        <img src="{{ url('/user/assets/images/instagram-03.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-2">
@@ -224,7 +232,7 @@
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </div>
-                        <img src="{{url('/user/assets/images/instagram-04.jpg')}}" alt="">
+                        <img src="{{ url('/user/assets/images/instagram-04.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-2">
@@ -235,7 +243,7 @@
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </div>
-                        <img src="{{url('/user/assets/images/instagram-05.jpg')}}" alt="">
+                        <img src="{{ url('/user/assets/images/instagram-05.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-2">
@@ -246,7 +254,7 @@
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </div>
-                        <img src="{{url('/user/assets/images/instagram-06.jpg')}}" alt="">
+                        <img src="{{ url('/user/assets/images/instagram-06.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -265,21 +273,24 @@
                     </div>
                     <form id="subscribe" action="" method="get">
                         <div class="row">
-                          <div class="col-lg-5">
-                            <fieldset>
-                              <input name="name" type="text" id="name" placeholder="Your Name" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-lg-5">
-                            <fieldset>
-                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-lg-2">
-                            <fieldset>
-                              <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
-                            </fieldset>
-                          </div>
+                            <div class="col-lg-5">
+                                <fieldset>
+                                    <input name="name" type="text" id="name" placeholder="Your Name"
+                                        required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-5">
+                                <fieldset>
+                                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
+                                        placeholder="Your Email Address" required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-2">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-dark-button"><i
+                                            class="fa fa-paper-plane"></i></button>
+                                </fieldset>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -296,7 +307,9 @@
                             <ul>
                                 <li>Work Hours:<br><span>07:30 AM - 9:30 PM Daily</span></li>
                                 <li>Email:<br><span>info@company.com</span></li>
-                                <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
+                                <li>Social Media:<br><span><a href="#">Facebook</a>, <a
+                                            href="#">Instagram</a>, <a href="#">Behance</a>, <a
+                                            href="#">Linkedin</a></span></li>
                             </ul>
                         </div>
                     </div>
@@ -305,7 +318,6 @@
         </div>
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
-   
-    
-    @endsection
-   
+
+
+@endsection
