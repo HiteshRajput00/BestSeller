@@ -3,25 +3,51 @@
 namespace App\Http\Controllers\Subscription;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Stripe\Checkout\Session;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Stripe;
 
 class SubscriptionController extends Controller
 {
-    public function create(Request $request)
+    public function subscriptionProcess(Request $req)
     {
-        $user = $request->user();
+        try {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' =>
+                    [
+                        'price_data' => [
+                            'currency' => 'inr',
+                            'unit_amount' => 31000, 
+                        ],
+                    ],
+                'success_url' => url('/subscription-success'),
+                'cancel_url' => url('/subscription-fail'),
+            ]);
 
-        $user->newSubscription('main', 'monthly')->create();
+            return response()->json(['id' => $session->id]);
+        } catch (ApiErrorException $e) {
 
-        return redirect()->route('dashboard')->with('success', 'Subscription created successfully!');
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
-    public function cancel(Request $request)
+    public function subscriptionSuccess(Request $req)
     {
-        $user = $request->user();
+        dd($req->all());
+        $data = new Subscription();
+        $data->user_id = Auth::user()->id;
+        $data->recuring_time = "yearly";
+        $data->discount_percentage = 20;
 
-        $user->subscription('main')->cancel();
+    }
 
-        return redirect()->route('dashboard')->with('success', 'Subscription canceled successfully!');
+    public function subscriptionFail()
+    {
+
     }
 }

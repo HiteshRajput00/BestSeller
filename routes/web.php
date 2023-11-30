@@ -9,6 +9,7 @@ use App\Http\Controllers\Designer\ProductController;
 use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\registerloginController;
+use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
@@ -142,6 +143,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     // logout route
     Route::get('/logout', [registerloginController::class, 'logout'])->name('logout');
+
+    // subscription Routes //
+    Route::post('/subscription-process',[SubscriptionController::class , 'subscriptionProcess']);
+    Route::get('/subscription-success',[SubscriptionController::class , 'subscriptionSuccess']);
+    Route::get('/subscription-fail',[SubscriptionController::class , 'subscriptionFail']);
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 

@@ -150,7 +150,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <p><strong>Expected shipping delivery</strong></p>
-                            <p class="mb-0">12.10.2020 - 14.10.2020</p>
+                            <p class="mb-0">{{ now()->format('d M,Y') }} - {{ now()->adddays(2)->format('d M,Y') }} </p>
                         </div>
                     </div>
                     <div class="card mb-4 mb-lg-0">
@@ -166,7 +166,7 @@
                                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
                                 alt="Mastercard" />
                             <img class="me-2" width="45px"
-                                src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
+                                src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.svg"
                                 alt="PayPal acceptance mark" />
                         </div>
                     </div>

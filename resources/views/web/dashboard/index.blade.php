@@ -263,6 +263,7 @@
     <!-- ***** Social Area Ends ***** -->
 
     <!-- ***** Subscribe Area Starts ***** -->
+   
     <div class="subscribe">
         <div class="container">
             <div class="row">
@@ -271,7 +272,7 @@
                         <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
                         <span>Details to details is what makes Hexashop different from the other themes.</span>
                     </div>
-                    <form id="subscribe" action="" method="get">
+                    <form  >
                         <div class="row">
                             <div class="col-lg-5">
                                 <fieldset>
@@ -287,7 +288,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <fieldset>
-                                    <button type="submit" id="form-submit" class="main-dark-button"><i
+                                    <button type="button" id="form-submit" class="main-dark-button"><i
                                             class="fa fa-paper-plane"></i></button>
                                 </fieldset>
                             </div>
@@ -318,6 +319,35 @@
         </div>
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
-
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe(
+        'pk_test_51O7AYgSIRjlSt6h3GKjXiN4vqP0Strd7vltj5qFHdb4eN8URJPGUNPbD00jwI1XiFyoMe50cPWN8lpnIs5AIOgVf002gg6Hlla'
+    );
+    document.getElementById('form-submit').addEventListener('click', function () {
+        // var inputValue = $('#inputtotal').val();
+        // const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+    fetch('/subscription-process', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        body: JSON.stringify({
+           
+        }),
+    })
+    .then(response => response.json())
+    .then(session => {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+    })
+    .then(result => {
+        // Handle the result
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
 
 @endsection
