@@ -76,13 +76,15 @@
                                 <div class="down-content">
                                     <h4>{{ $product->name }}</h4>
                                     <span>${{ $product->price }}</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
+                                    <?php $review = App\Models\ProductReview::class::where('product_id', $product->id)->avg('rating'); ?>
+                                    @if ($review)
+                                        <ul class="stars">
+                                            @for ($i = 1; $i <= $review; $i++)
+                                                <li><i style="color: #deb217" class="fa fa-star"></i></li>
+                                            @endfor
+
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>

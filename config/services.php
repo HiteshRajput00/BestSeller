@@ -30,5 +30,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'recaptcha' => [
+        'site_key' => env('NOCAPTCHA_SITEKEY'),
+        'secret_key' => env('NOCAPTCHA_SECRET'),
+    ],
 
 ];

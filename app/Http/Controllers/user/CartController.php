@@ -12,7 +12,8 @@ class CartController extends Controller
 {
     public function CartPage()
     {
-        return view('web.Cart.index');
+        $Cart_data = Cart::where('user_id',Auth::user()->id)->get();
+        return view('web.Cart.index',compact('Cart_data'));
     }
 
     public function AddtoCart(Request $req)
@@ -40,5 +41,16 @@ class CartController extends Controller
     {
         $Product = Product::where('slug', $slug)->first();
         $cart = Cart::where('user_id', Auth::user()->id)->where('product_id', $Product->id)->first();
+    }
+
+    public function removeCartProduct(Request $req)
+    {
+        $ID = $req->input('id');
+        // return $ID;
+        $cart = Cart::find($ID);
+        if($cart){
+            $cart->delete();
+        }
+        return response()->json(['success' => true]);
     }
 }

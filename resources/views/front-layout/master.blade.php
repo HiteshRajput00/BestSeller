@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-
+    {{-- {!! app('captcha')->renderJs() !!} --}}
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
         rel="stylesheet">
 
     <title>Hexashop Ecommerce HTML CSS Template</title>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-star-rating@4.0.6/js/star-rating.min.js"></script>
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url('/user/assets/css/bootstrap.min.css') }}">
 
@@ -54,7 +55,7 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="{{ url('/') }}" class="logo">
                             <img src="{{ url('/user/assets/images/logo.png') }}">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -85,7 +86,8 @@ https://templatemo.com/tm-571-hexashop
                                         @foreach ($categories as $category)
                                             <?php $P = App\Models\Product::where('category_id', $category->id)->get(); ?>
                                             @if ($P->isNotEmpty())
-                                                <li><a href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
+                                               
+                                            <li><a  href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
                                                             class="fa fa-fw fa-tags"></i>{{ $category->name }}</a></li>
                                             @endif
                                         @endforeach
@@ -96,9 +98,13 @@ https://templatemo.com/tm-571-hexashop
                             @if (Auth::check())
                                 <li class="scroll-to-section"><a href="/cart"><i style="font-size: 1.6em"
                                             class="fa fa-shopping-cart"></i></a></li>
+                                <li class="scroll-to-section"><a href="/favourite"><i
+                                            style="font-size: 1.6em; color:red" class="fa fa-heart"></i></a></li>
                             @else
                                 <li class="scroll-to-section"><a href="/login"><i style="font-size: 1.6em"
                                             class="fa fa-shopping-cart"></i></a></li>
+                                <li class="scroll-to-section"><a href="/login"><i style="font-size: 1.6em"
+                                            class="fa fa-heart"></i></a></li>
                             @endif
                         </ul>
                         <a class='menu-trigger'>
@@ -133,9 +139,12 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>Shopping &amp; Categories</h4>
                     <ul>
-                        <li><a href="#">Men’s Shopping</a></li>
-                        <li><a href="#">Women’s Shopping</a></li>
-                        <li><a href="#">Kid's Shopping</a></li>
+                        @if ($categories)
+                            @foreach ($categories as $category)
+                                <li><a href="{{ route('explorecategory', ['slug' => $category->slug]) }}">{{ $category->slug }}
+                                        Shopping</a></li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -178,6 +187,8 @@ https://templatemo.com/tm-571-hexashop
 
     <!-- jQuery -->
     <script src="{{ url('/user/assets/js/jquery-2.1.0.min.js') }}"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
+
 
     <!-- Bootstrap -->
     <script src="{{ url('/user/assets/js/popper.js') }}"></script>
@@ -214,7 +225,6 @@ https://templatemo.com/tm-571-hexashop
         });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         // add wishlist
 
@@ -279,6 +289,7 @@ https://templatemo.com/tm-571-hexashop
             });
         });
     </script>
+
 
 </body>
 

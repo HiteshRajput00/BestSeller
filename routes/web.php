@@ -11,6 +11,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\registerloginController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
+use App\Http\Controllers\user\reviewController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Controllers\user\WishlistController;
@@ -132,15 +133,20 @@ Route::group(['middleware' => 'auth'], function () {
     //::::::::::::::::::::::::::: Cart  Routes ::::::::::::::::::::::::::::::::::::::://
     Route::get('/cart', [CartController::class, 'CartPage']);
     Route::Post('/add-to-cart', [CartController::class, 'AddtoCart'])->name('Add_to_Cart');
+    Route::Post('/removeProduct',[CartController::class,'removeCartProduct'])->name('remove_product');
     Route::get('/add-product-to-cart/{slug}', [CartController::class, 'Cart'])->name('Add_Cart');
     Route::post('/increase-product-quantity', [ShopController::class, 'increaseProductQty'])->name('Increase_Quantity');
     Route::post('/decrease-product-quantity', [ShopController::class, 'decreaseProductQty'])->name('decrease_Quantity');
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //:::::::::::::::::::::::::::::::: Wishlist Routes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+    Route::get('/favourite',[WishlistController::class , 'favourite']);
     Route::Post('/add-to-wishlist', [WishlistController::class, 'addToWishlist'])->name('Add_Wishlist');
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
+    //:: review routes :://
+    Route::Post('/add-review', [reviewController::class , 'AddReview']);
+    
     // logout route
     Route::get('/logout', [registerloginController::class, 'logout'])->name('logout');
 
@@ -150,12 +156,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/subscription-fail',[SubscriptionController::class , 'subscriptionFail']);
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-
-
-
-
-
-
-
-
 

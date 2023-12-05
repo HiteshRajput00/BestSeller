@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\Media;
 use App\Models\Product;
+use App\Models\ProductReview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -20,7 +22,8 @@ class ShopController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $media = Media::where('product_id', $product->id)->get();
-        return view('web.shop.single-product', compact('product', 'media'));
+        $review = ProductReview::where('product_id',$product->id)->avg('rating');
+        return view('web.shop.single-product', compact('product', 'media' ,'review'));
     }
 
     public function increaseProductQty(Request $req)

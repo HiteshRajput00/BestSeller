@@ -338,8 +338,8 @@
         }),
     })
     .then(response => response.json())
-    .then(session => {
-        return stripe.redirectToCheckout({ sessionId: session.id });
+    .then(Product => {
+        return stripe.redirectToCheckout({ ProductID: Product.id });
     })
     .then(result => {
         // Handle the result

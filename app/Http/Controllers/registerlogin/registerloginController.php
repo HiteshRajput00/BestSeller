@@ -32,7 +32,8 @@ class registerloginController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required',
             'number' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $data = new User();
@@ -82,7 +83,8 @@ class registerloginController extends Controller
             'name' => $req->name,
             'email' => $req->email,
             'number' => $req->number,
-            'message' => 'you have successfully registered to web....... Enjoy!'
+            'message' => 'you have successfully registered to web....... Enjoy!',
+           
         ];
         $admin = User::where('role', 'admin')->get('email');
         foreach ($admin as $admin_email) {
@@ -104,9 +106,12 @@ class registerloginController extends Controller
     // ::::::::::::::: login function :::::::::::::::::::::::::::::://
     public function loginprocess(Request $req)
     {
+        // dd($req->all());
         $req->validate([
+            // 'g-recaptcha-response' => 'required|captcha',
             'email' => 'required',
             'password' => 'required',
+            
         ]);
         $credent = $req->only('email', 'password');
 

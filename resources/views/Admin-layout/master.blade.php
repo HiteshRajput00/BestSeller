@@ -56,7 +56,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                                     <li>
                                         <div class="notification-title"> Notification</div>
-
+                                                <div id="messages"></div>
                                         <div class="list-group justify-center">
                                             <p>you don't have any new notification</p>
 
@@ -368,6 +368,7 @@
             });
         });
     </script>
+   
 </body>
 
 </html>

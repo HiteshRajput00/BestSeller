@@ -24,6 +24,14 @@
                                         <div class="text text-danger">{{ session('msg') }} </div>
                                     @endif
                                     <br>
+                                    
+                                    {!! app('captcha')->display() !!}
+                                    <div class="text text-danger">
+                                        @error('email')
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                    <br>
                                     <button class="btn login-form__btn submit w-100 btn-light" type="submit"
                                         name="log">Sign In</button>
                                 </form>
@@ -36,4 +44,5 @@
             </div>
         </div>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection

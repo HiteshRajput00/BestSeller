@@ -43,7 +43,7 @@
                                             @if (Auth::check())
                                                 <?php $data = App\Models\Wishlist::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
                                                 @if ($data)
-                                                    <li><a type="button" class="addWishlist" id="{{ $product->slug }}"
+                                                    <li><a type="button" class="addWishlist" id="{{ $product->slug ?? '' }}"
                                                             data-id="{{ $product->id }}"><i style="color: red"
                                                                 class="fa fa-heart"></i></a></li>
                                                 @else
@@ -75,12 +75,13 @@
                                 <div class="down-content">
                                     <h4>{{ $product->name }}</h4>
                                     <span>${{ $product->price }}</span>
+                                    <?php $review = App\Models\ProductReview::class::where('user_name', Auth::user()->name)
+                                        ->where('product_id', $product->id)
+                                        ->avg('rating'); ?>
                                     <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
+                                        @for ($i = 1; $i <= $review; $i++)
+                                            <li><i style="color: #deb217" class="fa fa-star"></i></li>
+                                        @endfor
                                     </ul>
                                 </div>
                             </div>
