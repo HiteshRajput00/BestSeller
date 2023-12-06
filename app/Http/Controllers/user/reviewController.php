@@ -21,6 +21,6 @@ class reviewController extends Controller
         $data->rating = $req->rate;
         $data->comment = $req->comment;
         $data->save();
-        return back()->with('success', 'review added successfully');
+        return response()->json('success');
     }
 }

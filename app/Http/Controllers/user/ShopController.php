@@ -26,27 +26,7 @@ class ShopController extends Controller
         return view('web.shop.single-product', compact('product', 'media' ,'review'));
     }
 
-    public function increaseProductQty(Request $req)
-    {
-        $data = Product::find($req->input('product_id'));
-        $qty = $req->input('qty') + 1;
-        $total_price = $data->price * $qty;
-        return response()->json(['newQty' => $qty, 'total_price' => $total_price]);
 
-    }
-
-    public function decreaseProductQty(Request $req)
-    {
-        $data = Product::find($req->input('product_id'));
-        if ($req->input('qty') > 1) {
-            $qty = $req->input('qty') - 1;
-            $total_price = $data->price * $qty;
-            return response()->json(['newQty' => $qty, 'total_price' => $total_price]);
-        } else {
-            return;
-        }
-
-    }
 
     public function explorecategory($slug)
     {

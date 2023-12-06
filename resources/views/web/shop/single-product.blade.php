@@ -78,35 +78,36 @@
                             @endforeach
                         @endif
                     </div>
-                  
-                        <form style="display: " method="post" action="/add-review">
-                            @csrf
-                            <div class="form-group">
-                                <div class="rate">
-                                    <input class="showRadio" type="radio" id="star5" name="rate" value="5" />
-                                    <label for="star5" title="text">5 stars</label>
-                                    <input class="showRadio" type="radio" id="star4" name="rate" value="4" />
-                                    <label for="star4" title="text">4 stars</label>
-                                    <input class="showRadio" type="radio" id="star3" name="rate" value="3" />
-                                    <label for="star3" title="text">3 stars</label>
-                                    <input class="showRadio" type="radio" id="star2" name="rate" value="2" />
-                                    <label for="star2" title="text">2 stars</label>
-                                    <input class="showRadio" type="radio" id="star1" name="rate" value="1" />
-                                    <label for="star1" title="text">1 star</label>
-                                </div>
-                                <br>
+                    <div id="response"></div>
+                    <form id="myForm">
+                        @csrf
+                        <div class="form-group">
+                            <div class="rate">
+                                <input class="showRadio" type="radio" id="star5" name="rate" value="5" />
+                                <label for="star5" title="text">5 stars</label>
+                                <input class="showRadio" type="radio" id="star4" name="rate" value="4" />
+                                <label for="star4" title="text">4 stars</label>
+                                <input class="showRadio" type="radio" id="star3" name="rate" value="3" />
+                                <label for="star3" title="text">3 stars</label>
+                                <input class="showRadio" type="radio" id="star2" name="rate" value="2" />
+                                <label for="star2" title="text">2 stars</label>
+                                <input class="showRadio" type="radio" id="star1" name="rate" value="1" />
+                                <label for="star1" title="text">1 star</label>
                             </div>
                             <br>
-                            <div id="hiddenDiv" class="form-group">
-                                <label for="comment">Your Review:</label>
-                                <textarea class="form-control" name="comment"></textarea>
+                        </div>
+                        <br>
+                        <div id="hiddenDiv" class="form-group">
+                            <label for="comment">Your Review:</label>
+                            <textarea class="form-control" name="comment"></textarea>
 
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <br>
-                                <button class="btn btn-primary" type="submit">Submit Review</button>
-                            </div>
-                        </form>
-                    
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <br>
+                            <button class="btn btn-primary" type="button" id="review_btn" onclick="submitForm()">Submit
+                                Review</button>
+                        </div>
+                    </form>
+
                 </div>
                 <div class="col-lg-6 p-5">
                     <div class="right-content">
@@ -124,23 +125,6 @@
                             <i class="fa fa-quote-left"></i>
                             <p>{{ $product->description }}</p>
                         </div>
-                        {{-- <div class="quantity-content">
-                            <div class="left-content">
-                                <h6>No. of Orders</h6>
-                            </div>
-                            <div class="right-content">
-                                <div class="quantity buttons_added">
-                                    <button type="button" id="deleteQuantity" data-id="{{ $product->id }}"
-                                        class="minus">-</button>
-                                    <input type="text" id="QuantityInput" step="1" min="1" max=""
-                                        name="quantity" value="1" title="Qty" class="input-text qty text"
-                                        size="4">
-                                    <button type="button" id="addQuantityBtn" data-id="{{ $product->id }}"
-                                        class="minus">-</button>
-                                </div>
-                            </div>
-                        </div> --}}
-
                         <div class="total p-5">
                             <h4>Total: $<strong id="total_price">{{ $product->price }}</strong></h4>
                             <div class="main-border-button"><a
@@ -166,58 +150,23 @@
                 }
             });
         });
+        
+        // submit review
+        function submitForm() {
+            var formData = $('#myForm').serialize();
 
-        // Increase qty 
-        const inputvalue = document.getElementById('QuantityInput');
-        $(document).ready(function() {
-            $('#addQuantityBtn').click(function() {
-                var ID = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('Increase_Quantity') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        product_id: ID,
-                        qty: inputvalue.value,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#total_price').text(response.total_price);
-                        inputvalue.value = response.newQty;
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
+            $.ajax({
+                type: 'POST',
+                url: '/add-review',
+                data: formData,
+                success: function(response) {
+                    $('#response').html('thank you');
+                    $('#myForm').hide();
+                },
+                error: function(error) {
+                    console.log(error);
+                }
             });
-        });
-        // decrease qty
-        $(document).ready(function() {
-            $('#deleteQuantity').click(function() {
-                var ID = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('decrease_Quantity') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        product_id: ID,
-                        qty: inputvalue.value,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#total_price').text(response.total_price);
-                        inputvalue.value = response.newQty;
-                    },
-                    error: function(xhr, status, error) {
-                        // Log errors to the console
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
+        }
     </script>
 @endsection

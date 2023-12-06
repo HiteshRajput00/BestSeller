@@ -62,10 +62,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-dashboard/user-list', [AdminDashboardController::class, 'userlist'])->name('user_list');
 
 
-//::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
-Route::get('/admin-dashboard/admin-profile',[AdminDashboardController::class,'adminProfile']);
-Route::Post('/admin-dashboard/adminprofile-update',[ProfileController::class,'updateAdminProfile']);
-// Route::post('/')
+    //::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
+    Route::get('/admin-dashboard/admin-profile', [AdminDashboardController::class, 'adminProfile']);
+    Route::Post('/admin-dashboard/adminprofile-update', [ProfileController::class, 'updateAdminProfile']);
+    // Route::post('/')
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //::::::::::::::::::::::::::Category Routes::::::::::::::::::::::::::::::::://
@@ -139,27 +139,27 @@ Route::group(['middleware' => 'auth'], function () {
     //::::::::::::::::::::::::::: Cart  Routes ::::::::::::::::::::::::::::::::::::::://
     Route::get('/cart', [CartController::class, 'CartPage']);
     Route::Post('/add-to-cart', [CartController::class, 'AddtoCart'])->name('Add_to_Cart');
-    Route::Post('/removeProduct',[CartController::class,'removeCartProduct'])->name('remove_product');
+    Route::Post('/removeProduct', [CartController::class, 'removeCartProduct'])->name('remove_product');
     Route::get('/add-product-to-cart/{slug}', [CartController::class, 'Cart'])->name('Add_Cart');
-    Route::post('/increase-product-quantity', [ShopController::class, 'increaseProductQty'])->name('Increase_Quantity');
-    Route::post('/decrease-product-quantity', [ShopController::class, 'decreaseProductQty'])->name('decrease_Quantity');
+    Route::post('/increase-product-quantity', [CartController::class, 'increaseProductQty'])->name('Increase_Quantity');
+    Route::post('/decrease-product-quantity', [CartController::class, 'decreaseProductQty'])->name('decrease_Quantity');
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //:::::::::::::::::::::::::::::::: Wishlist Routes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-    Route::get('/favourite',[WishlistController::class , 'favourite']);
+    Route::get('/favourite', [WishlistController::class, 'favourite']);
     Route::Post('/add-to-wishlist', [WishlistController::class, 'addToWishlist'])->name('Add_Wishlist');
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //:: review routes :://
-    Route::Post('/add-review', [reviewController::class , 'AddReview']);
-    
+    Route::Post('/add-review', [reviewController::class, 'AddReview']);
+
     // logout route
     Route::get('/logout', [registerloginController::class, 'logout'])->name('logout');
 
     // subscription Routes //
-    Route::post('/subscription-process',[SubscriptionController::class , 'subscriptionProcess']);
-    Route::get('/subscription-success',[SubscriptionController::class , 'subscriptionSuccess']);
-    Route::get('/subscription-fail',[SubscriptionController::class , 'subscriptionFail']);
+    Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
+    Route::get('/subscription-success', [SubscriptionController::class, 'subscriptionSuccess']);
+    Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 

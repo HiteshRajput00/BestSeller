@@ -112,8 +112,6 @@
                                         <div class="form-check d-flex justify-content-left mb-5">
                                             {!! NoCaptcha::renderJs() !!}
                                             {!! NoCaptcha::display() !!}
-
-
                                         </div>
 
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
@@ -122,7 +120,7 @@
                                         </div>
 
                                     </form>
-                                    <h4 style="color: black">Have account ?<a href="/login" class="btn btn-dark">Sign in
+                                    <h4 style="color: black">Have account ?<a href="/login" >Sign in
                                         </a> </h4>
 
                                 </div>
