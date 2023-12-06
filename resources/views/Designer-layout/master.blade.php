@@ -148,8 +148,13 @@
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php $image = App\Models\UserImage::class::where('user_id',Auth::user()->id)->first(); ?>
+                                @if($image)
                                 <img src="{{ url('/images/' . $image->profile_image ?? '') }}" alt=""
                                     class="user-avatar-md rounded-circle">
+                                @else
+                                <img src="" alt=""
+                                class="user-avatar-md rounded-circle">
+                                @endif
 
                             </a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"

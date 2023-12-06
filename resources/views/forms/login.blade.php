@@ -1,48 +1,111 @@
 @extends('front-layout.master')
 @section('content')
-    <div class="login-form-bg h-100">
-        <div class="container h-100">
-            <div class="row justify-content-center h-100">
-                <div class="col-xl-6">
-                    <div class="form-input-content">
-                        <div class="card login-form mb-0">
-                            <div class="card-body pt-5">
-                                <a class="text-center" href="/home">
-                                    <h4>sign in</h4>
-                                </a>
-
-                                <form class="mt-5 mb-5 login-input" method="post" action="/loginprocess">
-                                    @csrf
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email" name="email">
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password" name="password">
-                                    </div>
-                                    @if (session('msg'))
-                                        <div class="text text-danger">{{ session('msg') }} </div>
-                                    @endif
-                                    <br>
-                                    
-                                    {!! app('captcha')->display() !!}
-                                    <div class="text text-danger">
-                                        @error('email')
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                    <br>
-                                    <button class="btn login-form__btn submit w-100 btn-light" type="submit"
-                                        name="log">Sign In</button>
-                                </form>
-                                <h4 style="color: black">Dont have account? <a href="/register" class="btn btn-light">Sign
-                                        Up</a> now</h4>
-                            </div>
-                        </div>
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Check Our Products</h2>
+                        <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- ***** Main Banner Area End ***** -->
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .h-custom {
+            height: calc(100% - 73px);
+        }
+
+        @media (max-width: 450px) {
+            .h-custom {
+                height: 100%;
+            }
+        }
+    </style>
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img style="opacity: 0.3;" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid"
+                    alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form class="mt-5 mb-5 login-input" method="post" action="/loginprocess">
+                    @csrf
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                        <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+                        <button type="button" class="btn btn-light btn-floating mx-1">
+                            <i class="fa fa-facebook-f"></i>
+                        </button>
+
+                        <a href="{{ route('login_google') }}" class="btn btn-light btn-floating mx-1">
+                            <i class="fa fa-google"></i>
+                        </a>
+
+                        {{-- <button type="button" class="btn btn-light btn-floating mx-1">
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        </button> --}}
+                    </div>
+
+                    <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0">Or</p>
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" class="form-control" placeholder="Email" name="email">
+                        <label class="form-label" for="form3Example3">Email address</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                        <input type="checkbox" id="show-password"> Show Password
+
+                    </div>
+
+                    @if (session('msg'))
+                        <div class="text text-danger">{{ session('msg') }} </div>
+                    @endif
+                    <br>
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+                    <div class="text text-danger">
+                        @error('g-recaptcha-response')
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button class="btn login-form__btn submit  btn-dark" type="submit"
+                            name="log">LogIn</button>
+                        <p class=" fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register"
+                                class="link-danger">Register</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            const showPasswordCheckbox = document.getElementById('show-password');
+
+            showPasswordCheckbox.addEventListener('change', function() {
+                passwordInput.type = this.checked ? 'text' : 'password';
+            });
+        });
+    </script>
 @endsection

@@ -28,12 +28,13 @@ class registerloginController extends Controller
     public function regprocess(Request $req)
     {
         $req->validate([      // validate data according to request
+            'g-recaptcha-response' => 'required|captcha',
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
             'number' => 'required',
             'role' => 'required',
-            'g-recaptcha-response' => 'required|captcha',
+            
         ]);
 
         $data = new User();
@@ -108,7 +109,7 @@ class registerloginController extends Controller
     {
         // dd($req->all());
         $req->validate([
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'email' => 'required',
             'password' => 'required',
             

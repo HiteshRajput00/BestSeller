@@ -99,13 +99,16 @@
                                                 <div class="down-content">
                                                     <h4>{{ $product->name }}</h4>
                                                     <span>${{ $product->price }}</span>
-                                                    <ul class="stars">
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
+                                                    <?php $review = App\Models\ProductReview::class::
+                                                     where('product_id', $product->id)
+                                                    ->avg('rating'); ?>
+                                                    @if ($review)
+                                                        <ul class="stars">
+                                                            @for ($i = 1; $i <= $review; $i++)
+                                                                <li><i style="color: #deb217" class="fa fa-star"></i></li>
+                                                            @endfor
+                                                        </ul>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endforeach
@@ -263,7 +266,7 @@
     <!-- ***** Social Area Ends ***** -->
 
     <!-- ***** Subscribe Area Starts ***** -->
-   
+
     <div class="subscribe">
         <div class="container">
             <div class="row">
@@ -272,7 +275,7 @@
                         <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
                         <span>Details to details is what makes Hexashop different from the other themes.</span>
                     </div>
-                    <form  >
+                    <form>
                         <div class="row">
                             <div class="col-lg-5">
                                 <fieldset>
@@ -319,35 +322,37 @@
         </div>
     </div>
     <!-- ***** Subscribe Area Ends ***** -->
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-    var stripe = Stripe(
-        'pk_test_51O7AYgSIRjlSt6h3GKjXiN4vqP0Strd7vltj5qFHdb4eN8URJPGUNPbD00jwI1XiFyoMe50cPWN8lpnIs5AIOgVf002gg6Hlla'
-    );
-    document.getElementById('form-submit').addEventListener('click', function () {
-        // var inputValue = $('#inputtotal').val();
-        // const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-    fetch('/subscription-process', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        },
-        body: JSON.stringify({
-           
-        }),
-    })
-    .then(response => response.json())
-    .then(Product => {
-        return stripe.redirectToCheckout({ ProductID: Product.id });
-    })
-    .then(result => {
-        // Handle the result
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});
-</script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe(
+            'pk_test_51O7AYgSIRjlSt6h3GKjXiN4vqP0Strd7vltj5qFHdb4eN8URJPGUNPbD00jwI1XiFyoMe50cPWN8lpnIs5AIOgVf002gg6Hlla'
+        );
+        document.getElementById('form-submit').addEventListener('click', function() {
+            // var inputValue = $('#inputtotal').val();
+            // const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+            fetch('/subscription-process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    body: JSON.stringify({
+
+                    }),
+                })
+                .then(response => response.json())
+                .then(Product => {
+                    return stripe.redirectToCheckout({
+                        ProductID: Product.id
+                    });
+                })
+                .then(result => {
+                    // Handle the result
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 
 @endsection

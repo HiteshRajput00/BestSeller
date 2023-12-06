@@ -82,7 +82,6 @@
                                             @for ($i = 1; $i <= $review; $i++)
                                                 <li><i style="color: #deb217" class="fa fa-star"></i></li>
                                             @endfor
-
                                         </ul>
                                     @endif
                                 </div>

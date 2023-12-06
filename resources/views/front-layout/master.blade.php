@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
         rel="stylesheet">
 
-    <title>Hexashop Ecommerce HTML CSS Template</title>
+    <title>Bestseller Ecommerce </title>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-star-rating@4.0.6/js/star-rating.min.js"></script>
     <!-- Additional CSS Files -->
@@ -95,17 +95,12 @@ https://templatemo.com/tm-571-hexashop
 
                                 </ul>
                             </li>
-                            @if (Auth::check())
+                          
                                 <li class="scroll-to-section"><a href="/cart"><i style="font-size: 1.6em"
                                             class="fa fa-shopping-cart"></i></a></li>
                                 <li class="scroll-to-section"><a href="/favourite"><i
                                             style="font-size: 1.6em; color:red" class="fa fa-heart"></i></a></li>
-                            @else
-                                <li class="scroll-to-section"><a href="/login"><i style="font-size: 1.6em"
-                                            class="fa fa-shopping-cart"></i></a></li>
-                                <li class="scroll-to-section"><a href="/login"><i style="font-size: 1.6em"
-                                            class="fa fa-heart"></i></a></li>
-                            @endif
+                            
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -150,10 +145,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li><a href="#">Homepage</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="{{ url('/') }}">Homepage</a></li>
+                        <li><a href="{{ url('/about-us') }}">About Us</a></li>
                         <li><a href="#">Help</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -292,5 +287,4 @@ https://templatemo.com/tm-571-hexashop
 
 
 </body>
-
 </html>

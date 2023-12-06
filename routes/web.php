@@ -8,6 +8,7 @@ use App\Http\Controllers\Designer\DesignerDashboardController;
 use App\Http\Controllers\Designer\ProductController;
 use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\registerlogin\GoogleloginController;
 use App\Http\Controllers\registerlogin\registerloginController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
@@ -46,6 +47,11 @@ Route::get('/register', [registerloginController::class, 'registerpage'])->name(
 Route::Post('/registerprocess', [registerloginController::class, 'regprocess']);
 Route::get('/login', [registerloginController::class, 'loginpage'])->name('login');
 Route::Post('/loginprocess', [registerloginController::class, 'loginprocess'])->name('loginprocess');
+
+//:::::::::::::::::: google login ::::::::::::::::::::::::::::::::::::::://
+Route::get('login/google', [GoogleloginController::class, 'redirectToGoogle'])->name('login_google');
+Route::get('login/google/callback', [GoogleloginController::class, 'handleGoogleCallback']);
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
 
 //:::::::::::::::::::: Admin Protected  Routes :::::::::::::::::::::::::::::::::::::://
