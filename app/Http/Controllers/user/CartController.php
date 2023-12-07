@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller {
     public function CartPage() {
+
         $Cart_data = Cart::where('user_id', Auth::user()->id)->get();
+        
         if($Cart_data->isEmpty()) {
             return redirect('/shop');
            

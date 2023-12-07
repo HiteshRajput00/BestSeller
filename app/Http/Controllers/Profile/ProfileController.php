@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    //:::::::::::::: Designer Profile Function :::::::::::::::::::::::://
     public function updateProfile(Request $req)
     {
         $image = UserImage::where('user_id', Auth::user()->id)->first();
@@ -70,7 +71,8 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'profile updated');
     }
 
-    //::::::::::::::::::::: Admin profile Update::::::::::::::::::::::::::::::://
+
+    //::::::::::::::::::::: Admin profile Function ::::::::::::::::::::::::::::::://
 
     public function updateAdminProfile(Request $req)
     {

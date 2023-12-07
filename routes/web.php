@@ -13,6 +13,7 @@ use App\Http\Controllers\registerlogin\registerloginController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\reviewController;
+use App\Http\Controllers\user\SearchController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Controllers\user\WishlistController;
@@ -150,16 +151,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::Post('/add-to-wishlist', [WishlistController::class, 'addToWishlist'])->name('Add_Wishlist');
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
-    //:: review routes :://
+    //:::::::::::::::::::::::::: review routes ::::::::::::::::::::::::://
     Route::Post('/add-review', [reviewController::class, 'AddReview']);
 
-    // logout route
+    //:::::::::::::::::::::::: logout route :::::::::::::::::::::::::::::::::://
     Route::get('/logout', [registerloginController::class, 'logout'])->name('logout');
 
-    // subscription Routes //
+    //:::::::::::::: search route ::::::::::::::::::::::::::://
+    Route::post('/search',[SearchController::class,'search']);
+
+    //::::::::::::::::: subscription Routes  :::::::::::::::::::::::::::::::://
+    Route::get('/subscription',[SubscriptionController::class,'SubscriptionPage']);
     Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
     Route::get('/subscription-success', [SubscriptionController::class, 'subscriptionSuccess']);
     Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-

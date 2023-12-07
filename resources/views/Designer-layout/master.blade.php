@@ -42,9 +42,17 @@
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item">
-                            <div id="custom-search" class="top-search-bar">
-                                <input class="form-control" type="text" placeholder="Search..">
-                            </div>
+                            <form action="{{ url('/search') }}" method="POST">
+                                @csrf
+                                <div id="custom-search" class="top-search-bar d-flex">
+                                    <input class="form-control" name="search" type="text" placeholder="Search..">
+                                    <div class="input-group-append ">
+                                        <button class="btn btn-light" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </li>
                         <?php $data = App\Models\DesignerNotification::class::where('designer_id',Auth::user()->id)->where('status',1)->get(); ?>
                         @if ($data->isNotEmpty())
@@ -148,12 +156,11 @@
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php $image = App\Models\UserImage::class::where('user_id',Auth::user()->id)->first(); ?>
-                                @if($image)
-                                <img src="{{ url('/images/' . $image->profile_image ?? '') }}" alt=""
-                                    class="user-avatar-md rounded-circle">
+                                @if ($image)
+                                    <img src="{{ url('/images/' . $image->profile_image ?? '') }}" alt=""
+                                        class="user-avatar-md rounded-circle">
                                 @else
-                                <img src="" alt=""
-                                class="user-avatar-md rounded-circle">
+                                    <img src="" alt="" class="user-avatar-md rounded-circle">
                                 @endif
 
                             </a>
@@ -194,9 +201,14 @@
                             <li class="nav-divider">
                                 Menu
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ url('/designer-dashboard') }}"><i
+                                        class="fa fa-fw fa-user"></i>Dashboard
+                                </a>
+                            </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse"
-                                    aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-1" aria-controls="submenu-1"><i
                                         class="fa fa-fw fa-tags"></i>Category <span
                                         class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
@@ -214,8 +226,8 @@
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse"
-                                    aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-1"><i
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-2" aria-controls="submenu-1"><i
                                         class="fa fa-fw fa-user-circle"></i>Product <span
                                         class="badge badge-success">6</span></a>
                                 <div id="submenu-2" class="collapse submenu" style="">
@@ -324,6 +336,18 @@
             });
         });
     </script>
+     @if(Session::get('error'))
+     <script>
+         toastr.clear();
+         NioApp.Toast('{{ Session::get("error") }}', 'error', {position: 'top-right'});
+     </script>
+     @endif
+     @if(Session::get('success'))
+     <script>
+         toastr.clear();
+         NioApp.Toast('{{ Session::get("success") }}', 'info', {position: 'top-right'});
+     </script>
+     @endif
 </body>
 
 </html>

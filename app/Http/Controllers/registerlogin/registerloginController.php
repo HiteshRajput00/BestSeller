@@ -28,16 +28,17 @@ class registerloginController extends Controller
     public function regprocess(Request $req)
     {
         $req->validate([      // validate data according to request
-            'g-recaptcha-response' => 'required|captcha',
+
+            'g-recaptcha-response' => 'required|captcha',   //  verify Captcha
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
             'number' => 'required',
             'role' => 'required',
-            
+
         ]);
 
-        $data = new User();
+        $data = new User();    // create  New User 
         $data->name = $req->name;
         $data->email = $req->email;
         $data->number = $req->number;
@@ -73,19 +74,19 @@ class registerloginController extends Controller
             $admin_nf->message = "new designer registered";
         }
         $admin_nf->status = true;
-        $admin_nf->save();  // save notification 
+        $admin_nf->save();    // save notification 
 
         $data->save(); // save user data
 
 
-        //user mail data variable
-        $userdata = [
+
+        $userdata = [      //user mail data 
             'title' => 'sucessfully  Registered',
             'name' => $req->name,
             'email' => $req->email,
             'number' => $req->number,
             'message' => 'you have successfully registered to web....... Enjoy!',
-           
+
         ];
         $admin = User::where('role', 'admin')->get('email');
         foreach ($admin as $admin_email) {
@@ -95,11 +96,14 @@ class registerloginController extends Controller
 
 
         if ($data->role === 'designer') {
+
             Auth::login($data);
-            return redirect('/designer-dashboard');  // login to designer dashboard
+            return redirect('/designer-dashboard');  // redirect to designer dashboard
+
         } else {
+
             Auth::login($data);
-            return redirect('/')->with('msg', 'success');  // login to user dashboard
+            return redirect('/')->with('msg', 'success');  // redirect to user dashboard
         }
     }
 
@@ -109,32 +113,30 @@ class registerloginController extends Controller
     {
         // dd($req->all());
         $req->validate([
-            'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',   // Verify Captcha
             'email' => 'required',
             'password' => 'required',
-            
+
         ]);
+
         $credent = $req->only('email', 'password');
 
 
         if (Auth::attempt($credent)) {
             if (Auth::user()->role === 'admin') {     //check role 
 
-                Alert::success('Welcome ' . auth()->user()->name)->showConfirmButton('Got it');
-                return redirect('/admin-dashboard');
+                return redirect('/admin-dashboard')->with('success', 'welcome hitesh');  // admin Dashboard
 
             } elseif (Auth::user()->role === 'designer') {
 
-                Alert::success('Welcome ' . auth()->user()->name)->showConfirmButton('Got it');
-                return redirect('/designer-dashboard');
+                return redirect('/designer-dashboard');   // designer Dashboard
 
             } else {
 
-                Alert::success('Welcome ' . auth()->user()->name)->showConfirmButton('Got it');
-                return redirect('/');
+                return redirect('/');   // User Dashboard
             }
         }
-        return back()->with('msg', 'please enter vaild details');
+        return back()->with('msg', 'please enter vaild details');  // if worng info entered
     }
 
     public function logout()

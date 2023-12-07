@@ -14,6 +14,11 @@ use Stripe\Stripe;
 
 class SubscriptionController extends Controller
 {
+
+    public function SubscriptionPage()
+    {
+        return view('web.subscription.index');
+    }
     public function subscriptionProcess(Request $req)
     {
         try {

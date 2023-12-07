@@ -22,8 +22,8 @@ class ShopController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $media = Media::where('product_id', $product->id)->get();
-        $review = ProductReview::where('product_id',$product->id)->avg('rating');
-        return view('web.shop.single-product', compact('product', 'media' ,'review'));
+        $review = ProductReview::where('product_id', $product->id)->avg('rating');
+        return view('web.shop.single-product', compact('product', 'media', 'review'));
     }
 
 

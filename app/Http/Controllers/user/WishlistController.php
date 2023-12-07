@@ -27,9 +27,10 @@ class WishlistController extends Controller
         }
     }
 
-    public function favourite(){
-        $favourite = Wishlist::where('user_id','=',Auth::user()->id)->paginate(10);
-        return view('web.favourites.index',compact('favourite'));
+    public function favourite()
+    {
+        $favourite = Wishlist::where('user_id', '=', Auth::user()->id)->paginate(10);
+        return view('web.favourites.index', compact('favourite'));
     }
 
 }

@@ -11,7 +11,7 @@
                                 <h4>We Are Hexashop</h4>
                                 <span>Awesome, clean &amp; creative HTML5 Template</span>
                                 <div class="main-border-button">
-                                    <a href="#">Purchase Now!</a>
+                                    <a href="{{ url('/shop') }}">Purchase Now!</a>
                                 </div>
                             </div>
                             <img src="{{ url('/user/assets/images/left-banner-image.jpg') }}" alt="">

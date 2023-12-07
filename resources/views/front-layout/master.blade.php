@@ -70,6 +70,7 @@ https://templatemo.com/tm-571-hexashop
                                     <li><a href="/about-us">About Us</a></li>
                                     <li><a href="/shop">Products</a></li>
                                     <li><a href="/contact-us">Contact Us</a></li>
+                                    <li><a href="{{ url('/subscription') }}">subscribe</a></li>
 
                                     @if (Auth::user())
                                         <li><a href="/logout">logout</a></li>

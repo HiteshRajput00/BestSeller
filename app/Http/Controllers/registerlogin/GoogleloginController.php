@@ -33,11 +33,11 @@ class GoogleloginController extends Controller
             $newUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'role'=>'user',
-                'is_approved'=>false,
-                'is_disapproved'=>false,
-                'number'=>65474121,
-                'password'=>1,
+                'role' => 'user',
+                'is_approved' => false,
+                'is_disapproved' => false,
+                'number' => 65474121,
+                'password' => 1,
 
             ]);
 
@@ -45,12 +45,17 @@ class GoogleloginController extends Controller
             Auth::login($newUser);
         }
 
-        if(Auth::user()->role === 'admin'){
-        return redirect('/admin-dashboard'); // Adjust the redirect path as needed
-    }else if(Auth::user()->role === 'designer'){
-        return redirect('/designer-dashboard');
-    }else{
-        return redirect('/');
-    }
+        //:: Checking Role :://
+        if (Auth::user()->role === 'admin') {
+
+            return redirect('/admin-dashboard');
+
+        } else if (Auth::user()->role === 'designer') {
+
+            return redirect('/designer-dashboard');
+            
+        } else {
+            return redirect('/');
+        }
     }
 }

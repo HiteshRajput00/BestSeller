@@ -110,51 +110,7 @@
                             </li>
 
                         @endif
-                        <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
-                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
-                                <li class="connection-list">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img
-                                                    src="assets/images/github.png" alt="">
-                                                <span>Github</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img
-                                                    src="assets/images/dribbble.png" alt="">
-                                                <span>Dribbble</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img
-                                                    src="assets/images/dropbox.png" alt="">
-                                                <span>Dropbox</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img
-                                                    src="assets/images/bitbucket.png" alt="">
-                                                <span>Bitbucket</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img
-                                                    src="assets/images/mail_chimp.png" alt=""><span>Mail
-                                                    chimp</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img
-                                                    src="assets/images/slack.png" alt="">
-                                                <span>Slack</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="conntection-footer"><a href="#">More</a></div>
-                                </li>
-                            </ul>
-                        </li>
+                       
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -165,7 +121,7 @@
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                                 aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
+                                    <h5 class="mb-0 text-white nav-user-name">{{ Auth::user()->name }}</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="/admin-dashboard/admin-profile"><i
@@ -179,12 +135,7 @@
                 </div>
             </nav>
         </div>
-        <!-- ============================================================== -->
-        <!-- end navbar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- left sidebar -->
-        <!-- ============================================================== -->
+
         <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list">
                 <nav class="navbar navbar-expand-lg navbar-light">
@@ -198,8 +149,8 @@
                             <li class="nav-divider">
                                 Menu
                             </li>
-                            <li class="nav-divider">
-                                <a class="nav-link " href="#"><i class="fa fa-fw fa-user-circle"></i>Dashboard
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin-dashboard"><i class="fa fa-fw fa-user-circle"></i>Dashboard
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -276,12 +227,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/admin-dashboard/user-list"> User list</a>
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" href="/product-approved">approved product</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/product-disapproved">disapproved product</a>
-                                        </li> --}}
+                                 
 
                                     </ul>
                                 </div>
@@ -328,7 +274,7 @@
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
     <!-- jquery 3.3.1  -->
-    <script src="{{ url('/admin/assets/vendor/jquery/jquery-3.3.1.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="{{ url('/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
     <!-- slimscroll js -->
@@ -356,8 +302,8 @@
     <script src="{{ url('/admin/assets/vendor/charts/morris-bundle/morris.js') }}"></script>
     <script src="{{ url('/admin/assets/vendor/charts/morris-bundle/morrisjs.html') }}"></script>
     <!-- daterangepicker js -->
-    <script src="../../../../cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="../../../../cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    {{-- <script src="../../../../cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="../../../../cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> --}}
     <script>
         $(function() {
             $('input[name="daterange"]').daterangepicker({

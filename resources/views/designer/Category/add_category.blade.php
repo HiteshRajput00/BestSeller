@@ -1,7 +1,7 @@
 @extends('Designer-layout.master')
 @section('content')
     @include('sweetalert::alert')
-    <div style="padding-left: 150px" class="login-form-bg h-100">
+    <div style="padding-left: 150px" class="login-form-bg h-100 p-t-30">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
                 <div class="col-xl-12">
