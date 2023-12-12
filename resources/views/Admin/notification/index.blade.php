@@ -12,7 +12,7 @@
                                         <p>
                                         <div class="notification-info">
                                             <div class="notification-list-user-img"><img
-                                                    src="{{ '/admin/assets/images/avatar-2.jpg' }}" alt=""
+                                                    src="{{ url('/admin/assets/images/avatar-2.jpg' )}}" alt=""
                                                     class="user-avatar-md rounded-circle"></div>
                                             <div class="notification-list-user-block"><span
                                                     class="notification-list-user-name">{{ $d->title }}</span>{{ $d->message }}
@@ -21,7 +21,7 @@
                                         </div>
                                         </p>
                                     @endforeach
-                                    <div class=""> <a href="/admin-dashboard/clear-adminNotification">Clear all
+                                    <div class=""> <a href="{{ url('/admin-dashboard/clear-adminNotification') }}">Clear all
                                             notifications</a></div>
                                 @else
                                     <p>You have no notification yet...</p>

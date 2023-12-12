@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Designer\Categorycontroller;
 use App\Http\Controllers\Designer\DesignerDashboardController;
 use App\Http\Controllers\Designer\ProductController;
+use App\Http\Controllers\language\SetLanguageController;
 use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\GoogleloginController;
@@ -34,8 +35,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// routes/web.php
+Route::get('set-language/{locale}', [SetLanguageController::class,'setLanguage'])->name('set.language');
 //::::::::::::::::::::Site Pages ::::::::::::::::::::::::::://
-Route::get('/', [userDashboardController::class, 'index']);
+Route::get('/', [userDashboardController::class, 'index'])->name('/');
 Route::get('/shop', [ShopController::class, 'shop']);
 Route::get('/single-product/{slug}', [ShopController::class, 'singleProduct'])->name('single_product');
 Route::get('/contact-us', [userDashboardController::class, 'contactUs']);
@@ -48,6 +51,7 @@ Route::get('/register', [registerloginController::class, 'registerpage'])->name(
 Route::Post('/registerprocess', [registerloginController::class, 'regprocess']);
 Route::get('/login', [registerloginController::class, 'loginpage'])->name('login');
 Route::Post('/loginprocess', [registerloginController::class, 'loginprocess'])->name('loginprocess');
+// Route::get('/add-details',[registerloginController::class,'adddetails']);
 
 //:::::::::::::::::: google login ::::::::::::::::::::::::::::::::::::::://
 Route::get('login/google', [GoogleloginController::class, 'redirectToGoogle'])->name('login_google');
@@ -66,8 +70,11 @@ Route::group(['middleware' => 'admin'], function () {
     //::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
     Route::get('/admin-dashboard/admin-profile', [AdminDashboardController::class, 'adminProfile']);
     Route::Post('/admin-dashboard/adminprofile-update', [ProfileController::class, 'updateAdminProfile']);
-    // Route::post('/')
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+    //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+    //::::::::::::::::::::::::: Add Subscription ::::::::::::::::::::::::::::::::::://
+    Route::get('/admin-dashboard/add-subscription',[SubscriptionController::class,'AddSubscription']);
+    Route::Post('/admin-dashboard/add-subscription-process',[SubscriptionController::class,'AddSubscriptionProcess']);
 
     //::::::::::::::::::::::::::Category Routes::::::::::::::::::::::::::::::::://
     Route::get('/admin-dashboard/category-list', [Categorycontroller::class, 'categoryList']);
@@ -102,7 +109,7 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'designer'], function () {
     Route::get('/designer-dashboard', [DesignerDashboardController::class, 'designerDashboard']);
     Route::get('/designer-dashboard/profile', [DesignerDashboardController::class, 'designerProfile']);
-    Route::Post('/designer-dashboard/profile-update', [ProfileController::class, 'updateProfile']);
+    
 
     //::::::::::::::::::::::designer notification:::::::::::::::::::::::::::::::::::::::::::://
     Route::get('/designer-dashboard/designer-notifications', [NotificationController::class, 'designerNotifications']);
@@ -160,6 +167,10 @@ Route::group(['middleware' => 'auth'], function () {
     //:::::::::::::: search route ::::::::::::::::::::::::::://
     Route::post('/search',[SearchController::class,'search']);
 
+    //::::: user Profile :::::::://
+    Route::get('/user-profile',[ProfileController::class,'userProfile']);
+    Route::Post('/profile-update', [ProfileController::class, 'updateProfile']);
+
     //::::::::::::::::: subscription Routes  :::::::::::::::::::::::::::::::://
     Route::get('/subscription',[SubscriptionController::class,'SubscriptionPage']);
     Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
@@ -167,3 +178,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+

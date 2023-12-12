@@ -83,7 +83,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'en', // Change this to your desired default language code
+
 
     /*
     |--------------------------------------------------------------------------
@@ -163,12 +164,14 @@ return [
         /*
          * Application Service Providers...
          */
+        // App\Providers\StripeServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+      
     ])->toArray(),
 
     /*

@@ -36,13 +36,14 @@ class GoogleloginController extends Controller
                 'role' => 'user',
                 'is_approved' => false,
                 'is_disapproved' => false,
-                'number' => 65474121,
                 'password' => 1,
 
             ]);
 
             // Log in the new user
             Auth::login($newUser);
+            return $this->adddetails();
+
         }
 
         //:: Checking Role :://
@@ -53,9 +54,14 @@ class GoogleloginController extends Controller
         } else if (Auth::user()->role === 'designer') {
 
             return redirect('/designer-dashboard');
-            
+
         } else {
             return redirect('/');
         }
+    }
+
+    public function adddetails()
+    {
+        return view('forms.add_details');
     }
 }

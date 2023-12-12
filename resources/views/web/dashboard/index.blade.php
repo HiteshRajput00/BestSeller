@@ -24,8 +24,7 @@
                         <div class="row">
                             @if (isset($categories))
                                 @foreach ($categories as $category)
-                                    <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
-                                    @if ($products->isNotEmpty())
+                                    @if ($category->products->isNotEmpty())
                                         <div class="col-lg-6">
                                             <div class="right-first-image">
                                                 <div class="thumb">
@@ -62,15 +61,14 @@
 
     @if (isset($categories))
         @foreach ($categories as $category)
-            <?php $products = App\Models\Product::class::where('Category_id',$category->id)->get(); ?>
-            @if ($products->isNotEmpty())
+            @if ($category->products->isNotEmpty())
                 <section class="section" id="men">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="section-heading">
                                     <h2>{{ $category->name }} Latest</h2>
-                                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                                    <span>{{ trans("Details to details is what makes Hexashop different from the other themes.") }}</span>
                                 </div>
                             </div>
                         </div>
@@ -80,34 +78,32 @@
                             <div class="col-lg-12">
                                 <div class="men-item-carousel">
                                     <div class="owl-men-item owl-carousel">
-                                        @foreach ($products as $product)
-                                            <?php $media = App\Models\Media::class::where('product_id',$product->id)->first(); ?>
+                                        @foreach ($category->products as $product)
                                             <div class="item">
                                                 <div class="thumb">
                                                     <div class="hover-content">
                                                         <div class="inner">
-                                                            <h4>{{ $product->name }}</h4>
-                                                            <p>{{ $product->description }}</p>
+                                                            <h4>{{ trans($product->name) }}</h4>
+                                                            <p>{{ trans($product->description)}}</p>
                                                             <div class="main-border-button">
                                                                 <a
                                                                     href="{{ route('single_product', ['slug' => $product->slug]) }}">Details</a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <img src="{{ url('/images/' . $media->image ?? '') }}">
+                                                    <img src="{{ url('/images/' . $product->media->image ?? '') }}" alt="">
                                                 </div>
                                                 <div class="down-content">
-                                                    <h4>{{ $product->name }}</h4>
-                                                    <span>${{ $product->price }}</span>
-                                                    <?php $review = App\Models\ProductReview::class::
-                                                     where('product_id', $product->id)
-                                                    ->avg('rating'); ?>
-                                                    @if ($review)
+                                                    <h4>{{ trans($product->name) }}</h4>
+                                                    <span>${{ trans($product->price) }}</span>
+                                                
+                                                    @if ($product->review)
                                                         <ul class="stars">
-                                                            @for ($i = 1; $i <= $review; $i++)
+                                                            @for ($i = 1; $i <= $product->review->avg('rating'); $i++)
                                                                 <li><i style="color: #deb217" class="fa fa-star"></i></li>
                                                             @endfor
                                                         </ul>
+                                                        
                                                     @endif
                                                 </div>
                                             </div>

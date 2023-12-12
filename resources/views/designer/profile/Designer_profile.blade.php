@@ -78,7 +78,7 @@
             margin-bottom: 1rem;
         }
     </style>
-    <form action="/designer-dashboard/profile-update" method="POST" enctype="multipart/form-data">
+    <form action="/profile-update" method="POST" enctype="multipart/form-data">
         <div class="row justify-content-center h-100">
             <div class="container">
                 <div class="row gutters">
@@ -95,8 +95,10 @@
                                     <div class="user-profile">
 
                                         <div class="user-avatar">
-                                            <img src="{{ url('/images/' . $image->profile_image ?? '') }}" alt="Maxwell Admin"
-                                                height="250px" width="250px">
+                                            @if(Auth::user()->image)
+                                            <img src="{{ url('/images/' . Auth::user()->image->profile_image ?? '') }}"
+                                                alt="Maxwell Admin" height="250px" width="250px">
+                                                @endif
                                         </div>
                                         <h4 class="user-name">{{ Auth::user()->name }}</h4>
                                         <h6 class="user-email">{{ Auth::user()->email }}</h6>
@@ -161,28 +163,28 @@
                                         <div class="form-group">
                                             <label for="Street">Street</label>
                                             <input type="name" class="form-control" name="street" id="Street"
-                                                value="{{ $details->street ?? '' }}" placeholder="Enter Street">
+                                                value="{{ Auth::user()->details->street ?? '' }}" placeholder="Enter Street">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="ciTy">City</label>
                                             <input type="name" class="form-control" name="city" id="ciTy"
-                                                value="{{ $details->city ?? '' }}" placeholder="Enter City">
+                                                value="{{ Auth::user()->details->city ?? '' }}" placeholder="Enter City">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="sTate">State</label>
                                             <input type="text" class="form-control" name="state" id="sTate"
-                                                value="{{ $details->state ?? '' }}" placeholder="Enter State">
+                                                value="{{ Auth::user()->details->state ?? '' }}" placeholder="Enter State">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="zIp">Zip Code</label>
                                             <input type="text" class="form-control" name="zip" id="zIp"
-                                                value="{{ $details->zip ?? '' }}" placeholder="Zip Code">
+                                                value="{{ Auth::user()->details->zip ?? '' }}" placeholder="Zip Code">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -197,7 +199,7 @@
                                         <div class="form-group">
                                             <label for="website">Website URL</label>
                                             <input type="url" class="form-control" name="web_url"
-                                                value="{{ $details->Web_url ?? '' }}" id="website"
+                                                value="{{ Auth::user()->details->Web_url ?? '' }}" id="website"
                                                 placeholder="Website url">
                                         </div>
                                     </div>
@@ -205,8 +207,8 @@
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
-                                            <button type="" id="submit" name="submit"
-                                                class="btn btn-secondary">Cancel</button>
+                                            {{-- <button type="" id="submit" name="submit"
+                                                class="btn btn-secondary">Cancel</button> --}}
                                             <button type="submit" id="submit" name="submit"
                                                 class="btn btn-primary">Update</button>
                                         </div>
@@ -219,5 +221,5 @@
                 </div>
             </div>
         </div>
-        <form>
-        @endsection
+    </form>
+@endsection

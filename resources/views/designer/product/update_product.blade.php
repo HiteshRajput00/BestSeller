@@ -18,7 +18,7 @@
                                 @endif
 
                                 <form class="mt-5 mb-5 login-input" method="post"
-                                    action="/designer-dashboard/update-product-process" enctype="multipart/form-data">
+                                    action="{{ url('/designer-dashboard/update-product-process') }}" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id ?? '' }}">
                                     <div class="form-group">
@@ -56,7 +56,7 @@
                                         <input type="hidden" class="form-control" placeholder="" name="image_id"
                                             value="{{ $m->id ?? '' }}">
                                         <div class="form-group">
-                                            <img src="{{ url('/images/' . $m->image ?? '') }}"
+                                            <img src="{{ url('/images/' . $product->media->image ?? '') }}"
                                                 alt="{{ $product->name ?? '' }}" height="200px" width="250px">
                                             <span><button type="button" id="remove()"
                                                     class="btn btn-dark">X</button></span>

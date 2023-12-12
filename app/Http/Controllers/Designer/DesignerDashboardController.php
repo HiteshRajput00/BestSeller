@@ -17,9 +17,7 @@ class DesignerDashboardController extends Controller
 
     public function designerProfile()
     {
-        $image = UserImage::where('user_id', Auth::user()->id)->first();
-        $details = DesignerDetails::where('designer_id', Auth::user()->id)->first();
-        return view('designer.profile.Designer_profile', compact('image', 'details'));
+        return view('designer.profile.Designer_profile');
     }
 
 

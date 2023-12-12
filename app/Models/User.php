@@ -46,6 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+     
+    public function image()
+    {
+        return $this->hasOne(UserImage::class);
+    }
 
+    public function details()
+    {
+        return $this->hasOne(DesignerDetails::class,'designer_id','id');
+    }
 
+  
 }

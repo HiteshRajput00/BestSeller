@@ -10,8 +10,7 @@
                                 <div class="col-sm-6 col-lg-4 col-xxl-3">
                                     <div style="padding-left: 1rem" class="gallery card card-bordered">
                                         <a class="gallery-image popup-image" href="">
-                                            <?php $m = App\Models\Media::class::where('product_id',$p->id)->first(); ?>
-                                            <img class="w-100 rounded-top" src="{{ url('/images/' . $m->image) }}"
+                                            <img class="w-100 rounded-top" src="{{ url('/images/' . $p->media->image) }}"
                                                 alt="">
                                         </a>
                                         <div class="gallery-body card-inner align-center justify-between flex-wrap g-2">

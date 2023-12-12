@@ -10,7 +10,7 @@ class userDashboardController extends Controller
 {
     public function index()
     {
-        $categories = Categories::whereNull('parent_category_id')->get();
+        $categories = Categories::whereNull('parent_category_id')->with('products')->get();
         return view('web.dashboard.index', compact('categories'));
     }
 

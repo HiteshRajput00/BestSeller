@@ -1,8 +1,8 @@
-@extends('Admin-layout.master')
+@extends('front-layout.master')
 @section('content')
     <style>
         body {
-            margin: 0;
+            margin: ;
             padding-top: 40px;
 
             color: #2e323c;
@@ -12,7 +12,7 @@
         }
 
         .container {
-            padding-left: 60px;
+            padding-left: 20px;
         }
 
         .account-settings .user-profile {
@@ -78,7 +78,21 @@
             margin-bottom: 1rem;
         }
     </style>
-    <form action="{{ url('/profile-update') }}" method="POST" enctype="multipart/form-data">
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading about-page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Contact Us</h2>
+                        <span>Awesome, clean &amp; creative HTML5 Template</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+    <form action="{{ url('/admin-dashboard/adminprofile-update') }}" method="POST" enctype="multipart/form-data">
         <div class="row justify-content-center h-100">
             <div class="container">
                 <div class="row gutters">
@@ -88,11 +102,13 @@
                             <div class="card-body">
                                 <div class="account-settings">
                                     <div class="user-profile">
-                                        {{-- <input type="hidden" class="form-control" name="image_id" value="{{ $image->id ?? '' }}"> --}}
                                         <div class="user-avatar">
                                             @if (Auth::user()->image)
                                                 <img src="{{ url('/images/' . Auth::user()->image->profile_image ?? '') }}"
                                                     alt="Maxwell Admin" height="250px" width="250px">
+                                            @else
+                                                <img src="{{ url('/admin/assets/images/product-pic.jpg') }}" alt="user"
+                                                     height="250px" width="250px">
                                             @endif
                                         </div>
                                         <h4 class="user-name">{{ Auth::user()->name }}</h4>
@@ -100,8 +116,7 @@
                                     </div>
                                     <div class="about">
                                         <h5>{{ Auth::user()->role }}</h5>
-                                        <p>I'm {{ Auth::user()->name }}. Full Stack Designer I enjoy creating user-centric,
-                                            delightful and human experiences.</p>
+                                       
                                     </div>
                                 </div>
                             </div>

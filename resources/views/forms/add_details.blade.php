@@ -25,36 +25,11 @@
 
                                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                    <form class="mx-1 mx-md-4" onsubmit="return validateForm()" method="post" action="{{ url('/registerprocess') }}">
+                                    <form class="mx-1 mx-md-4" onsubmit="return validateForm()" method="post"
+                                        action="{{ url('/registerprocess') }}">
                                         @csrf
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fa fa-user fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <input type="text" id="form3Example1c" name="name"
-                                                    class="form-control" placeholder="enter name" />
-
-                                            </div>
-                                        </div>
-                                        <div class="text text-danger">
-                                            @error('name')
-                                                {{ $message }}
-                                            @enderror
-                                        </div>
-
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <i class="fa fa-envelope fa-lg me-3 fa-fw"></i>
-                                            <div class="form-outline flex-fill mb-0">
-                                                <input type="email" id="form3Example3c" name="email"
-                                                    class="form-control" placeholder="enter email" />
-
-                                            </div>
-                                        </div>
-                                        <div class="text text-danger">
-                                            @error('email')
-                                                {{ $message }}
-                                            @enderror
-                                        </div>
-
+                                       
+                                      <h6>make a password </h6>
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
@@ -83,6 +58,7 @@
                                                 {{ $message }}
                                             @enderror
                                         </div>
+                                        <h6>add mobile number (*optional)</h6>
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fa fa-mobile fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
@@ -108,20 +84,13 @@
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-check d-flex justify-content-left mb-5">
-                                            {!! NoCaptcha::renderJs() !!}
-                                            {!! NoCaptcha::display() !!}
-                                        </div>
-
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                             <button type="submit" name="save"
-                                                class="btn btn-dark btn-lg">Register</button>
+                                                class="btn btn-dark btn-lg">save</button>
                                         </div>
 
                                     </form>
-                                    <h4 style="color: black">Have account ?<a href="{{ url('/login') }}" >Sign in
-                                        </a> </h4>
+                                    
 
                                 </div>
                                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
@@ -150,16 +119,16 @@
         });
 
         function validateForm() {
-        var password = document.getElementById('password').value;
-        var confirmPassword = document.getElementById('password_confirmation').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('password_confirmation').value;
 
-        if (password !== confirmPassword) {
-            document.getElementById('passwordError').innerHTML = 'Passwords do not match.';
-            return false; // Prevent form submission
-        } else {
-            document.getElementById('passwordError').innerHTML = '';
-            return true; // Allow form submission
+            if (password !== confirmPassword) {
+                document.getElementById('passwordError').innerHTML = 'Passwords do not match.';
+                return false; // Prevent form submission
+            } else {
+                document.getElementById('passwordError').innerHTML = '';
+                return true; // Allow form submission
+            }
         }
-    }
     </script>
 @endsection

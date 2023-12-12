@@ -71,11 +71,8 @@
             <div class="row">
                 <div class="col-lg-5 p-5">
                     <div class="left-images">
-                        @if ($media)
-                            @foreach ($media as $img)
-                                <img src="{{ url('/images/' . $img->image ?? '') }}" alt="{{ $product->slug }}"
-                                    height="400px" width="300px">
-                            @endforeach
+                        @if ($product->media)
+                        <img src="{{ url('/images/' . $product->media->image ?? '') }}" alt="">
                         @endif
                     </div>
                     <div id="response"></div>
@@ -113,12 +110,11 @@
                     <div class="right-content">
                         <h4>{{ $product->name }}</h4>
                         <span class="price">${{ $product->price }}</span>
-                        @if ($review)
+                        @if ($product->review)
                             <ul class="stars">
-                                @for ($i = 1; $i <= $review; $i++)
+                                @for ($i = 1; $i <= $product->review->avg('rating'); $i++)
                                     <li><i style="color: #deb217" class="fa fa-star"></i></li>
                                 @endfor
-
                             </ul>
                         @endif
                         <div class="quote">
@@ -150,7 +146,7 @@
                 }
             });
         });
-        
+
         // submit review
         function submitForm() {
             var formData = $('#myForm').serialize();

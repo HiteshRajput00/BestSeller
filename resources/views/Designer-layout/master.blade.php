@@ -70,7 +70,7 @@
                                                         class="list-group-item list-group-item-action active">
                                                         <div class="notification-info">
                                                             <div class="notification-list-user-img"><img
-                                                                    src="{{ '/admin/assets/images/avatar-2.jpg' }}"
+                                                                    src="{{url('/admin/assets/images/avatar-2.jpg')  }}"
                                                                     alt=""
                                                                     class="user-avatar-md rounded-circle"></div>
                                                             <div class="notification-list-user-block"><span
@@ -86,7 +86,7 @@
                                     </li>
                                     <li>
                                         <div class="list-footer"> <a
-                                                href="/designer-dashboard/designer-notifications">View all
+                                                href="{{ url('/designer-dashboard/designer-notifications') }}">View all
                                                 notifications</a></div>
                                     </li>
                                 </ul>
@@ -108,7 +108,7 @@
                                     </li>
                                     <li>
                                         <div class="list-footer"> <a
-                                                href="/designer-dashboard/designer-notifications">View all
+                                                href="{{ url('/designer-dashboard/designer-notifications') }}">View all
                                                 notifications</a></div>
 
                                     </li>
@@ -155,9 +155,9 @@
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php $image = App\Models\UserImage::class::where('user_id',Auth::user()->id)->first(); ?>
-                                @if ($image)
-                                    <img src="{{ url('/images/' . $image->profile_image ?? '') }}" alt=""
+                               
+                                @if (Auth::user()->image)
+                                    <img src="{{ url('/images/' . Auth::user()->image->profile_image ?? '') }}" alt=""
                                         class="user-avatar-md rounded-circle">
                                 @else
                                     <img src="" alt="" class="user-avatar-md rounded-circle">
@@ -170,10 +170,10 @@
                                     <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
-                                <a class="dropdown-item" href="/designer-dashboard/profile"><i
+                                <a class="dropdown-item" href="{{ url('/designer-dashboard/profile') }}"><i
                                         class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="/logout"><i
+                                <a class="dropdown-item" href="{{ url('/logout') }}"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -215,7 +215,7 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/designer-dashboard/add-category"> add
+                                            <a class="nav-link" href="{{ url('/designer-dashboard/add-category') }}"> add
                                                 Category</a>
                                         </li>
                                         <li class="nav-item">
@@ -234,19 +234,19 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/designer-dashboard/add-product"> add
+                                            <a class="nav-link" href="{{ url('/designer-dashboard/add-product') }}"> add
                                                 product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/designer-Dashboard/approved-product">Approved
+                                            <a class="nav-link" href="{{ url('/designer-Dashboard/approved-product') }}">Approved
                                                 Product</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link"
-                                                href="/designer-Dashboard/disapproved-product">Disapproved Product</a>
+                                                href="{{ url('/designer-Dashboard/disapproved-product') }}">Disapproved Product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/designer-Dashboard/pending-product">Pending
+                                            <a class="nav-link" href="{{ url('/designer-Dashboard/pending-product') }}">Pending
                                                 Product</a>
                                         </li>
 

@@ -57,26 +57,25 @@
                                             @endif
                                         </ul>
                                     </div>
-                                    <?php $img = App\Models\Media::class::where('product_id',$product->id)->first(); ?>
-                                    <img src="{{ url('/images/' . $img->image ?? '') }}" alt="">
+                                    <img src="{{ url('/images/' . $product->media->image ?? '') }}" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>{{ $product->name }}</h4>
                                     <span>${{ $product->price }}</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
+                                    @if ($product->review)
+                                        <ul class="stars">
+                                            @for ($i = 1; $i <= $product->review->avg('rating'); $i++)
+                                                <li><i style="color: #deb217" class="fa fa-star"></i></li>
+                                            @endfor
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 @endif
 
-{{-- 
+                {{-- 
                 <!----------------- Pagiination url() ----------->
                 <div class="col-lg-12">
                     <div class="pagination">

@@ -32,7 +32,6 @@
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
                 <div class="ecommerce-widget">
-
                     <div class="row">
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="card">
@@ -121,9 +120,10 @@
                                                 <tr>
                                                     <td>1</td>
                                                     <td>
-                                                        <div class="m-r-10"><img
-                                                                src="{{ url('/admin/assets/images/product-pic.jpg') }}"
-                                                                alt="user" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            <img src="{{ url('/admin/assets/images/product-pic.jpg') }}"
+                                                                alt="user" class="rounded" width="45">
+                                                        </div>
                                                     </td>
                                                     <td>Product #1 </td>
                                                     <td>id000001 </td>
@@ -310,4 +310,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

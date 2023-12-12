@@ -12,7 +12,7 @@ class Product extends Model
     use Searchable;
     public function media()
     {
-        return $this->hasMany(Media::class, 'product_id', 'id');
+        return $this->hasOne(Media::class);
     }
 
     protected $fillable = [
@@ -25,4 +25,10 @@ class Product extends Model
         'status',
     ];
 
+    public function review()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+ 
 }

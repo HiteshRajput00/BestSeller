@@ -100,7 +100,6 @@ class ProductController extends Controller
     public function EditProductPage($id)
     {
         $product = Product::find($id);
-        $media = Media::where('product_id', $id)->get();
         $categories = Categories::all();
         return view('designer.product.update_product', compact('product', 'categories', 'media'));
     }

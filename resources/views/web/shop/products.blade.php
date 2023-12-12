@@ -64,22 +64,22 @@
                                                                 class="fa fa-shopping-cart"></i></a></li>
                                                 @endif
                                             @else
-                                                <li><a href="/login"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="/login"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="{{ url('/login') }}"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="{{ url('/login') }}"><i class="fa fa-shopping-cart"></i></a></li>
                                             @endif
 
                                         </ul>
                                     </div>
-                                    <?php $img = App\Models\Media::class::where('product_id',$product->id)->first(); ?>
-                                    <img src="{{ url('/images/' . $img->image ?? '') }}" alt="">
+                                   
+                                        <img src="{{ url('/images/' . $product->media->image ?? '') }}" alt="">
+                                 
                                 </div>
                                 <div class="down-content">
                                     <h4>{{ $product->name }}</h4>
                                     <span>${{ $product->price }}</span>
-                                    <?php $review = App\Models\ProductReview::class::where('product_id', $product->id)->avg('rating'); ?>
-                                    @if ($review)
+                                    @if ($product->review)
                                         <ul class="stars">
-                                            @for ($i = 1; $i <= $review; $i++)
+                                            @for ($i = 1; $i <= $product->review->avg('rating'); $i++)
                                                 <li><i style="color: #deb217" class="fa fa-star"></i></li>
                                             @endfor
                                         </ul>

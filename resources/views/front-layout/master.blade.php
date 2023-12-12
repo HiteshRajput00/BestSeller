@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     {{-- {!! app('captcha')->renderJs() !!} --}}
@@ -14,7 +14,7 @@
 
     <title>Bestseller Ecommerce </title>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-star-rating@4.0.6/js/star-rating.min.js"></script>
+
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url('/user/assets/css/bootstrap.min.css') }}">
 
@@ -67,28 +67,23 @@ https://templatemo.com/tm-571-hexashop
                             <li class="submenu">
                                 <a href="javascript:;">Pages</a>
                                 <ul>
-                                    <li><a href="/about-us">About Us</a></li>
-                                    <li><a href="/shop">Products</a></li>
-                                    <li><a href="/contact-us">Contact Us</a></li>
+                                    <li><a href="{{ url('/about-us') }}">About Us</a></li>
+                                    <li><a href="{{ url('shop') }}">Products</a></li>
+                                    <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                                     <li><a href="{{ url('/subscription') }}">subscribe</a></li>
-
-                                    @if (Auth::user())
-                                        <li><a href="/logout">logout</a></li>
-                                    @else
-                                        <li><a href="/login">login</a></li>
-                                    @endif
                                 </ul>
                             </li>
                             <li class="submenu">
                                 <a href="javascript:;">Filter</a>
                                 <ul>
-                                    <?php $categories = App\Models\Categories::whereNull('parent_category_id')->get(); ?>
+                                    <?php $categories = App\Models\Categories::whereNull('parent_category_id')
+                                        ->with('products')
+                                        ->get(); ?>
                                     @if ($categories)
                                         @foreach ($categories as $category)
-                                            <?php $P = App\Models\Product::where('category_id', $category->id)->get(); ?>
-                                            @if ($P->isNotEmpty())
-                                               
-                                            <li><a  href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
+                                            @if ($category->products->isNotEmpty())
+                                                <li><a
+                                                        href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
                                                             class="fa fa-fw fa-tags"></i>{{ $category->name }}</a></li>
                                             @endif
                                         @endforeach
@@ -96,12 +91,37 @@ https://templatemo.com/tm-571-hexashop
 
                                 </ul>
                             </li>
-                          
-                                <li class="scroll-to-section"><a href="/cart"><i style="font-size: 1.6em"
-                                            class="fa fa-shopping-cart"></i></a></li>
-                                <li class="scroll-to-section"><a href="/favourite"><i
-                                            style="font-size: 1.6em; color:red" class="fa fa-heart"></i></a></li>
-                            
+                            <li class="submenu">
+                                <a href="javascript:;">language</a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('set.language', ['locale' => 'en']) }}">English</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('set.language', ['locale' => 'fr']) }}">Español</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="scroll-to-section"><a href="{{ url('/cart') }}"><i style="font-size: 1.6em"
+                                        class="fa fa-shopping-cart"></i></a></li>
+                            <li class="scroll-to-section"><a href="{{ url('/favourite') }}"><i style="font-size: 1.6em; color:red"
+                                        class="fa fa-heart"></i></a></li>
+                            <li class="submenu">
+                                <a href="javascript:;"><i style="font-size: 1.6em; "
+                                    class="fa fa-cog"></i></a>
+                                <ul>
+                                    @if (Auth::user())
+                                        <li><a href="{{ url('/logout') }}">logout</a></li>
+                                    @else
+                                        <li><a href="{{ url('/login') }}">login</a></li>
+                                    @endif
+                                    <li>
+                                        <a href="{{ url('/user-profile') }}">account setting</a>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -182,14 +202,15 @@ https://templatemo.com/tm-571-hexashop
 
 
     <!-- jQuery -->
-    <script src="{{ url('/user/assets/js/jquery-2.1.0.min.js') }}"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
+    {{-- <script src="{{ url('/user/assets/js/jquery-2.1.0.min.js') }}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
     <!-- Bootstrap -->
     <script src="{{ url('/user/assets/js/popper.js') }}"></script>
     <script src="{{ url('/user/assets/js/bootstrap.min.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-star-rating@4.0.6/js/star-rating.min.js"></script>
     <!-- Plugins -->
     <script src="{{ url('/user/assets/js/owl-carousel.js') }}"></script>
     <script src="{{ url('/user/assets/js/accordions.js') }}"></script>
@@ -288,4 +309,5 @@ https://templatemo.com/tm-571-hexashop
 
 
 </body>
+
 </html>

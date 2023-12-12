@@ -13,7 +13,6 @@
         </div>
     </div>
     <div class="px-4 px-lg-0">
-
         <div class="pb-5">
             <div class="container">
                 <div class="row">
@@ -44,8 +43,7 @@
                                             <tr>
                                                 <th scope="row" class="border-0">
                                                     <div class="p-2">
-                                                        <?php $img = App\Models\Media::class::where('product_id',$product->id)->first(); ?>
-                                                        <img src="{{ url('/images/' . $img->image ?? '') }}"
+                                                        <img src="{{ url('/images/' . $product->media->image ?? '') }}"
                                                             alt="{{ $product->slug }}" width="70"
                                                             class="img-fluid rounded shadow-sm">
                                                         <div class="ml-3 d-inline-block align-middle">
@@ -61,13 +59,15 @@
                                                         <div class="right-content">
                                                             <div class="quantity buttons_added">
                                                                 <button type="button" id="deleteQuantity"
-                                                                    data-id="{{ $data->id }}" class="deleteQuantity">-</button>
+                                                                    data-id="{{ $data->id }}"
+                                                                    class="deleteQuantity">-</button>
                                                                 <input type="text" id="QuantityInput" step="1"
                                                                     min="1" max="" name="quantity"
                                                                     value="{{ $data->quantity }}" title="Qty"
                                                                     class="input-text qty text" size="4">
                                                                 <button type="button" id="addQuantityBtn"
-                                                                    data-id="{{ $data->id }}" class="addQuantityBtn">+</button>
+                                                                    data-id="{{ $data->id }}"
+                                                                    class="addQuantityBtn">+</button>
                                                             </div>
                                                         </div>
                                                     </strong>
@@ -115,8 +115,8 @@
                             <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you
                                 have entered.</p>
                             <ul class="list-unstyled mb-4">
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong
-                                        class="text-muted" id="total_price">Order Subtotal </strong><strong>${{ array_sum($total) }}</strong>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted"
+                                        id="total_price">Order Subtotal </strong><strong>${{ array_sum($total) }}</strong>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
                                         class="text-muted">Shipping and handling</strong><strong>$0.00</strong></li>
@@ -124,7 +124,7 @@
                                         class="text-muted">Tax</strong><strong>$0.00</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
                                         class="text-muted">Total</strong>
-                                    <h5 class="font-weight-bold" id="total_price">${{ array_sum($total)  }}</h5>
+                                    <h5 class="font-weight-bold" id="total_price">${{ array_sum($total) }}</h5>
                                 </li>
                             </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to
                                 checkout</a>

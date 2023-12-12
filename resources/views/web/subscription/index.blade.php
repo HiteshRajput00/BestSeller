@@ -19,8 +19,8 @@
         <div class="container">
             <div class="section-title text-center">
                 <h2>Subscription Plans</h2>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout.</p>
+                <p>{{ trans("It is a long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout.") }}</p>
             </div>
             <div class="row text-center">
                 <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
@@ -41,7 +41,7 @@
                                 <li><b>10</b> Subdomains</li>
                                 <li><b>Unlimited</b> Support</li>
                             </ul>
-                            <div class="pricing-price">
+                            <div id="card-element">
 
                             </div>
                             <a href="#" class="price_btn">Order Now</a>
@@ -212,4 +212,12 @@
             text-transform: capitalize;
         }
     </style>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        var stripe = Stripe('pk_test_51O7AYgSIRjlSt6h3GKjXiN4vqP0Strd7vltj5qFHdb4eN8URJPGUNPbD00jwI1XiFyoMe50cPWN8lpnIs5AIOgVf002gg6Hlla');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+    </script>
 @endsection

@@ -18,7 +18,7 @@
                                 @endif
 
                                 <form class="mt-5 mb-5 login-input" method="post"
-                                    action="/designer-dashboard/add-product-process" enctype="multipart/form-data">
+                                    action="{{ url('/designer-dashboard/add-product-process') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="product Name"

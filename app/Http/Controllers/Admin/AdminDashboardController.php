@@ -19,8 +19,8 @@ class AdminDashboardController extends Controller
     // Profile
     public function adminProfile()
     {
-        $image = UserImage::where('user_id', Auth::user()->id)->first();
-        return view('Admin.profile.index', compact('image'));
+        
+        return view('Admin.profile.index');
     }
 
     // User list

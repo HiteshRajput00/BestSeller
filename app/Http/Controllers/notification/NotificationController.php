@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\notification;
 
-use App\Events\ContactUs;
 use App\Http\Controllers\Controller;
 use App\Models\AdminNotification;
 use App\Models\DesignerNotification;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 

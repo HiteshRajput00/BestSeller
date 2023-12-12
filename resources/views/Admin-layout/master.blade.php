@@ -64,7 +64,7 @@
 
                                     </li>
                                     <li>
-                                        <div class="list-footer"> <a href="/admin-dashboard/admin-notifications">View
+                                        <div class="list-footer"> <a href="{{ url('/admin-dashboard/admin-notifications') }}">View
                                                 all notifications</a></div>
 
                                     </li>
@@ -85,7 +85,7 @@
                                                         class="list-group-item list-group-item-action active">
                                                         <div class="notification-info">
                                                             <div class="notification-list-user-img"><img
-                                                                    src="{{ '/admin/assets/images/avatar-2.jpg' }}"
+                                                                    src="{{ url('/admin/assets/images/avatar-2.jpg') }}"
                                                                     alt=""
                                                                     class="user-avatar-md rounded-circle"></div>
                                                             <div class="notification-list-user-block"><span
@@ -99,10 +99,10 @@
                                             </div>
                                         </div>
                                         <a class="btn btn-primary"
-                                            href="/admin-dashboard/Mark-as-readadmin-notification">mark all as read</a>
+                                            href="{{ url('/admin-dashboard/Mark-as-readadmin-notification') }}">mark all as read</a>
                                     </li>
                                     <li>
-                                        <div class="list-footer"> <a href="/admin-dashboard/admin-notifications">View
+                                        <div class="list-footer"> <a href="{{ url('/admin-dashboard/admin-notifications') }}">View
                                                 all notifications</a></div>
 
                                     </li>
@@ -124,10 +124,10 @@
                                     <h5 class="mb-0 text-white nav-user-name">{{ Auth::user()->name }}</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
-                                <a class="dropdown-item" href="/admin-dashboard/admin-profile"><i
+                                <a class="dropdown-item" href="{{ url('/admin-dashboard/admin-profile') }}"><i
                                         class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="/logout"><i
+                                <a class="dropdown-item" href="{{ url('/logout') }}"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -150,7 +150,7 @@
                                 Menu
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/admin-dashboard"><i class="fa fa-fw fa-user-circle"></i>Dashboard
+                                <a class="nav-link " href="{{ url('/admin-dashboard') }}"><i class="fa fa-fw fa-user-circle"></i>Dashboard
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -161,16 +161,16 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/admin-dashboard/product-request"> product
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/product-request') }}"> product
                                                 request</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/admin-dashboard/product-approved">approved
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/product-approved') }}">approved
                                                 product</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link"
-                                                href="/admin-dashboard/product-disapproved">disapproved product</a>
+                                                href="{{ url('/admin-dashboard/product-disapproved') }}">disapproved product</a>
                                         </li>
 
                                     </ul>
@@ -185,16 +185,16 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/admin-dashboard/designer-list"> designer
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/designer-list') }}"> designer
                                                 request</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/admin-dashboard/approved-designer">approved
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/approved-designer') }}">approved
                                                 designer</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link"
-                                                href="/admin-dashboard/disapproved-designer">disapproved
+                                                href="{{ url('/admin-dashboard/disapproved-designer') }}">disapproved
                                                 disapproved</a>
                                         </li>
 
@@ -209,7 +209,7 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/admin-dashboard/category-list"> list</a>
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/category-list') }}"> list</a>
                                         </li>
 
 
@@ -225,7 +225,23 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/admin-dashboard/user-list"> User list</a>
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/user-list') }}"> User list</a>
+                                        </li>
+                                 
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-5" aria-controls="submenu-5"><i
+                                        class="fa fa-fw fa-user-circle"></i>Subscription <span
+                                        class="badge badge-success">6</span></a>
+                                <div id="submenu-5" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/add-subscription') }}"> Add new</a>
                                         </li>
                                  
 
