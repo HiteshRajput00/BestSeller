@@ -11,6 +11,7 @@ use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\GoogleloginController;
 use App\Http\Controllers\registerlogin\registerloginController;
+use App\Http\Controllers\Stripe\StripeWebhookController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\reviewController;
@@ -173,9 +174,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     //::::::::::::::::: subscription Routes  :::::::::::::::::::::::::::::::://
     Route::get('/subscription',[SubscriptionController::class,'SubscriptionPage']);
+    Route::get('/subscription-payment-form{id}',[SubscriptionController::class,'subscriptionForm'])->name('subscription_form');
     Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
     Route::get('/subscription-success', [SubscriptionController::class, 'subscriptionSuccess']);
     Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
+
+
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+    //::::::::::::::::::: Webhook route :::::::::::::::://
+    Route::post('/payment/webhook',[StripeWebhookController::class,'handleWebhookResponse']);
 

@@ -29,11 +29,20 @@ class registerloginController extends Controller
     {
         if (Auth::user()) {
             $data = User::find(Auth::user()->id);
+            if($req->role === 'user'){
+                $data->update([
+                    'password'=>$req->password,
+                    'number'=>$req->number,
+                    'role'=>$req->role,
+                    'is_approved'=>true
+                ]);
+            }else{
             $data->update([
                 'password'=>$req->password,
                 'number'=>$req->number,
-                'role'=>$req->role
+                'role'=>$req->role,
             ]);
+        }
 
         } else {
             $req->validate([      // validate data according to request
@@ -110,7 +119,6 @@ class registerloginController extends Controller
                 return redirect('/designer-dashboard');  // redirect to designer dashboard
 
             } else {
-
                 Auth::login($data);
                 return redirect('/')->with('msg', 'success');  // redirect to user dashboard
             }

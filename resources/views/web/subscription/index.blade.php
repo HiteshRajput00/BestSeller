@@ -1,5 +1,6 @@
 @extends('front-layout.master')
 @section('content')
+
     <!-- ***** Main Banner Area Start ***** -->
     <div class="page-heading about-page-heading" id="top">
         <div class="container">
@@ -19,87 +20,45 @@
         <div class="container">
             <div class="section-title text-center">
                 <h2>Subscription Plans</h2>
-                <p>{{ trans("It is a long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout.") }}</p>
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout.</p>
             </div>
             <div class="row text-center">
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
-                    data-wow-offset="0"
-                    style="visibility: visible; animation-duration: 1s; animation-delay: 0.1s; animation-name: fadeInUp;">
-                    <div class="pricing_design">
-                        <div class="single-pricing">
-                            <div class="price-head">
-                                <h2>Starter</h2>
-                                <h1>$0</h1>
-                                <span>/Monthly</span>
+                @if ($sub_list->isNotEmpty())
+                    @foreach ($sub_list as $list)
+                        <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
+                            data-wow-offset="0"
+                            style="visibility: visible; animation-duration: 1s; animation-delay: 0.1s; animation-name: fadeInUp;">
+                            <div class="pricing_design">
+                                <div class="single-pricing">
+                                    <div class="price-head">
+                                        <h2>{{ $list->sub_type }}</h2>
+                                        <h1>${{ $list->sub_price }}</h1>
+                                        <span>/{{ $list->recurring_time }}</span>
+                                    </div>
+                                    @if ($list->sub_type === 'Basic')
+                                        <ul>
+                                            <li><b>{{ $list->discount }}%</b> discount at every checkout </li>
+                                            <li><b>Unlimited</b> Support</li>
+                                        </ul>
+                                    @endif
+                                    @if ($list->sub_type === 'ultimate')
+                                        <ul>
+                                            <li><b>{{ $list->discount }}%</b> discount at every checkout </li>
+                                            <li> <b>VIP</b> Membership</li>
+                                            <li>no <b>shipping </b>cost</li>
+                                            <li>no <b>taxt </b>involved</li>
+                                            <li><b>Unlimited</b> Support</li>
+                                        </ul>
+                                    @endif
+                                  <a href="{{ route('subscription_form',['id'=>$list->id]) }}" class="btn btn-primary"> order now</a>
+                                </div>
                             </div>
-                            <ul>
-                                <li><b>15</b> website</li>
-                                <li><b>50GB</b> Disk Space</li>
-                                <li><b>50</b> Email</li>
-                                <li><b>50GB</b> Bandwidth</li>
-                                <li><b>10</b> Subdomains</li>
-                                <li><b>Unlimited</b> Support</li>
-                            </ul>
-                            <div id="card-element">
-
-                            </div>
-                            <a href="#" class="price_btn">Order Now</a>
                         </div>
-                    </div>
-                </div><!--- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"
-                    data-wow-offset="0"
-                    style="visibility: visible; animation-duration: 1s; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <div class="pricing_design">
-                        <div class="single-pricing">
-                            <div class="price-head">
-                                <h2>Personal</h2>
-                                <h1 class="price">$29</h1>
-                                <span>/Monthly</span>
-                            </div>
-                            <ul>
-                                <li><b>15</b> website</li>
-                                <li><b>50GB</b> Disk Space</li>
-                                <li><b>50</b> Email</li>
-                                <li><b>50GB</b> Bandwidth</li>
-                                <li><b>10</b> Subdomains</li>
-                                <li><b>Unlimited</b> Support</li>
-                            </ul>
-                            <div class="pricing-price">
-
-                            </div>
-                            <a href="#" class="price_btn">Order Now</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s"
-                    data-wow-offset="0"
-                    style="visibility: visible; animation-duration: 1s; animation-delay: 0.3s; animation-name: fadeInUp;">
-                    <div class="pricing_design">
-                        <div class="single-pricing">
-                            <div class="price-head">
-                                <h2>Ultimate</h2>
-                                <h1 class="price">$49</h1>
-                                <span>/Monthly</span>
-                            </div>
-                            <ul>
-                                <li><b>15</b> website</li>
-                                <li><b>50GB</b> Disk Space</li>
-                                <li><b>50</b> Email</li>
-                                <li><b>50GB</b> Bandwidth</li>
-                                <li><b>10</b> Subdomains</li>
-                                <li><b>Unlimited</b> Support</li>
-                            </ul>
-                            <div class="pricing-price">
-
-                            </div>
-                            <a href="#" class="price_btn">Order Now</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
-            </div><!--- END ROW -->
-        </div><!--- END CONTAINER -->
+                    @endforeach
+                @endif
+            </div>
+        </div>
     </section>
     <style>
         body {
@@ -164,7 +123,7 @@
         }
 
         .single-pricing ul li i {
-            background: #554c86;
+            background: #d9d8e0;
             color: #fff;
             width: 20px;
             height: 20px;
@@ -212,12 +171,5 @@
             text-transform: capitalize;
         }
     </style>
-    <script src="https://js.stripe.com/v3/"></script>
 
-    <script>
-        var stripe = Stripe('pk_test_51O7AYgSIRjlSt6h3GKjXiN4vqP0Strd7vltj5qFHdb4eN8URJPGUNPbD00jwI1XiFyoMe50cPWN8lpnIs5AIOgVf002gg6Hlla');
-        var elements = stripe.elements();
-        var cardElement = elements.create('card');
-        cardElement.mount('#card-element');
-    </script>
 @endsection
