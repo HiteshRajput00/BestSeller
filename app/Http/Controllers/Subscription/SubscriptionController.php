@@ -74,11 +74,11 @@ class SubscriptionController extends Controller
                 $user->update([
                     'stripe_id' =>$customerId
                 ]);
-                $customer = Customer::retrieve($customerId);
+                // $customer = Customer::retrieve($customerId);
 
-                // Set the default payment method (replace 'pm_card_example' with the actual payment method ID)
-                $customer->invoice_settings->default_payment_method = 'card';
-                $customer->save();
+                // // Set the default payment method (replace 'pm_card_example' with the actual payment method ID)
+                // $customer->invoice_settings->default_payment_method = 'card';
+                // $customer->save();
 
                 $customer = Customer::update($customerId, [
                     'invoice_settings' => [
