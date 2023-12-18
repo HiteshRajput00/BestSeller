@@ -15,10 +15,7 @@ class DesignerDashboardController extends Controller
         return view('designer.dashboard.index');
     }
 
-    public function designerProfile()
-    {
-        return view('designer.profile.Designer_profile');
-    }
+
 
 
 }

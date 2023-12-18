@@ -73,6 +73,6 @@ class GoogleloginController extends Controller
 
     public function adddetails()
     {
-        return view('forms.add_details');
+        return view('forms.Authentication.add_details');
     }
 }

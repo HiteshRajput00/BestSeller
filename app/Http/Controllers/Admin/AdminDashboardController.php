@@ -16,12 +16,7 @@ class AdminDashboardController extends Controller
         return view('Admin.dashboard.index');
     }
 
-    // Profile
-    public function adminProfile()
-    {
-        
-        return view('Admin.profile.index');
-    }
+
 
     // User list
     public function userlist()

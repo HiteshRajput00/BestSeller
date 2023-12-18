@@ -78,7 +78,7 @@
             margin-bottom: 1rem;
         }
     </style>
-    <form action="/profile-update" method="POST" enctype="multipart/form-data">
+    <form action="{{ url('/profile-update') }}" method="POST" enctype="multipart/form-data">
         <div class="row justify-content-center h-100">
             <div class="container">
                 <div class="row gutters">

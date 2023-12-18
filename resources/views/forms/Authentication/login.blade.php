@@ -78,10 +78,10 @@
                             </button>
                         </div>
                     </div>
-                   @if (session('msg'))
+                    @if (session('msg'))
                         <div class="text text-danger">{{ session('msg') }} </div>
                     @endif
-                    
+
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" id="remember"
                             {{ old('remember') ? 'checked' : '' }}>
@@ -103,22 +103,22 @@
                         <button class="btn login-form__btn submit  btn-dark" type="submit" name="log">LogIn</button>
                         <p class=" fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="{{ url('/register') }}"
                                 class="link-danger">Register</a></p>
+                        <a href="{{ url('/Send-recover-link') }}" class="link-danger">Forgot password ?</a>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const passwordInput = document.getElementById('password');
             const togglePasswordButton = document.getElementById('show-Password');
-    
-            togglePasswordButton.addEventListener('click', function () {
+
+            togglePasswordButton.addEventListener('click', function() {
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
-    
+
                 // Toggle eye icon
                 this.querySelector('i').classList.toggle('fa-eye');
                 this.querySelector('i').classList.toggle('fa-eye-slash');

@@ -20,6 +20,7 @@ use App\Http\Controllers\user\SearchController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Controllers\user\WishlistController;
+use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,14 +49,14 @@ Route::get('/about-us', [userDashboardController::class, 'abouttUs']);
 Route::get('/explor/{slug}', [ShopController::class, 'explorecategory'])->name('explorecategory');
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
-//:::::::::::::::::::::::: form routes ::::::::::::::::::::::::::::::::::::::://
+//:::::::::::::::::::::::: mannual Authentication routes ::::::::::::::::::::::::::::::::::::::://
 Route::get('/register', [registerloginController::class, 'registerpage'])->name('register');
 Route::Post('/registerprocess', [registerloginController::class, 'regprocess']);
 Route::get('/login', [registerloginController::class, 'loginpage'])->name('login');
 Route::Post('/loginprocess', [registerloginController::class, 'loginprocess'])->name('loginprocess');
 // Route::get('/add-details',[registerloginController::class,'adddetails']);
 
-//:::::::::::::::::: google login ::::::::::::::::::::::::::::::::::::::://
+//:::::::::::::::::: google Authentication routes ::::::::::::::::::::::::::::::::::::::://
 Route::get('login/google', [GoogleloginController::class, 'redirectToGoogle'])->name('login_google');
 Route::get('login/google/callback', [GoogleloginController::class, 'handleGoogleCallback']);
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
@@ -70,8 +71,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 
     //::::::::::::::: Admin profile ::::::::::::::::::::::::::::::::::::::::::::::://
-    Route::get('/admin-dashboard/admin-profile', [AdminDashboardController::class, 'adminProfile']);
-    Route::Post('/admin-dashboard/adminprofile-update', [ProfileController::class, 'updateAdminProfile']);
+    Route::get('/admin-dashboard/admin-profile', [ProfileController::class, 'adminProfile']);
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //::::::::::::::::::::::::: Add Subscription ::::::::::::::::::::::::::::::::::://
@@ -110,7 +110,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::group(['middleware' => 'designer'], function () {
     Route::get('/designer-dashboard', [DesignerDashboardController::class, 'designerDashboard']);
-    Route::get('/designer-dashboard/profile', [DesignerDashboardController::class, 'designerProfile']);
+    Route::get('/designer-dashboard/profile', [ProfileController::class, 'designerProfile']);
 
 
     //::::::::::::::::::::::designer notification:::::::::::::::::::::::::::::::::::::::::::://
@@ -166,7 +166,7 @@ Route::group(['middleware' => 'auth'], function () {
     //:::::::::::::::::::::::: logout route :::::::::::::::::::::::::::::::::://
     Route::get('/logout', [registerloginController::class, 'logout'])->name('logout');
 
-    //::::: user Profile :::::::://
+    //::::::::::::::::::::::::::::::: user Profile :::::::::::::::::::::::::::::::://
     Route::get('/user-profile', [ProfileController::class, 'userProfile']);
     Route::Post('/profile-update', [ProfileController::class, 'updateProfile']);
 
@@ -181,10 +181,17 @@ Route::group(['middleware' => 'auth'], function () {
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
-   //::::::::::::::::::: Webhook route :::::::::::::::://
+   //:::::::::::::::::::  Webhook route :::::::::::::::://
    Route::post('/payment/webhook', [StripeWebhookController::class, 'handleWebhookResponse']);
    
-   //:::::::::::::: search route :::::::::::::::::::::::::::// 
+   //:::::::::::::: search & filter route :::::::::::::::::::::::::::// 
    Route::post('/search', [SearchController::class, 'search']);
    Route::post('/filter-by-price', [FilterProductController::class, 'filterProduct']);
+   
+   //:::::::::::::::::::::: Password Recover Routes ::::::::::::::::::::::::::::::::::://
+    Route::get('/Send-recover-link',[registerloginController::class,'SendLinkpage']);
+    Route::post('/send-link',[registerloginController::class,'SendLink']);
+    Route::get('/change-password-page/{token}',[registerloginController::class,'passwordPage'])->name('change_password_page');
+    Route::post('/change-password-process',[registerloginController::class,'changeProcess']);
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 

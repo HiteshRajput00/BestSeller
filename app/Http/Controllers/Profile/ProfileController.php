@@ -71,53 +71,22 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'profile updated');
     }
 
-
-    //::::::::::::::::::::: Admin profile Function ::::::::::::::::::::::::::::::://
-
-    // public function updateAdminProfile(Request $req)
-    // {
-    //     // dd($req->all());
-    //     $image = UserImage::where('user_id', Auth::user()->id)->first();   // Update image
-    //     if ($image) {
-    //         if ($req->hasFile('profile_image')) {
-    //             $p_image = $req->file('profile_image');
-    //             $extension = $p_image->getClientOriginalExtension();
-    //             $filename = time() . '.' . $extension;
-    //             $p_image->move('images', $filename);
-    //             $profile_image = $filename;
-    //             $image->update(['profile_image' => $profile_image]);
-    //         }
-
-    //     } else {
-    //         if ($req->hasFile('profile_image')) {
-    //             $p_image = $req->file('profile_image');
-    //             $extension = $p_image->getClientOriginalExtension();
-    //             $filename = time() . '.' . $extension;
-    //             $p_image->move('images', $filename);
-    //             $profile_image = $filename;
-    //         }
-
-    //         $user_image = new UserImage();
-    //         $user_image->user_id = Auth::user()->id;
-    //         $user_image->profile_image = $profile_image;
-    //         $user_image->save();
-    //     }
-
-    //     $user = User::find(Auth::user()->id);   // update details
-    //     if ($req->name !== null) {
-    //         $user->update([
-    //             'name' => $req->name,
-    //             'email' => $req->email,
-    //             'number' => $req->phone_number,
-    //         ]);
-    //     }
-    //     return redirect()->back()->with('success', 'profile updated');
-    // }
-
     // ::::::::::::::::: user profile :::::::::::::::::::://
     public function userProfile()
     {
         return view('web.user_profile.user_profile');
+    }
+
+    //:::::::::::::: Admin Profile :::::::::::::::::::://
+    public function adminProfile()
+    {
+
+        return view('Admin.profile.index');
+    }
+
+    public function designerProfile()
+    {
+        return view('designer.profile.Designer_profile');
     }
 
 
