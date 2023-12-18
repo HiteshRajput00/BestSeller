@@ -84,7 +84,8 @@
         $(document).ready(function() {
             $('#cat_name').on('keyup', function() {
                 let name = $(this).val().toLowerCase();
-                let slug = name.replace(/\s+/g, "-");
+                let regex = /[^\w\s]/g;
+                let slug = name.replace(/[^\w\s]/g, "-").replace(/\s+/g, "-");
                 $('#sslug').val(slug);
             });
         });

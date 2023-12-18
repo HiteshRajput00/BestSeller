@@ -51,7 +51,7 @@ class registerloginController extends Controller
                 'name' => 'required',
                 'email' => 'required|unique:users',
                 'password' => 'required',
-                'number' => 'required',
+                'number' => 'required|unique:users',
                 'role' => 'required',
 
             ]);
@@ -79,10 +79,10 @@ class registerloginController extends Controller
 
                 $admin_nf->message = "new user registered";
 
-            } else if ($req->role === 'designer') {   // role designer
+            } else if ($req->role === 'designer') {     // role designer
                 $data->role = 'designer';
 
-                $maildata = [                               //admin mail data variable
+                $maildata = [                                //admin mail data variable
                     'title' => 'New Designer Registered',
                     'name' => $req->name,
                     'email' => $req->email,
@@ -92,13 +92,13 @@ class registerloginController extends Controller
                 $admin_nf->message = "new designer registered";
             }
             $admin_nf->status = true;
-            $admin_nf->save();    // save notification 
+            $admin_nf->save();     // save admin notification 
 
-            $data->save(); // save user data
+            $data->save();    // save user data
 
 
 
-            $userdata = [      //user mail data 
+            $userdata = [         //user mail data 
                 'title' => 'sucessfully  Registered',
                 'name' => $req->name,
                 'email' => $req->email,
@@ -108,25 +108,25 @@ class registerloginController extends Controller
             ];
             $admin = User::where('role', 'admin')->get('email');
             foreach ($admin as $admin_email) {
-                Mail::to($admin_email)->send(new notificationmail($maildata));   // mail  to admin 
+                Mail::to($admin_email)->send(new notificationmail($maildata));      // mail  to admin 
             }
-            Mail::to($req->email)->send(new userNotify_mail($userdata));    // mail  to registered user
+            Mail::to($req->email)->send(new userNotify_mail($userdata));      // mail  to registered user
         }
 
             if ($data->role === 'designer') {
 
                 Auth::login($data);
-                return redirect('/designer-dashboard');  // redirect to designer dashboard
+                return redirect('/designer-dashboard');      // redirect to designer dashboard
 
             } else {
                 Auth::login($data);
-                return redirect('/')->with('msg', 'success');  // redirect to user dashboard
+                return redirect('/')->with('msg', 'success');     // redirect to user dashboard
             }
         
     }
 
 
-    // ::::::::::::::: login function :::::::::::::::::::::::::::::://
+    //::::::::::::::: login function :::::::::::::::::::::::::::::://
     public function loginprocess(Request $req)
     {
         // dd($req->all());

@@ -1,6 +1,5 @@
 @extends('front-layout.master')
 @section('content')
-
     <!-- ***** Main Banner Area Start ***** -->
     <div class="page-heading" id="top">
         <div class="container">
@@ -24,7 +23,7 @@
                 <div class="col-lg-12">
                     <div class="section-heading">
                         <h2>Our Latest Products</h2>
-                        <span>Check out all of our  products.</span>
+                        <span>Check out all of our products.</span>
                     </div>
                 </div>
             </div>
@@ -41,8 +40,7 @@
                                             <li><a href="{{ route('single_product', ['slug' => $product->slug]) }}"><i
                                                         class="fa fa-eye"></i></a></li>
                                             @if (Auth::check())
-                                                <?php $data = App\Models\Wishlist::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
-                                                @if ($data)
+                                                @if (Auth::user()->wishlists->where('product_id', $product->id)->isNotEmpty())
                                                     <li><a type="button" class="addWishlist"
                                                             id="{{ $product->slug ?? '' }}" data-id="{{ $product->id }}"><i
                                                                 style="color: red" class="fa fa-heart"></i></a></li>
@@ -51,8 +49,7 @@
                                                             data-id="{{ $product->id }}"><i class="fa fa-heart"></i></a>
                                                     </li>
                                                 @endif
-                                                <?php $Cart = App\Models\Cart::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
-                                                @if ($Cart)
+                                                @if (Auth::user()->carts->where('product_id', $product->id)->isNotEmpty())
                                                     <li><a type="button" id="{{ $product->id }}" class="CartBtn"
                                                             data-price="{{ $product->price }}"
                                                             data-id="{{ $product->id }}"><i style="color: green"
@@ -65,7 +62,8 @@
                                                 @endif
                                             @else
                                                 <li><a href="{{ url('/login') }}"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="{{ url('/login') }}"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="{{ url('/login') }}"><i class="fa fa-shopping-cart"></i></a>
+                                                </li>
                                             @endif
                                         </ul>
                                     </div>
@@ -74,7 +72,7 @@
                                 <div class="down-content">
                                     <h4>{{ $product->name }}</h4>
                                     <span>${{ $product->price }}</span>
-                                 
+
                                     @if ($product->review)
                                         <ul class="stars">
                                             @for ($i = 1; $i <= $product->review->avg('rating'); $i++)

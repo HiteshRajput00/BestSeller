@@ -45,8 +45,7 @@
                                                     data-id="{{ $product->id }}"><i style="color: red"
                                                         class="fa fa-heart"></i></a></li>
 
-                                            <?php $Cart = App\Models\Cart::class::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first(); ?>
-                                            @if ($Cart)
+                                            @if (Auth::user()->carts->where('product_id', $product->id)->isNotEmpty())
                                                 <li><a type="button" id="{{ $product->id }}" class="CartBtn"
                                                         data-price="{{ $product->price }}" data-id="{{ $product->id }}"><i
                                                             style="color: green" class="fa fa-shopping-cart"></i></a></li>

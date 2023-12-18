@@ -14,6 +14,7 @@ use App\Http\Controllers\registerlogin\registerloginController;
 use App\Http\Controllers\Stripe\StripeWebhookController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
+use App\Http\Controllers\user\FilterProductController;
 use App\Http\Controllers\user\reviewController;
 use App\Http\Controllers\user\SearchController;
 use App\Http\Controllers\user\ShopController;
@@ -37,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // routes/web.php
-Route::get('set-language/{locale}', [SetLanguageController::class,'setLanguage'])->name('set.language');
+Route::get('set-language/{locale}', [SetLanguageController::class, 'setLanguage'])->name('set.language');
 //::::::::::::::::::::Site Pages ::::::::::::::::::::::::::://
 Route::get('/', [userDashboardController::class, 'index'])->name('/');
 Route::get('/shop', [ShopController::class, 'shop']);
@@ -74,8 +75,8 @@ Route::group(['middleware' => 'admin'], function () {
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
     //::::::::::::::::::::::::: Add Subscription ::::::::::::::::::::::::::::::::::://
-    Route::get('/admin-dashboard/add-subscription',[SubscriptionController::class,'AddSubscription']);
-    Route::Post('/admin-dashboard/add-subscription-process',[SubscriptionController::class,'AddSubscriptionProcess']);
+    Route::get('/admin-dashboard/add-subscription', [SubscriptionController::class, 'AddSubscription']);
+    Route::Post('/admin-dashboard/add-subscription-process', [SubscriptionController::class, 'AddSubscriptionProcess']);
 
     //::::::::::::::::::::::::::Category Routes::::::::::::::::::::::::::::::::://
     Route::get('/admin-dashboard/category-list', [Categorycontroller::class, 'categoryList']);
@@ -110,7 +111,7 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'designer'], function () {
     Route::get('/designer-dashboard', [DesignerDashboardController::class, 'designerDashboard']);
     Route::get('/designer-dashboard/profile', [DesignerDashboardController::class, 'designerProfile']);
-    
+
 
     //::::::::::::::::::::::designer notification:::::::::::::::::::::::::::::::::::::::::::://
     Route::get('/designer-dashboard/designer-notifications', [NotificationController::class, 'designerNotifications']);
@@ -165,16 +166,13 @@ Route::group(['middleware' => 'auth'], function () {
     //:::::::::::::::::::::::: logout route :::::::::::::::::::::::::::::::::://
     Route::get('/logout', [registerloginController::class, 'logout'])->name('logout');
 
-    //:::::::::::::: search route ::::::::::::::::::::::::::://
-    Route::post('/search',[SearchController::class,'search']);
-
     //::::: user Profile :::::::://
-    Route::get('/user-profile',[ProfileController::class,'userProfile']);
+    Route::get('/user-profile', [ProfileController::class, 'userProfile']);
     Route::Post('/profile-update', [ProfileController::class, 'updateProfile']);
 
     //::::::::::::::::: subscription Routes  :::::::::::::::::::::::::::::::://
-    Route::get('/subscription',[SubscriptionController::class,'SubscriptionPage']);
-    Route::get('/subscription-payment-form{id}',[SubscriptionController::class,'subscriptionForm'])->name('subscription_form');
+    Route::get('/subscription', [SubscriptionController::class, 'SubscriptionPage']);
+    Route::get('/subscription-payment-form{id}', [SubscriptionController::class, 'subscriptionForm'])->name('subscription_form');
     Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
     Route::get('/subscription-success', [SubscriptionController::class, 'subscriptionSuccess']);
     Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
@@ -183,6 +181,10 @@ Route::group(['middleware' => 'auth'], function () {
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
-    //::::::::::::::::::: Webhook route :::::::::::::::://
-    Route::post('/payment/webhook',[StripeWebhookController::class,'handleWebhookResponse']);
+   //::::::::::::::::::: Webhook route :::::::::::::::://
+   Route::post('/payment/webhook', [StripeWebhookController::class, 'handleWebhookResponse']);
+   
+   //:::::::::::::: search route :::::::::::::::::::::::::::// 
+   Route::post('/search', [SearchController::class, 'search']);
+   Route::post('/filter-by-price', [FilterProductController::class, 'filterProduct']);
 

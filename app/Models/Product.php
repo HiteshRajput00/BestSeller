@@ -30,5 +30,14 @@ class Product extends Model
         return $this->hasMany(ProductReview::class);
     }
 
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class)->withPivot('quantity');
+    }
+
+    public function wishlists()
+    {
+        return $this->belongsToMany(Wishlist::class);
+    }
  
 }

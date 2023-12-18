@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\registerlogin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\userNotify_mail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleloginController extends Controller
@@ -40,6 +42,15 @@ class GoogleloginController extends Controller
 
             ]);
 
+            $userdata = [      //user mail data 
+                'title' => 'sucessfully  Registered',
+                'name' => $newUser->name,
+                'email' => $newUser->email,
+                'number' => $newUser->number,
+                'message' => 'you have successfully registered to web....... Enjoy!',
+
+            ];
+            Mail::to($newUser->email)->send(new userNotify_mail($userdata)); 
             // Log in the new user
             Auth::login($newUser);
             return $this->adddetails();

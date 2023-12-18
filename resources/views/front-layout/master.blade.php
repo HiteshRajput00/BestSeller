@@ -77,7 +77,6 @@ https://templatemo.com/tm-571-hexashop
                                 <a href="javascript:;">Filter</a>
                                 <ul>
                                     <?php $categories = App\Models\Categories::whereNull('parent_category_id')
-                                        ->with('products')
                                         ->get(); ?>
                                     @if ($categories)
                                         @foreach ($categories as $category)
@@ -91,7 +90,7 @@ https://templatemo.com/tm-571-hexashop
 
                                 </ul>
                             </li>
-                            <li class="submenu">
+                            {{-- <li class="submenu">
                                 <a href="javascript:;">language</a>
                                 <ul>
                                     <li>
@@ -101,15 +100,29 @@ https://templatemo.com/tm-571-hexashop
                                         <a href="{{ route('set.language', ['locale' => 'fr']) }}">Español</a>
                                     </li>
                                 </ul>
-                            </li>
-
+                            </li> --}}
                             <li class="scroll-to-section"><a href="{{ url('/cart') }}"><i style="font-size: 1.6em"
                                         class="fa fa-shopping-cart"></i></a></li>
-                            <li class="scroll-to-section"><a href="{{ url('/favourite') }}"><i style="font-size: 1.6em; color:red"
-                                        class="fa fa-heart"></i></a></li>
+                            <li class="scroll-to-section"><a href="{{ url('/favourite') }}"><i
+                                        style="font-size: 1.6em; color:red" class="fa fa-heart"></i></a></li>
+                            {{-- search bar --}}
+                            <li class="scroll-to-section">
+                                <form action="{{ url('/search') }}" id="search_form" method="POST">
+                                    @csrf
+                                    <div id="search-container">
+                                        <div id="search-bar">
+                                            <input id="search-input" name="search" type="text"
+                                                placeholder="Search...">
+                                            <i id="search-icon" class="fa fa-times" onclick="closeSearch()"></i>
+                                        </div>
+                                    </div>
+
+                                    <i id="search-trigger" style="font-size: 1.4em;" class="fa fa-search"
+                                        onclick="openSearch()"></i>
+                                </form>
+                            </li>
                             <li class="submenu">
-                                <a href="javascript:;"><i style="font-size: 1.6em; "
-                                    class="fa fa-cog"></i></a>
+                                <a href="javascript:;"><i style="font-size: 1.6em; " class="fa fa-cog"></i></a>
                                 <ul>
                                     @if (Auth::user())
                                         <li><a href="{{ url('/logout') }}">logout</a></li>
@@ -226,6 +239,22 @@ https://templatemo.com/tm-571-hexashop
     <!-- Global Init -->
     <script src="{{ url('/user/assets/js/custom.js') }}"></script>
 
+    <script>
+        function openSearch() {
+            document.getElementById('search-container').style.height = '60px';
+        }
+
+        function closeSearch() {
+            document.getElementById('search-container').style.height = '0';
+        }
+        const form = document.getElementById('search_form');
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                form.submit();
+            }
+        }
+    </script>
     <script>
         $(function() {
             var selectedClass = "";
