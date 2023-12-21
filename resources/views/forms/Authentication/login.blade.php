@@ -101,9 +101,14 @@
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button class="btn login-form__btn submit  btn-dark" type="submit" name="log">LogIn</button>
+                        
                         <p class=" fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="{{ url('/register') }}"
                                 class="link-danger">Register</a></p>
                         <a href="{{ url('/Send-recover-link') }}" class="link-danger">Forgot password ?</a>
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0"> or</p>
+                        </div>
+                        <a href="{{ url('/otp-Authentication') }}" class="link-danger">By verification code </a>
                     </div>
                 </form>
             </div>

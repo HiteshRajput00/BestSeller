@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Designer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
-use RealRashid\SweetAlert\Facades\Alert;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

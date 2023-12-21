@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\UserImage;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
 {

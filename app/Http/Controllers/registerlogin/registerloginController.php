@@ -189,7 +189,7 @@ class registerloginController extends Controller
         $user = User::where('email', $req->email)->first();
 
         if (!$user) {
-            return redirect()->back()->with('msg', 'email not found');
+            return redirect()->back()->with('error', 'email not found');
         } else {
             $token = str::random(60) . '|' . $req->email;
 
@@ -227,7 +227,7 @@ class registerloginController extends Controller
             $user->update(['password' => $req->password]);
             return redirect('/login')->with('success', 'password updated successfully');
         } else {
-            return redirect()->back()->with('msg', 'error occured');
+            return redirect()->back()->with('error', 'error occured');
         }
 
     }

@@ -37,7 +37,7 @@ class designer_mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'Admin.mail.designer_mail',
+            view: 'mail.designer_mail',
         );
     }
 

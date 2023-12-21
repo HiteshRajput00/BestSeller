@@ -29,7 +29,7 @@
                                         action="{{ url('/registerprocess') }}">
                                         @csrf
                                        
-                                      <h6>make a password </h6>
+                                      <p>Add password </p>
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
@@ -58,7 +58,7 @@
                                                 {{ $message }}
                                             @enderror
                                         </div>
-                                        <h6>add mobile number (*optional)</h6>
+                                        <p>add mobile number (*optional)</p>
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fa fa-mobile fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">

@@ -9,17 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class userNotify_mail extends Mailable
+class Otpverification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $userdata;
+    public $otpdata;
     /**
      * Create a new message instance.
      */
-    public function __construct($userdata)
+    public function __construct($otpdata)
     {
-        $this->userdata = $userdata;
+        $this->otpdata = $otpdata;
     }
 
     /**
@@ -28,7 +28,7 @@ class userNotify_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'User Notify Mail',
+            subject: 'verification',
         );
     }
 
@@ -38,7 +38,7 @@ class userNotify_mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.user_mail',
+            view: 'mail.otp_verification_mail',
         );
     }
 

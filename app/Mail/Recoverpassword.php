@@ -38,7 +38,7 @@ class Recoverpassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'forms.password-mail.recover_password',
+            view: 'mail.recover_password',
             
         );
     }

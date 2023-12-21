@@ -11,6 +11,7 @@ use App\Http\Controllers\notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\registerlogin\GoogleloginController;
 use App\Http\Controllers\registerlogin\registerloginController;
+use App\Http\Controllers\registerlogin\OtpVerificationController;
 use App\Http\Controllers\Stripe\StripeWebhookController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Http\Controllers\user\CartController;
@@ -20,7 +21,6 @@ use App\Http\Controllers\user\SearchController;
 use App\Http\Controllers\user\ShopController;
 use App\Http\Controllers\user\userDashboardController;
 use App\Http\Controllers\user\WishlistController;
-use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +60,19 @@ Route::Post('/loginprocess', [registerloginController::class, 'loginprocess'])->
 Route::get('login/google', [GoogleloginController::class, 'redirectToGoogle'])->name('login_google');
 Route::get('login/google/callback', [GoogleloginController::class, 'handleGoogleCallback']);
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+//:::::::::::::::::::::: Password Recover Routes ::::::::::::::::::::::::::::::::::://
+Route::get('/Send-recover-link', [registerloginController::class, 'SendLinkpage']);
+Route::post('/send-link', [registerloginController::class, 'SendLink']);
+Route::get('/change-password-page/{token}', [registerloginController::class, 'passwordPage'])->name('change_password_page');
+Route::post('/change-password-process', [registerloginController::class, 'changeProcess']);
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+//::::::::::::::::::::::::::::::: Otp Verification :::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+Route::get('/otp-Authentication', [OtpVerificationController::class, 'SendOtpPage']);
+Route::Post('/generate-otp', [OtpVerificationController::class, 'SendOtp']);
+Route::get('/otp-verification/{token}', [OtpVerificationController::class, 'OtpVerification'])->name('Otp_verification');
+Route::Post('/verify-otp', [OtpVerificationController::class, 'VerifyOtp']);
 
 
 //:::::::::::::::::::: Admin Protected  Routes :::::::::::::::::::::::::::::::::::::://
@@ -181,17 +194,12 @@ Route::group(['middleware' => 'auth'], function () {
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
-   //:::::::::::::::::::  Webhook route :::::::::::::::://
-   Route::post('/payment/webhook', [StripeWebhookController::class, 'handleWebhookResponse']);
-   
-   //:::::::::::::: search & filter route :::::::::::::::::::::::::::// 
-   Route::post('/search', [SearchController::class, 'search']);
-   Route::post('/filter-by-price', [FilterProductController::class, 'filterProduct']);
-   
-   //:::::::::::::::::::::: Password Recover Routes ::::::::::::::::::::::::::::::::::://
-    Route::get('/Send-recover-link',[registerloginController::class,'SendLinkpage']);
-    Route::post('/send-link',[registerloginController::class,'SendLink']);
-    Route::get('/change-password-page/{token}',[registerloginController::class,'passwordPage'])->name('change_password_page');
-    Route::post('/change-password-process',[registerloginController::class,'changeProcess']);
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+//:::::::::::::::::::  Webhook route :::::::::::::::://
+Route::post('/payment/webhook', [StripeWebhookController::class, 'handleWebhookResponse']);
+
+//:::::::::::::: search & filter route :::::::::::::::::::::::::::// 
+Route::post('/search', [SearchController::class, 'search']);
+Route::post('/filter-by-price', [FilterProductController::class, 'filterProduct']);
+
+
 
