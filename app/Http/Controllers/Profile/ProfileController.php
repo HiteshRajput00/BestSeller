@@ -89,5 +89,35 @@ class ProfileController extends Controller
         return view('designer.profile.Designer_profile');
     }
 
+    //:: Update Profile :://
+    public function UpdatePassword()
+    {
+        return view('web.user_profile.update_password');
+    }
+
+    public function ChangePassword()
+    {
+        return view('web.user_profile.update_password');
+    }
+
+    public function UpdatePasswordProcess(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required',
+            'confirm_password' => 'required'
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $old_password = md5($request->current_password);
+        if ($old_password === $user->password) {
+            $user->upadte([
+                'password' => $request->new_password,
+            ]);
+            return redirect()->back()->with('success', 'password updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'your current password is incorrect');
+        }
+    }
 
 }

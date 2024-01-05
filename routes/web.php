@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 
 // routes/web.php
 Route::get('set-language/{locale}', [SetLanguageController::class, 'setLanguage'])->name('set.language');
+
 //::::::::::::::::::::Site Pages ::::::::::::::::::::::::::://
 Route::get('/', [userDashboardController::class, 'index'])->name('/');
 Route::get('/shop', [ShopController::class, 'shop']);
@@ -189,6 +190,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
     Route::get('/subscription-success', [SubscriptionController::class, 'subscriptionSuccess']);
     Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
+
+    //::::::::::::::: Update Password :::::::::::::::::::::::::::::://
+    Route::get('/Account/profile/change-password',[ProfileController::class,'ChangePassword']);
+    Route::Post('/Account/profile/update-password',[ProfileController::class,'UpdatePasswordProcess']);
 
 
 });

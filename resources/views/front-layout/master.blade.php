@@ -12,6 +12,11 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+
+    {{-- <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css"> --}}
+
     <title>Bestseller Ecommerce </title>
 
 
@@ -76,8 +81,7 @@ https://templatemo.com/tm-571-hexashop
                             <li class="submenu">
                                 <a href="javascript:;">Filter</a>
                                 <ul>
-                                    <?php $categories = App\Models\Categories::whereNull('parent_category_id')
-                                        ->get(); ?>
+                                    <?php $categories = App\Models\Categories::whereNull('parent_category_id')->get(); ?>
                                     @if ($categories)
                                         @foreach ($categories as $category)
                                             @if ($category->products->isNotEmpty())
@@ -110,7 +114,7 @@ https://templatemo.com/tm-571-hexashop
                                 <form action="{{ url('/search') }}" id="search_form" method="POST">
                                     @csrf
                                     <div id="search-container">
-                                        <div id="search-bar">
+                                        <div id="search-bar" style="width: 500px">
                                             <input id="search-input" name="search" type="text"
                                                 placeholder="Search...">
                                             <i id="search-icon" class="fa fa-times" onclick="closeSearch()"></i>
@@ -131,6 +135,9 @@ https://templatemo.com/tm-571-hexashop
                                     @endif
                                     <li>
                                         <a href="{{ url('/user-profile') }}">account setting</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/Account/profile/change-password') }}">Update Password</a>
                                     </li>
                                 </ul>
                             </li>
@@ -170,7 +177,7 @@ https://templatemo.com/tm-571-hexashop
                     <ul>
                         @if ($categories)
                             @foreach ($categories as $category)
-                                <li><a href="{{ route('explorecategory', ['slug' => $category->slug]) }}">{{ $category->slug }}
+                                <li><a href="{{ route('explorecategory', ['slug' => $category->slug]) }}">{{ $category->name }}
                                         Shopping</a></li>
                             @endforeach
                         @endif

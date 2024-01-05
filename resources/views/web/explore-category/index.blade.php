@@ -9,6 +9,8 @@
                     <div class="inner-content">
                         <h2>Check Our Products</h2>
                         <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                        <p class="text-white link-nav"><a class="follow-page" href="{{ url('/') }}">Home </a> <i class="fa fa-fw fa-arrow-right"></i>
+                            <a class="follow-page" href="{{ url('/explor/'.$cat->slug) }}">{{ $cat->name }}</a></p>
                     </div>
                 </div>
             </div>

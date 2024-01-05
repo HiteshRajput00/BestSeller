@@ -504,6 +504,10 @@ header
   background-color: #1e1e1e;
 }
 
+.follow-page{
+  color: white;
+}
+
 .header-area .main-nav .menu-trigger.active span:after {
   -moz-transform: translateY(-6px) translateX(1px) rotate(-45deg);
   -ms-transform: translateY(-6px) translateX(1px) rotate(-45deg);
