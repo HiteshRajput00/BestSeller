@@ -232,6 +232,22 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-coupon" aria-controls="submenu-2"><i
+                                        class="fa fa-fw fa-shopping-cart"></i>Coupons </a>
+                                <div id="submenu-coupon" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/add-coupon') }}">
+                                                Add coupon</a>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false"
                                     data-target="#submenu-3" aria-controls="submenu-3"><i
                                         class="fa fa-fw fa-user-circle"></i>Users data <span
                                         class="badge badge-success">6</span></a>

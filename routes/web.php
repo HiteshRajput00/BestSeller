@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminDesignerController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Designer\Categorycontroller;
 use App\Http\Controllers\Designer\DesignerDashboardController;
 use App\Http\Controllers\Designer\ProductController;
@@ -117,6 +118,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-dashboard/product-approved', [AdminProductController::class, 'productapproved']);
     Route::get('/admin-dashboard/product-disapproved', [AdminProductController::class, 'productdisapproved']);
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+    //:::::::::::::::::::::::::::: Add Coupon Routes :::::::::::::::::::::::::://
+    Route::get('/admin-dashboard/add-coupon',[CouponController::class,'CouponPage']);
+    Route::Post('/admin-dashboard/save-coupon',[CouponController::class,'SaveCoupon']);
 });
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
@@ -125,7 +130,6 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'designer'], function () {
     Route::get('/designer-dashboard', [DesignerDashboardController::class, 'designerDashboard']);
     Route::get('/designer-dashboard/profile', [ProfileController::class, 'designerProfile']);
-
 
     //::::::::::::::::::::::designer notification:::::::::::::::::::::::::::::::::::::::::::://
     Route::get('/designer-dashboard/designer-notifications', [NotificationController::class, 'designerNotifications']);

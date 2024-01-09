@@ -176,7 +176,7 @@ class SubscriptionController extends Controller
                 $paymentIntent = PaymentIntent::retrieve($paymentIntentID);      // retrive payment
 
                 if ($paymentIntent->status === 'requires_payment_method') {
-                    
+
                     $paymentMethod_id = $paymentMethod->id;
                     $paymentIntent->payment_method = $paymentMethod_id;       // Replace with the actual Payment Method ID
                     $paymentIntent->save();
@@ -265,7 +265,6 @@ class SubscriptionController extends Controller
                 'name' => 'Dear ' . Auth::user()->name,
                 'message' => 'you have successfully subscribe our ' . $plan->sub_type . 'plan, now you will get ' . $plan->discount . 'on every checkout',
             ];
-
 
         }
     }
