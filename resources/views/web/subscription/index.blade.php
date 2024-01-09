@@ -38,7 +38,7 @@
                                     </div>
                                     @if ($list->sub_type === 'Basic')
                                         <ul>
-                                            <li><b>{{ $list->discount }}%</b> discount at every checkout </li>
+                                            <li><b>{{ $list->discount }}%</b> discount at every every checkout </li>
                                             <li><b>Unlimited</b> Support</li>
                                         </ul>
                                     @endif
@@ -47,11 +47,11 @@
                                             <li><b>{{ $list->discount }}%</b> discount at every checkout </li>
                                             <li> <b>VIP</b> Membership</li>
                                             <li>no <b>shipping </b>cost</li>
-                                            <li>no <b>taxt </b>involved</li>
+                                            <li>no <b>tax </b>involved</li>
                                             <li><b>Unlimited</b> Support</li>
                                         </ul>
                                     @endif
-                                  <a href="{{ route('subscription_form',['id'=>$list->id]) }}" class="btn btn-primary"> order now</a>
+                                  <a href="{{ url('/subscription-payment-form?plan_id='.$list->id) }}" class="btn btn-dark"> order now</a>
                                 </div>
                             </div>
                         </div>

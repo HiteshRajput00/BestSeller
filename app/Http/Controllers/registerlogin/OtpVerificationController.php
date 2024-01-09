@@ -65,7 +65,7 @@ class OtpVerificationController extends Controller
                 );
                 $sid = $message->sid;
                 $token = str::random(60) . '_' . $user->id.'_'.$value;
-                $url = url('/otp-verification/' . $token  );
+                $url = url('/otp-verification?token=' . $token  );
                 return $url;
 
             } else {
@@ -74,7 +74,6 @@ class OtpVerificationController extends Controller
         } catch (\Exception $e) {
             throw $e;
         }
-
     }
 
     private function EmailVerification($value)
@@ -94,7 +93,7 @@ class OtpVerificationController extends Controller
                 ];
                 Mail::to($user->email)->send(new Otpverification($otpdata));
                 $token = str::random(60) . '_' . $user->id.'_'.$value;
-                $url = url('/otp-verification/' . $token );
+                $url = url('/otp-verification?token=' . $token );
                 return $url;
             } else {
                 throw new \Exception('email is not registered.');
@@ -104,9 +103,9 @@ class OtpVerificationController extends Controller
         }
     }
 
-    public function OtpVerification(Request $request, $token)
+    public function OtpVerification(Request $request)
     {
-        $tokenParts = explode('_', $request->token);
+        $tokenParts = explode('_', $request->input('token'));
         if (count($tokenParts) !== 3) {
             abort(400);
         } else {

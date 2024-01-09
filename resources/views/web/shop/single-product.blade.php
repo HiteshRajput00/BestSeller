@@ -111,7 +111,7 @@
                 <div class="col-lg-6 p-5">
                     <div class="right-content">
                         <h4>{{ $product->name }}</h4>
-                        <span class="price">${{ $product->price }}</span>
+                        <span><del>${{ $product->price + 150 }}</del>&nbsp;<strong>${{ $product->price  }}</strong></span>
                         @if ($product->review)
                             <ul class="stars">
                                 @for ($i = 1; $i <= $product->review->avg('rating'); $i++)

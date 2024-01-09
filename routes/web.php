@@ -72,7 +72,7 @@ Route::post('/change-password-process', [registerloginController::class, 'change
 //::::::::::::::::::::::::::::::: Otp Verification :::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 Route::get('/otp-Authentication', [OtpVerificationController::class, 'SendOtpPage']);
 Route::Post('/generate-otp', [OtpVerificationController::class, 'SendOtp']);
-Route::get('/otp-verification/{token}', [OtpVerificationController::class, 'OtpVerification'])->name('Otp_verification');
+Route::get('/otp-verification', [OtpVerificationController::class, 'OtpVerification'])->name('Otp_verification');
 Route::Post('/verify-otp', [OtpVerificationController::class, 'VerifyOtp']);
 
 
@@ -186,16 +186,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     //::::::::::::::::: subscription Routes  :::::::::::::::::::::::::::::::://
     Route::get('/subscription', [SubscriptionController::class, 'SubscriptionPage']);
-    Route::get('/subscription-payment-form{id}', [SubscriptionController::class, 'subscriptionForm'])->name('subscription_form');
+    Route::get('/subscription-payment-form', [SubscriptionController::class, 'subscriptionForm'])->name('subscription_form');
     Route::post('/subscription-process', [SubscriptionController::class, 'subscriptionProcess']);
     Route::get('/subscription-success', [SubscriptionController::class, 'subscriptionSuccess']);
     Route::get('/subscription-fail', [SubscriptionController::class, 'subscriptionFail']);
+    Route::post('/confirm-payment', [SubscriptionController::class, 'confirmPayment']);
 
     //::::::::::::::: Update Password :::::::::::::::::::::::::::::://
     Route::get('/Account/profile/change-password',[ProfileController::class,'ChangePassword']);
     Route::Post('/Account/profile/update-password',[ProfileController::class,'UpdatePasswordProcess']);
-
-
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 

@@ -95,8 +95,6 @@ class registerloginController extends Controller
             $userdata = [           //user mail data variable
                 'title' => 'sucessfully  Registered',
                 'name' => $req->name,
-                'email' => $req->email,
-                'number' => $req->number,
                 'message' => 'you have successfully registered to web....... Enjoy!',
 
             ];
@@ -142,15 +140,15 @@ class registerloginController extends Controller
         if (Auth::attempt($credent, $remember)) {
 
 
-            $client = new Client($sid, $token);
-            $to = '+91' . Auth::user()->number;
-            $message = $client->messages->create(
-                $to,
-                [
-                    'from' => $from,
-                    'body' => "successfully login",
-                ]
-            );
+            // $client = new Client($sid, $token);
+            // $to = '+91' . Auth::user()->number;
+            // $message = $client->messages->create(
+            //     $to,
+            //     [
+            //         'from' => $from,
+            //         'body' => "successfully login",
+            //     ]
+            // );
 
             if (Auth::user()->role === 'admin') {       // redirect according to role 
 

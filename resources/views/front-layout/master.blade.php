@@ -85,9 +85,10 @@ https://templatemo.com/tm-571-hexashop
                                     @if ($categories)
                                         @foreach ($categories as $category)
                                             @if ($category->products->isNotEmpty())
-                                                <li><a
-                                                        href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
-                                                            class="fa fa-fw fa-tags"></i>{{ $category->name }}</a></li>
+                                                <li>
+                                                    <a href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
+                                                        class="fa fa-fw fa-tags"></i>{{ $category->name }}</a>
+                                                </li>
                                             @endif
                                         @endforeach
                                     @endif
@@ -119,6 +120,7 @@ https://templatemo.com/tm-571-hexashop
                                                 placeholder="Search...">
                                             <i id="search-icon" class="fa fa-times" onclick="closeSearch()"></i>
                                         </div>
+                                        <p id="press"></p>
                                     </div>
 
                                     <i id="search-trigger" style="font-size: 1.4em;" class="fa fa-search"
@@ -128,222 +130,218 @@ https://templatemo.com/tm-571-hexashop
                             <li class="submenu">
                                 <a href="javascript:;"><i style="font-size: 1.6em; " class="fa fa-cog"></i></a>
                                 <ul>
-                                    @if (Auth::user())
+                                    @auth
                                         <li><a href="{{ url('/logout') }}">logout</a></li>
+                                        <li>
+                                            <a href="{{ url('/user-profile') }}">account setting</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/Account/profile/change-password') }}">Update Password</a>
+                                        </li>
                                     @else
                                         <li><a href="{{ url('/login') }}">login</a></li>
-                                    @endif
-                                    <li>
-                                        <a href="{{ url('/user-profile') }}">account setting</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/Account/profile/change-password') }}">Update Password</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
+                                        @endif
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <!-- ***** Header Area End ***** -->
-    @yield('content')
+        </header>
+        <!-- ***** Header Area End ***** -->
 
-    <!-- ***** Footer Start ***** -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="first-item">
-                        <div class="logo">
-                            <img src="{{ url('/user/assets/images/white-logo.png') }}"
-                                alt="hexashop ecommerce templatemo">
+        @yield('content')
+
+        <!-- ***** Footer Start ***** -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="first-item">
+                            <div class="logo">
+                                <img src="{{ url('/user/assets/images/white-logo.png') }}"
+                                    alt="hexashop ecommerce templatemo">
+                            </div>
+                            <ul>
+                                <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                                <li><a href="#">hexashop@company.com</a></li>
+                                <li><a href="#">010-020-0340</a></li>
+                            </ul>
                         </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>Shopping &amp; Categories</h4>
                         <ul>
-                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
-                            <li><a href="#">hexashop@company.com</a></li>
-                            <li><a href="#">010-020-0340</a></li>
+                            @if ($categories)
+                                @foreach ($categories as $category)
+                                    <li><a href="{{ route('explorecategory', ['slug' => $category->slug]) }}">{{ $category->name }}
+                                            Shopping</a></li>
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <h4>Shopping &amp; Categories</h4>
-                    <ul>
-                        @if ($categories)
-                            @foreach ($categories as $category)
-                                <li><a href="{{ route('explorecategory', ['slug' => $category->slug]) }}">{{ $category->name }}
-                                        Shopping</a></li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><a href="{{ url('/') }}">Homepage</a></li>
-                        <li><a href="{{ url('/about-us') }}">About Us</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h4>Help &amp; Information</h4>
-                    <ul>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">FAQ's</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Tracking ID</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <div class="under-footer">
-                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.
-
-                            <br>Design: <a href="https://templatemo.com" target="_parent"
-                                title="free css templates">TemplateMo</a>
-                        </p>
+                    <div class="col-lg-3">
+                        <h4>Useful Links</h4>
                         <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                            <li><a href="{{ url('/') }}">Homepage</a></li>
+                            <li><a href="{{ url('/about-us') }}">About Us</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                         </ul>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>Help &amp; Information</h4>
+                        <ul>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">FAQ's</a></li>
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Tracking ID</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="under-footer">
+                            <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.
+
+                                <br>Design: <a href="https://templatemo.com" target="_parent"
+                                    title="free css templates">TemplateMo</a>
+                            </p>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
 
-    <!-- jQuery -->
-    {{-- <script src="{{ url('/user/assets/js/jquery-2.1.0.min.js') }}"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <!-- jQuery -->
+        {{-- <script src="{{ url('/user/assets/js/jquery-2.1.0.min.js') }}"></script> --}}
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
-    <!-- Bootstrap -->
-    <script src="{{ url('/user/assets/js/popper.js') }}"></script>
-    <script src="{{ url('/user/assets/js/bootstrap.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url('/user/assets/js/popper.js') }}"></script>
+        <script src="{{ url('/user/assets/js/bootstrap.min.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-star-rating@4.0.6/js/star-rating.min.js"></script>
-    <!-- Plugins -->
-    <script src="{{ url('/user/assets/js/owl-carousel.js') }}"></script>
-    <script src="{{ url('/user/assets/js/accordions.js') }}"></script>
-    <script src="{{ url('/user/assets/js/datepicker.js') }}"></script>
-    <script src="{{ url('/user/assets/js/scrollreveal.min.js') }}"></script>
-    <script src="{{ url('/user/assets/js/waypoints.min.js') }}"></script>
-    <script src="{{ url('/user/assets/js/jquery.counterup.min.js') }}"></script>
-    <script src="{{ url('/user/assets/js/imgfix.min.js') }}"></script>
-    <script src="{{ url('/user/assets/js/slick.js') }}"></script>
-    <script src="{{ url('/user/assets/js/lightbox.js') }}"></script>
-    <script src="{{ url('/user/assets/js/isotope.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-star-rating@4.0.6/js/star-rating.min.js"></script>
+        <!-- Plugins -->
+        <script src="{{ url('/user/assets/js/owl-carousel.js') }}"></script>
+        <script src="{{ url('/user/assets/js/accordions.js') }}"></script>
+        <script src="{{ url('/user/assets/js/datepicker.js') }}"></script>
+        <script src="{{ url('/user/assets/js/scrollreveal.min.js') }}"></script>
+        <script src="{{ url('/user/assets/js/waypoints.min.js') }}"></script>
+        <script src="{{ url('/user/assets/js/jquery.counterup.min.js') }}"></script>
+        <script src="{{ url('/user/assets/js/imgfix.min.js') }}"></script>
+        <script src="{{ url('/user/assets/js/slick.js') }}"></script>
+        <script src="{{ url('/user/assets/js/lightbox.js') }}"></script>
+        <script src="{{ url('/user/assets/js/isotope.js') }}"></script>
 
-    <!-- Global Init -->
-    <script src="{{ url('/user/assets/js/custom.js') }}"></script>
+        <!-- Global Init -->
+        <script src="{{ url('/user/assets/js/custom.js') }}"></script>
 
-    <script>
-        function openSearch() {
-            document.getElementById('search-container').style.height = '60px';
-        }
-
-        function closeSearch() {
-            document.getElementById('search-container').style.height = '0';
-        }
-        const form = document.getElementById('search_form');
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                form.submit();
+        <script>
+            
+            const form = document.getElementById('search_form');
+            function openSearch() {
+                document.getElementById('search-container').style.height = '60px';
             }
-        }
-    </script>
-    <script>
-        $(function() {
-            var selectedClass = "";
-            $("p").click(function() {
-                selectedClass = $(this).attr("data-rel");
-                $("#portfolio").fadeTo(50, 0.1);
-                $("#portfolio div").not("." + selectedClass).fadeOut();
-                setTimeout(function() {
-                    $("." + selectedClass).fadeIn();
-                    $("#portfolio").fadeTo(50, 1);
-                }, 500);
 
-            });
-        });
-    </script>
+            function closeSearch() {
+                document.getElementById('search-container').style.height = '0';
+            }
+            function handleKeyPress(event) {
+                if (event.key === 'Enter') {
+                    form.submit();
+                }
+            }
+        </script>
+        <script>
+            $(function() {
+                var selectedClass = "";
+                $("p").click(function() {
+                    selectedClass = $(this).attr("data-rel");
+                    $("#portfolio").fadeTo(50, 0.1);
+                    $("#portfolio div").not("." + selectedClass).fadeOut();
+                    setTimeout(function() {
+                        $("." + selectedClass).fadeIn();
+                        $("#portfolio").fadeTo(50, 1);
+                    }, 500);
 
-    <script>
-        // add wishlist
-
-        $(document).ready(function() {
-            $('.addWishlist').click(function() {
-                var PID = $(this).data('id');
-                var iconID = $(this).attr('id');
-
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('Add_Wishlist') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        product_id: PID,
-
-
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-
-                        $('#' + iconID).html(response.data);
-
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
                 });
             });
-        });
-    </script>
-    <script>
-        // add wishlist
+        </script>
 
-        $(document).ready(function() {
-            $('.CartBtn').click(function() {
-                var ID = $(this).data('id');
-                var price = $(this).data('price');
-                var icon = $(this).attr('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('Add_to_Cart') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        product_id: ID,
-                        price: price,
+        <script>
+            // add wishlist
 
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#' + icon).html(response.data);
+            $(document).ready(function() {
+                $('.addWishlist').click(function() {
+                    var PID = $(this).data('id');
+                    var iconID = $(this).attr('id');
 
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('Add_Wishlist') }}',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            product_id: PID,
+
+
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+
+                            $('#' + iconID).html(response.data);
+
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>
+        <script>
+            // add wishlist
+
+            $(document).ready(function() {
+                $('.CartBtn').click(function() {
+                    var ID = $(this).data('id');
+                    var price = $(this).data('price');
+                    var icon = $(this).attr('id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('Add_to_Cart') }}',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            product_id: ID,
+                            price: price,
+
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#' + icon).html(response.data);
+
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
 
 
-</body>
+    </body>
 
-</html>
+    </html>

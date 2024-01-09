@@ -23,7 +23,7 @@
                                     <div class="card py-5 px-3">
                                         <h5 class="m-0">Mobile phone verification</h5><span class="mobile-text">Enter the
                                             code we just send on your
-                                            mobile phone <b class="text-danger">+91 86684833</b></span>
+                                            mobile phone <b class="text-danger">+91 {{ $value }} </b></span>
                                         <form action="{{ url('/verify-otp') }}" method="post">
                                             @csrf
                                             <div class="d-flex flex-row mt-5">

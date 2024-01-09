@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>{{ $userdata['name'] }}</h1>
+    <h1>{{ $userdata['title'] }}</h1>
     <p>{{ $userdata['message'] }} </p>
     <pre>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus, quaerat.    </pre>
 

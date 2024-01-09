@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -108,10 +109,9 @@ class ProfileController extends Controller
             'confirm_password' => 'required'
         ]);
 
-        $user = User::find(Auth::user()->id);
-        $old_password = md5($request->current_password);
-        if ($old_password === $user->password) {
-            $user->upadte([
+        if (Hash::check($request->current_password, Auth::user()->password)) {
+            $user = User::find(Auth::user()->id);
+            $user->update([
                 'password' => $request->new_password,
             ]);
             return redirect()->back()->with('success', 'password updated successfully');

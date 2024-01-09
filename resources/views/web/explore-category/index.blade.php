@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="down-content">
                                     <h4>{{ $product->name }}</h4>
-                                    <span>${{ $product->price }}</span>
+                                    <span><del>${{ $product->price + 150 }}</del>&nbsp;<strong>${{ $product->price  }}</strong></span>
                                     @if ($product->review)
                                         <ul class="stars">
                                             @for ($i = 1; $i <= $product->review->avg('rating'); $i++)

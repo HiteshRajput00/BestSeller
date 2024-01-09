@@ -56,7 +56,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                                     <li>
                                         <div class="notification-title"> Notification</div>
-                                                <div id="messages"></div>
+                                        <div id="messages"></div>
                                         <div class="list-group justify-center">
                                             <p>you don't have any new notification</p>
 
@@ -64,7 +64,8 @@
 
                                     </li>
                                     <li>
-                                        <div class="list-footer"> <a href="{{ url('/admin-dashboard/admin-notifications') }}">View
+                                        <div class="list-footer"> <a
+                                                href="{{ url('/admin-dashboard/admin-notifications') }}">View
                                                 all notifications</a></div>
 
                                     </li>
@@ -81,6 +82,10 @@
                                         <div class="notification-list">
                                             <div class="list-group">
                                                 @foreach ($data as $d)
+                                                    @php
+                                                        $createdAt = \Carbon\Carbon::parse($d->created_at);
+                                                        $timeGap = $createdAt->diffForHumans(); 
+                                                    @endphp
                                                     <a href="#"
                                                         class="list-group-item list-group-item-action active">
                                                         <div class="notification-info">
@@ -90,7 +95,7 @@
                                                                     class="user-avatar-md rounded-circle"></div>
                                                             <div class="notification-list-user-block"><span
                                                                     class="notification-list-user-name">{{ $d->title }}</span>{{ $d->message }}
-                                                                <div class="notification-date">2 min ago</div>
+                                                                <div class="notification-date">{{ $timeGap }}</div>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -99,10 +104,12 @@
                                             </div>
                                         </div>
                                         <a class="btn btn-primary"
-                                            href="{{ url('/admin-dashboard/Mark-as-readadmin-notification') }}">mark all as read</a>
+                                            href="{{ url('/admin-dashboard/Mark-as-readadmin-notification') }}">mark
+                                            all as read</a>
                                     </li>
                                     <li>
-                                        <div class="list-footer"> <a href="{{ url('/admin-dashboard/admin-notifications') }}">View
+                                        <div class="list-footer"> <a
+                                                href="{{ url('/admin-dashboard/admin-notifications') }}">View
                                                 all notifications</a></div>
 
                                     </li>
@@ -110,7 +117,7 @@
                             </li>
 
                         @endif
-                       
+
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -150,7 +157,8 @@
                                 Menu
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ url('/admin-dashboard') }}"><i class="fa fa-fw fa-user-circle"></i>Dashboard
+                                <a class="nav-link " href="{{ url('/admin-dashboard') }}"><i
+                                        class="fa fa-fw fa-user-circle"></i>Dashboard
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -161,16 +169,19 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/product-request') }}"> product
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/product-request') }}">
+                                                product
                                                 request</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/product-approved') }}">approved
+                                            <a class="nav-link"
+                                                href="{{ url('/admin-dashboard/product-approved') }}">approved
                                                 product</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link"
-                                                href="{{ url('/admin-dashboard/product-disapproved') }}">disapproved product</a>
+                                                href="{{ url('/admin-dashboard/product-disapproved') }}">disapproved
+                                                product</a>
                                         </li>
 
                                     </ul>
@@ -185,11 +196,13 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/designer-list') }}"> designer
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/designer-list') }}">
+                                                designer
                                                 request</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/approved-designer') }}">approved
+                                            <a class="nav-link"
+                                                href="{{ url('/admin-dashboard/approved-designer') }}">approved
                                                 designer</a>
                                         </li>
                                         <li class="nav-item">
@@ -209,7 +222,8 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/category-list') }}"> list</a>
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/category-list') }}">
+                                                list</a>
                                         </li>
 
 
@@ -225,9 +239,10 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/user-list') }}"> User list</a>
+                                            <a class="nav-link" href="{{ url('/admin-dashboard/user-list') }}"> User
+                                                list</a>
                                         </li>
-                                 
+
 
                                     </ul>
                                 </div>
@@ -241,9 +256,10 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('/admin-dashboard/add-subscription') }}"> Add new</a>
+                                            <a class="nav-link"
+                                                href="{{ url('/admin-dashboard/add-subscription') }}"> Add new</a>
                                         </li>
-                                 
+
 
                                     </ul>
                                 </div>
@@ -330,7 +346,7 @@
             });
         });
     </script>
-   
+
 </body>
 
 </html>

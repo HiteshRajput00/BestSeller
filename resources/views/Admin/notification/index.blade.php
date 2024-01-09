@@ -9,19 +9,24 @@
                             <div class="card-body pt-5">
                                 @if ($nf_data->isNotEmpty())
                                     @foreach ($nf_data as $d)
+                                        @php
+                                            $createdAt = \Carbon\Carbon::parse($d->created_at);
+                                            $timeGap = $createdAt->diffForHumans();
+                                        @endphp
                                         <p>
                                         <div class="notification-info">
                                             <div class="notification-list-user-img"><img
-                                                    src="{{ url('/admin/assets/images/avatar-2.jpg' )}}" alt=""
+                                                    src="{{ url('/admin/assets/images/avatar-2.jpg') }}" alt=""
                                                     class="user-avatar-md rounded-circle"></div>
                                             <div class="notification-list-user-block"><span
                                                     class="notification-list-user-name">{{ $d->title }}</span>{{ $d->message }}
-                                                <div class="notification-date">2 min ago</div>
+                                                <div class="notification-date">{{ $timeGap }}</div>
                                             </div>
                                         </div>
                                         </p>
                                     @endforeach
-                                    <div class=""> <a href="{{ url('/admin-dashboard/clear-adminNotification') }}">Clear all
+                                    <div class=""> <a
+                                            href="{{ url('/admin-dashboard/clear-adminNotification') }}">Clear all
                                             notifications</a></div>
                                 @else
                                     <p>You have no notification yet...</p>

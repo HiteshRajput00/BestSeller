@@ -98,11 +98,6 @@
                                         <h4 class="user-name">{{ Auth::user()->name }}</h4>
                                         <h6 class="user-email">{{ Auth::user()->email }}</h6>
                                     </div>
-                                    <div class="about">
-                                        <h5>{{ Auth::user()->role }}</h5>
-                                        <p>I'm {{ Auth::user()->name }}. Full Stack Designer I enjoy creating user-centric,
-                                            delightful and human experiences.</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>

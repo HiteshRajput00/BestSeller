@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp('start_date')->useCurrent();
             $table->timestamp('end_date')->useCurrent();
             $table->integer('auto_renewal')->default(false);
+            $table->integer('is_active')->default(null);
             $table->timestamps();
         });
     }

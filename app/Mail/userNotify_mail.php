@@ -28,7 +28,7 @@ class userNotify_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'User Notify Mail',
+            subject: $this->userdata['title'],
         );
     }
 
