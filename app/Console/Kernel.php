@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:delete-record-command')->hourly();
-        $schedule->command('app:delete-notification')->everyMinute();
+        $schedule->command('app:delete-notification')->hourly();
     }
 
     /**

@@ -19,4 +19,9 @@ class Subscription extends Model
      'is_active'
 
     ];
+
+    public function plans()
+    {
+       return $this->belongsTo(SubscriptionPlans::class,'plan_id','id');
+    }
 }

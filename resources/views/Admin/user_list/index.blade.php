@@ -15,6 +15,7 @@
                                             <th scope="col">name</th>
                                             <th>email</th>
                                             <th>number</th>
+                                            <th>subscription</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -25,6 +26,11 @@
                                                 <td>{{ $list->name }}</td>
                                                 <td>{{ $list->email }}</td>
                                                 <td>{{ $list->number }}</td>
+                                                @if($list->subscription)
+                                                <td>{{ $list->subscription->plans->sub_type }} </td>
+                                                @else
+                                                <td>none</td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -16,7 +16,7 @@ class CouponController extends Controller
 
     Public function SaveCoupon(Request $request)
     {
-        $request->update([
+        $request->validate([
            'coupon_code' => 'required',
            'discount' => 'required',
            'available_for' => 'required',
@@ -24,7 +24,7 @@ class CouponController extends Controller
         ]); 
 
         $coupon = new Coupon();
-        $coupon->coupon_code = $request->coupom_code;
+        $coupon->coupon_code = $request->coupon_code;
         $coupon->discount = $request->discount;
         $coupon->available_for = $request->available_for;
         $coupon->expiry_date = $request->expiry_date;

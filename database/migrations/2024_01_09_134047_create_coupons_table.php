@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('coupon_code')->nullable();
             $table->integer('discount')->nulable();
-            $table->string('avilable_for')->default('everyone');
+            $table->string('available_for')->default('everyone');
             $table->date('expiry_date')->nullable();
             $table->timestamps();
         });

@@ -28,7 +28,7 @@ class deleteNotification extends Command
     public function handle()
     {
         // $thresholdTime = now()->subHours(24);
-        $thresholdTime = now()->subMinutes(5);
+        $thresholdTime = now()->subHours(24);
         AdminNotification::where('status', false)
             ->where('updated_at', '<', $thresholdTime)
             ->delete();

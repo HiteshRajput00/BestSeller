@@ -92,40 +92,41 @@
         </div>
     </div>
     <!-- ***** Main Banner Area End ***** -->
-    <form action="{{ url('/profile-update') }}" method="POST" enctype="multipart/form-data">
-        <div class="row justify-content-center h-100">
-            <div class="container">
-                <div class="row gutters">
+    <div class="row justify-content-center h-100">
+        <div class="container">
+            <div class="row gutters">
 
-                    <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="account-settings">
-                                    <div class="user-profile">
-                                        <div class="user-avatar">
-                                            @if (Auth::user()->image)
-                                                <img src="{{ url('/images/' . Auth::user()->image->profile_image ?? '') }}"
-                                                    alt="Maxwell Admin" height="250px" width="250px">
-                                            @else
-                                                <img src="{{ url('/admin/assets/images/product-pic.jpg') }}" alt="user"
-                                                     height="250px" width="250px">
-                                            @endif
-                                        </div>
-                                        <h4 class="user-name">{{ Auth::user()->name }}</h4>
-                                        <h6 class="user-email">{{ Auth::user()->email }}</h6>
+                <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="account-settings">
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                        @if (Auth::user()->image)
+                                            <img src="{{ url('/images/' . Auth::user()->image->profile_image ?? '') }}"
+                                                alt="Maxwell Admin" height="250px" width="250px">
+                                        @else
+                                            <img src="{{ url('/admin/assets/images/product-pic.jpg') }}" alt="user"
+                                                height="250px" width="250px">
+                                        @endif
                                     </div>
-                                    <div class="about">
-                                        <h5>{{ Auth::user()->role }}</h5>
-                                       
-                                    </div>
+                                    <h4 class="user-name">{{ Auth::user()->name }}</h4>
+                                    <h6 class="user-email">{{ Auth::user()->email }}</h6>
+                                </div>
+                                <div class="about">
+                                    <h5>{{ Auth::user()->role }}</h5>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @csrf
-                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-8">
-                        <div class="card h-100">
-                            <div class="card-body">
+                </div>
+
+                <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-8">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <form action="{{ url('/profile-update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <h6 class="mb-2 text-primary">Personal Details</h6>
@@ -175,11 +176,91 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                            <form onsubmit="return validateForm()" method="post"
+                                action="{{ url('/Account/profile/update-password') }}">
+                                @csrf
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h6 class="mb-2 text-primary">Update Password</h6>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="fullName">Current password</label>
+                                            <input type="password" class="form-control" name="current_password"
+                                                id="current_password" placeholder="Enter current password">
+                                            <div class="text text-danger">
+                                                @error('current_password')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="new_password">New Password</label>
+                                            <input type="password" class="form-control" name="new_password"
+                                                id="new_password" placeholder="Enter new password">
+                                            <div class="text text-danger">
+                                                @error('new_password')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="confirm_password">Confirm Password</label>
+                                            <input type="password" class="form-control" name="confirm_password"
+                                                id="confirm_password" placeholder="Enter confirm_password">
+                                            <div id="passwordError" class="text text-danger">
+                                                @error('confirm_password')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" id="submit" name="submit"
+                                        class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+
+    <script>
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            var password = this.value;
+            var confirmPassword = document.getElementById('new_password').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('passwordError').innerHTML = 'Passwords do not match.';
+            } else {
+                document.getElementById('passwordError').innerHTML = '';
+            }
+        });
+
+        function validateForm() {
+            var password = document.getElementById('new_password').value;
+            var confirmPassword = document.getElementById('confirm_password').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('passwordError').innerHTML = 'Passwords do not match.';
+                return false;
+            } else {
+                document.getElementById('passwordError').innerHTML = '';
+                return true;
+            }
+        }
+    </script>
 @endsection

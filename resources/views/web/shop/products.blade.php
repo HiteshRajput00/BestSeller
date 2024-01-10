@@ -108,7 +108,7 @@
                                 @elseif ($products->hasMorePages())
                                     <li>
                                         <a href="{{ $products->previousPageUrl() }}">
-                                            << /a>
+                                            < </a>
                                     </li>
 
                                     @for ($i = 1; $i <= $products->lastPage(); $i++)
@@ -122,7 +122,7 @@
                                 @else
                                     <li>
                                         <a href="{{ $products->previousPageUrl() }}">
-                                            << /a>
+                                            < </a>
                                     </li>
                                     @for ($i = 1; $i <= $products->lastPage(); $i++)
                                         <li class="{{ $i == $products->currentPage() ? 'active' : '' }}">
