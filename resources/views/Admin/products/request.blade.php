@@ -25,7 +25,7 @@
                                                 </div>
                                             </div>
                                             <div class="">
-                                                <a href="{{ route('approveProduct', ['id' => $p->id]) }}"
+                                                <a href="{{ url('/admin-dashboard/approve?id='.$p->id) }}"
                                                     class="btn btn-primary ">Approve</a>
                                                 <button data-product-id="{{ $p->id }}"
                                                     class="disapprove-button btn btn-danger ">Disapprove</button>

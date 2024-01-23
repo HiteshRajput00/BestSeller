@@ -40,7 +40,7 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a href="{{ route('single_product', ['slug' => $product->slug]) }}"><i
+                                            <li><a href="{{ url('/single-product?slug=' . $product->slug) }}"><i
                                                         class="fa fa-eye"></i></a></li>
                                             @if (Auth::check())
                                                 @if (Auth::user()->wishlists->where('product_id', $product->id)->isNotEmpty())

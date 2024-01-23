@@ -50,8 +50,9 @@ class AdminDesignerController extends Controller
     }
 
     //::::::::::::::::Approve Designer :::::::::::::::::::::::::::::::::::::::::::::::://
-    public function approvedesigner($id)
+    public function approvedesigner(Request $request)
     {
+        $id = $request->input('id');
         $user = User::find($id);
         $user->update(['is_approved' => true, 'is_disapproved' => false]);
         $maildata = [

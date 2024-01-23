@@ -26,7 +26,7 @@
                                                 <td>{{ $list->name }}</td>
                                                 <td>{{ $list->email }}</td>
                                                 <td>{{ $list->number }}</td>
-                                                <td> <a href="{{ route('approve_designer', ['id' => $list->id]) }}"
+                                                <td> <a href="{{ url('/admin-dashboard/approved-designer?id='. $list->id) }}"
                                                         class=" btn btn-primary ">approve</a></td>
                                                 <td> <button data-designer-id="{{ $list->id }}"
                                                         class="disapprove-button btn btn-danger ">Disapprove</button></td>

@@ -15,7 +15,6 @@
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
-
     <!-- ***** Products Area Starts ***** -->
     <section class="section" id="products">
         <div class="container">
@@ -38,7 +37,7 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a href="{{ route('single_product', ['slug' => $product->slug]) }}"><i
+                                            <li><a href="{{ url('/single-product?slug='.$product->slug) }}"><i
                                                         class="fa fa-eye"></i></a></li>
 
                                             <li><a type="button" class="addWishlist" id="{{ $product->slug }}"

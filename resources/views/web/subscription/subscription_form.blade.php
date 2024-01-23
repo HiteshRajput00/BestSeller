@@ -68,7 +68,13 @@
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <div class="form-group">
-                                                    <div class="form-control" id="cardNumber"></div>
+                                                    <div class="form-control" id="card-number"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-control" id="card-expiry"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-control" id="card-cvc"></div>
                                                 </div>
                                             </div>
                                             <br><br>
@@ -89,16 +95,23 @@
                         'pk_test_51OQ5lXSHuCTN4d6J0eysWWMeFXsyJBKreckgJD5oP9bYVvTrxZFU3FmlByyKSamJVb2BF8n6KrE4HQJmP7MZDRvQ00tpNTRse7'
                     );
                     var elements = stripe.elements();
+                    var cardNumber = elements.create('cardNumber', {
+                        showIcon: true,
+                    });
+                    cardNumber.mount('#card-number');
 
-                    var card = elements.create('card');
-                    card.mount('#cardNumber');
+                    var cardExpiry = elements.create('cardExpiry');
+                    cardExpiry.mount('#card-expiry');
 
-                    var form = document.getElementById('subscription-form');
+                    var cardCvc = elements.create('cardCvc');
+                    cardCvc.mount('#card-cvc');
 
-                    form.addEventListener('submit', function(event) {
+                    var formstripe = document.getElementById('subscription-form');
+
+                    formstripe.addEventListener('submit', function(event) {
                         event.preventDefault();
 
-                        stripe.createToken(card).then(function(result) {
+                        stripe.createToken(cardNumber).then(function(result) {
                             if (result.error) {
                                 console.error(result.error.message);
                             } else {
@@ -106,8 +119,8 @@
                                 tokenInput.setAttribute('type', 'hidden');
                                 tokenInput.setAttribute('name', 'stripeToken');
                                 tokenInput.setAttribute('value', result.token.id);
-                                form.appendChild(tokenInput);
-                                form.submit();
+                                formstripe.appendChild(tokenInput);
+                                formstripe.submit();
                             }
                         });
                     });
