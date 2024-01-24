@@ -78,7 +78,7 @@
                                             @if ($category->products->isNotEmpty())
                                                 <li>
                                                     <a href="{{ url('/explore?slug=' . $category->slug) }}"><i
-                                                        class="fa fa-fw fa-tags"></i>{{ $category->name }}</a>
+                                                            class="fa fa-fw fa-tags"></i>{{ $category->name }}</a>
                                                 </li>
                                             @endif
                                         @endforeach
