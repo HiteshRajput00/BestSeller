@@ -38,7 +38,7 @@
 
                                                             <div class="main-border-button">
                                                                 <a
-                                                                    href="{{ route('explorecategory', ['slug' => $category->slug]) }}">Discover
+                                                                    href="{{ url('/explore?slug='. $category->slug) }}">Discover
                                                                     More</a>
                                                             </div>
                                                         </div>
@@ -86,7 +86,7 @@
                                                             <p>{{ trans($product->description)}}</p>
                                                             <div class="main-border-button">
                                                                 <a
-                                                                    href="{{ route('single_product', ['slug' => $product->slug]) }}">Details</a>
+                                                                    href="{{ url('/single-product?slug=' . $product->slug) }}">Details</a>
                                                             </div>
                                                         </div>
                                                     </div>

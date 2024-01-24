@@ -23,8 +23,9 @@ class AdminProductController extends Controller
     }
 
     //:::::::::::::: Approve Product ::::::::::::::::::::::::::::::::::::::::::::::://
-    public function approveProduct($id)
+    public function approveProduct(Request $request)
     {
+        $id = $request->input('id');
         $product = Product::find($id);
         $product->update(['is_approved' => true, 'is_disapproved' => false]);
         if ($product) {

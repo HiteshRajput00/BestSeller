@@ -97,8 +97,9 @@ class ProductController extends Controller
     }
 
     //::::::::::::::::::::: Edit product ::::::::::::::::::::::::::::::::::::::::::::::::::;//
-    public function EditProductPage($id)
+    public function EditProductPage(Request $request)
     {
+        $id = $request->input('id');
         $product = Product::find($id);
         $categories = Categories::all();
         return view('designer.product.update_product', compact('product', 'categories', 'media'));

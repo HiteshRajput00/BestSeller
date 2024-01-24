@@ -45,10 +45,10 @@ Route::get('set-language/{locale}', [SetLanguageController::class, 'setLanguage'
 //::::::::::::::::::::Site Pages ::::::::::::::::::::::::::://
 Route::get('/', [userDashboardController::class, 'index'])->name('/');
 Route::get('/shop', [ShopController::class, 'shop']);
-Route::get('/single-product/{slug}', [ShopController::class, 'singleProduct'])->name('single_product');
+Route::get('/single-product', [ShopController::class, 'singleProduct'])->name('single_product');
 Route::get('/contact-us', [userDashboardController::class, 'contactUs']);
 Route::get('/about-us', [userDashboardController::class, 'abouttUs']);
-Route::get('/explor/{slug}', [ShopController::class, 'explorecategory'])->name('explorecategory');
+Route::get('/explore', [ShopController::class, 'explorecategory'])->name('explorecategory');
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
 //:::::::::::::::::::::::: mannual Authentication routes ::::::::::::::::::::::::::::::::::::::://
@@ -105,7 +105,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     //::::::::::::::::::::::::::::::Designer request::::::::::::::::::::::::::::::::://
     Route::get('/admin-dashboard/designer-list', [AdminDesignerController::class, 'designerRequest']);
-    Route::get('/admin-dashboard/approve-designer/{id}', [AdminDesignerController::class, 'approveDesigner'])->name('approve_designer');
+    Route::get('/admin-dashboard/approve-designer', [AdminDesignerController::class, 'approveDesigner'])->name('approve_designer');
     Route::post('/admin-dashboard/disapprove-designer', [AdminDesignerController::class, 'disapproveDesigner'])->name('disapprove_designer');
     Route::get('/admin-dashboard/approved-designer', [AdminDesignerController::class, 'approveddesignerlist']);
     Route::get('/admin-dashboard/disapproved-designer', [AdminDesignerController::class, 'disapproveddesignerlist']);
@@ -113,7 +113,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     //::::::::::::::::::::::::::::::product request::::::::::::::::::::::::::::::::://
     Route::get('/admin-dashboard/product-request', [AdminProductController::class, 'productrequest']);
-    Route::get('/admin-dashboard/approve/{id}', [AdminProductController::class, 'approveProduct'])->name('approveProduct');
+    Route::get('/admin-dashboard/approve', [AdminProductController::class, 'approveProduct'])->name('approveProduct');
     Route::post('/admin-dashboard/disapproveProduct-Process', [AdminProductController::class, 'disapproveProcess'])->name('disapprove_process');
     Route::get('/admin-dashboard/product-approved', [AdminProductController::class, 'productapproved']);
     Route::get('/admin-dashboard/product-disapproved', [AdminProductController::class, 'productdisapproved']);
@@ -151,7 +151,7 @@ Route::group(['middleware' => 'designer'], function () {
         Route::get('/designer-Dashboard/approved-product', [ProductController::class, 'approvedproduct']);
         Route::get('/designer-Dashboard/disapproved-product', [ProductController::class, 'disapprovedproduct']);
         Route::get('/designer-Dashboard/pending-product', [ProductController::class, 'pendingproduct']);
-        Route::get('/designer-dashboard/Edit-product/{id}', [ProductController::class, 'EditproductPage'])->name('EditProduct');
+        Route::get('/designer-dashboard/Edit-product', [ProductController::class, 'EditproductPage'])->name('EditProduct');
         Route::post('/designer-dashboard/update-product-process', [ProductController::class, 'updateProductProcess']);
     });
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
@@ -168,7 +168,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cart', [CartController::class, 'CartPage']);
     Route::Post('/add-to-cart', [CartController::class, 'AddtoCart'])->name('Add_to_Cart');
     Route::Post('/removeProduct', [CartController::class, 'removeCartProduct'])->name('remove_product');
-    Route::get('/add-product-to-cart/{slug}', [CartController::class, 'Cart'])->name('Add_Cart');
+    Route::get('/add-product-to-cart', [CartController::class, 'Cart'])->name('Add_Cart');
     Route::post('/increase-product-quantity', [CartController::class, 'increaseProductQty'])->name('Increase_Quantity');
     Route::post('/decrease-product-quantity', [CartController::class, 'decreaseProductQty'])->name('decrease_Quantity');
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
@@ -199,6 +199,9 @@ Route::group(['middleware' => 'auth'], function () {
     //::::::::::::::: Update Password :::::::::::::::::::::::::::::://
     Route::get('/Account/profile/change-password',[ProfileController::class,'ChangePassword']);
     Route::Post('/Account/profile/update-password',[ProfileController::class,'UpdatePasswordProcess']);
+
+    //::::::::::::::::::::: Chat Routes :::::::::::::::::::::::::://
+    
 });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 

@@ -24,7 +24,7 @@
                                                 </div>
                                             </div>
                                             <div class="">
-                                                <a href="{{ route('EditProduct', ['id' => $p->id]) }}"
+                                                <a href="{{ url('/designer-dashboard/Edit-product?id='.$p->id) }}"
                                                     class="btn btn-primary ">Edit</a>
                                                 {{-- <a href="{{route('Delete',['id'=>$p->id])}}"   class="btn btn-danger ">Delete</a> --}}
                                             </div>

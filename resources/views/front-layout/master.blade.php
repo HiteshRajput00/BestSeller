@@ -2,7 +2,6 @@
 <html lang="{{ app()->getLocale() }}">
 
 <head>
-    {{-- {!! app('captcha')->renderJs() !!} --}}
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,10 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 
-    {{-- <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css"> --}}
 
     <title>Bestseller Ecommerce </title>
-
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url('/user/assets/css/bootstrap.min.css') }}">
@@ -31,13 +28,7 @@
 
     <link rel="stylesheet" href="{{ url('/user/assets/css/lightbox.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!--
 
-TemplateMo 571 Hexashop
-
-https://templatemo.com/tm-571-hexashop
-
--->
 </head>
 
 <body>
@@ -86,8 +77,8 @@ https://templatemo.com/tm-571-hexashop
                                         @foreach ($categories as $category)
                                             @if ($category->products->isNotEmpty())
                                                 <li>
-                                                    <a href="{{ route('explorecategory', ['slug' => $category->slug]) }}"><i
-                                                        class="fa fa-fw fa-tags"></i>{{ $category->name }}</a>
+                                                    <a href="{{ url('/explore?slug=' . $category->slug) }}"><i
+                                                            class="fa fa-fw fa-tags"></i>{{ $category->name }}</a>
                                                 </li>
                                             @endif
                                         @endforeach
@@ -95,17 +86,6 @@ https://templatemo.com/tm-571-hexashop
 
                                 </ul>
                             </li>
-                            {{-- <li class="submenu">
-                                <a href="javascript:;">language</a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ route('set.language', ['locale' => 'en']) }}">English</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('set.language', ['locale' => 'fr']) }}">Español</a>
-                                    </li>
-                                </ul>
-                            </li> --}}
                             <li class="scroll-to-section"><a href="{{ url('/cart') }}"><i style="font-size: 1.6em"
                                         class="fa fa-shopping-cart"></i></a></li>
                             <li class="scroll-to-section"><a href="{{ url('/favourite') }}"><i

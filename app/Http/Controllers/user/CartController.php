@@ -41,7 +41,8 @@ class CartController extends Controller {
         }
     }
 
-    public function Cart($slug) {
+    public function Cart(Request $request) {
+        $slug = $request->input('slug');
         $Product = Product::where('slug', $slug)->first();
         // return $Product;
         $cart = Cart::where('user_id', Auth::user()->id)->where('product_id', $Product->id)->first();
